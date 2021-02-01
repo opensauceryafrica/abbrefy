@@ -210,8 +210,6 @@ function updateView(link) {
   const itemDetail = document.querySelector('.item-detail--MAIN');
   itemDetail.classList.add('open');
 
-  console.log(itemDetail);
-
   // end of view update
 }
 
@@ -308,9 +306,20 @@ save.onclick = function (e) {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
-  regexp2 = /^[a-zA-Z0-9_.:|()]+(?:[\w-|.(): ]*[a-zA-Z0-9]+)*$/gm;
-  OK1 = regexp2.test(newTitle);
-  OK2 = regexp.test(newSlug);
+  regexp2 = /^[a-zA-Z0-9_.:|()· ]+(?:[\w-|.()_: ·]a-zA-Z0-9+)*$/gm;
+
+  try {
+    OK1 = regexp2.test(newTitle);
+
+    OK2 = regexp.test(newSlug);
+  } catch (error) {
+    titleError = 'Only letters, numbers, and spaces';
+    slugError = 'Only letters, numbers, underscores and hyphens';
+    document.querySelector('#title__error').textContent = titleError;
+    document.querySelector('#slug__error').textContent = slugError;
+    return;
+  }
+
   if (!OK1 || !OK2) {
     handleError(OK1, OK2);
   } else {
@@ -322,6 +331,7 @@ save.onclick = function (e) {
 function initUpdate() {
   document.querySelector('#title__error').textContent = '';
   document.querySelector('#slug__error').textContent = '';
+
   if (newSlug == slug && newTitle == initTitle) {
     data = {
       stealth: stealth,

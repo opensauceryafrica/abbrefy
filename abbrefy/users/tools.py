@@ -9,8 +9,9 @@ from abbrefy.users.models import User
 def login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        if session['is_authenticated'] and "current_user" in session:
-            user = session['current_user']
+        if 'current_user' in session:
+            if session['is_authenticated'] and "current_user" in session:
+                user = session['current_user']
 
         else:
             flash('You must be signed in to access that page', 'danger')
