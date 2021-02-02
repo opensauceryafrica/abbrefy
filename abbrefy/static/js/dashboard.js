@@ -305,12 +305,12 @@ save.onclick = function (e) {
   newSlug = document.querySelector('#abbrefy__slug').value.trim();
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
+  // validating the inputs
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
   regexp2 = /^[a-zA-Z0-9_.:|()· ]+(?:[\w-|.()_: ·]a-zA-Z0-9+)*$/gm;
 
   try {
     OK1 = regexp2.test(newTitle);
-
     OK2 = regexp.test(newSlug);
   } catch (error) {
     titleError = 'Only letters, numbers, and spaces';
