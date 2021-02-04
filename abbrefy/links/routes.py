@@ -38,7 +38,7 @@ def abbrefy():
 
 # the abbrefy link router
 @links.route('/<string:slug>/', methods=['GET'])
-def router(user, slug):
+def router(slug):
     # Getting IP address and querying user location
     try:
         ip_address = request.access_route[0] or request.remote_addr
