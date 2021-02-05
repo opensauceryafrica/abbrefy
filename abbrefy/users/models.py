@@ -85,10 +85,18 @@ class User:
     @staticmethod
     def my_links(user):
         links = mongo.db.links.find(
-            {"author": user['public_id']}).sort('date_created', -1)
+            {"author": user}).sort('date_created', -1)
+        return links
+
+    # link retrieval helper function
+    @staticmethod
+    def my_links_asc(user):
+        links = mongo.db.links.find(
+            {"author": user})
         return links
 
     # user retrieval helper function
+
     @staticmethod
     def get_user(public_id):
         return mongo.db.users.find_one({"public_id": public_id})
@@ -147,7 +155,7 @@ class User:
             # getting the user object
             user = self.get_user(id)
             # retrieving all the user's API keys
-            userKeys = self.get_keys(user)
+            userKeys = self.get_keys(user['public_id'])
             # validating user hasn't created more than 2 API keys
             if userKeys.count() >= 2:
                 return False
@@ -190,7 +198,7 @@ class User:
     # retrieve API Key helper function
     @staticmethod
     def get_keys(user):
-        return mongo.db.keys.find({"author": user['public_id']})
+        return mongo.db.keys.find({"author": user})
 
     # delete API Key helper function
     def delete_api_key(self, user, key):

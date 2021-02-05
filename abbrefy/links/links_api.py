@@ -8,11 +8,11 @@ from abbrefy.users.tools import api_key_required
 import os
 import requests
 # attaching the links blueprint
-api = Blueprint('api', __name__)
+linksApi = Blueprint('linksApi', __name__)
 
 
 # public API route for abbrefying links
-@api.route('/api/v1/url/abbrefy/', methods=['POST'])
+@linksApi.route('/api/v1/url/abbrefy/', methods=['POST'])
 @api_key_required
 def publicAbbrefy(user):
 
@@ -41,7 +41,7 @@ def publicAbbrefy(user):
 
 
 # the link update route
-@api.route('/api/hidden/url/update/', methods=['UPDATE'])
+@linksApi.route('/api/hidden/url/update/', methods=['UPDATE'])
 @api_key_required
 def update(user):
     data = request.get_json()
@@ -58,11 +58,8 @@ def update(user):
             if data['slug'] and Link.check_slug(data['slug']):
                 return jsonify({"status": False, "error": "USAGE_ERROR"}), 400
 
-        # creating the URL object and abbrefying it
-        if not "current_user" in session:
-            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
         link = Link().get_link(data['idSlug'])
-        author = session['current_user']['public_id']
+        author = user
         if link['author'] != author:
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
 
@@ -90,7 +87,7 @@ def update(user):
 
 
 # public API route for deleting links
-@api.route('/api/v1/url/delete/', methods=['DELETE'])
+@linksApi.route('/api/v1/url/delete/', methods=['DELETE'])
 @api_key_required
 def publicDelete(user):
     data = request.get_json()
@@ -121,10 +118,3 @@ def publicDelete(user):
 
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
-
-
-# public API route for abbrefying links
-@api.route('/api/v1/url/test/', methods=['POST'])
-# @api_key_required
-def publicTest():
-    return jsonify({"Status": True})
