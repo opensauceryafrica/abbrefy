@@ -276,7 +276,7 @@
               </a>
               {% else %}
               <a
-                href="{{url_for('users.dashboard', username=session['current_user']['username'])}}"
+                href="{{url_for('users.dashboard')}}"
                 class="btn btn-primary hidden-sm-and-down"
                 role="button"
               >
@@ -387,7 +387,7 @@
                   </a>
                   {% else %}
                   <a
-                    href="{{url_for('users.dashboard', username=session['current_user']['username'])}}"
+                    href="{{url_for('users.dashboard')}}"
                     class="btn btn-primary btn-block"
                     role="button"
                   >

@@ -30,7 +30,7 @@ def signup():
         if response == True:
             flash(
                 "Welcome to Abbrefy", "success")
-            return redirect(url_for('users.dashboard', username=form.username.data))
+            return redirect(url_for('users.dashboard'))
 
         else:
             # sending flased message
@@ -64,15 +64,15 @@ def signin():
         else:
             username = user['username']
             flash(f'Welcome back {username}', "success")
-            return redirect(url_for('users.dashboard', username=username))
+            return redirect(url_for('users.dashboard'))
 
     return render_template('signin.html', datetime=datetime, site_title=site_title, form=form)
 
 
 # the dashboard route
-@users.route('/<string:username>/dashboard/')
+@users.route('/me/dashboard/')
 @login_required
-def dashboard(user, username):
+def dashboard(user):
 
     site_title = "Abbrefy | Grow As You Abbrefy"
     links = User.my_links(user['public_id'])
