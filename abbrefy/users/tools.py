@@ -28,7 +28,7 @@ def no_login_required(f):
     def decorated(*args, **kwargs):
         if 'is_authenticated' in session:
             if session["is_authenticated"] == True:
-                return redirect(url_for('users.dashboard', username=session['current_user']['username']))
+                return redirect(url_for('users.dashboard'))
 
         return f(*args, **kwargs)
 
