@@ -41,7 +41,7 @@ def publicAbbrefy(user):
 
 
 # the link update route
-@linksApi.route('/api/hidden/url/update/', methods=['PUT'])
+@linksApi.route('/api/v1/url/update/', methods=['PUT'])
 @api_key_required
 def update(user):
     data = request.get_json()
