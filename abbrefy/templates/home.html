@@ -1,0 +1,173 @@
+<!-- Including the preset html file -->
+{% extends "layout.html" %}
+<!-- Including the preset html file end -->
+
+{% block externals %}
+
+<!-- Custom CSS -->
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/home.css') }}"
+/>
+
+<!-- Custom JS -->
+<script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- AOS library -->
+<!-- <link
+  href="{{ url_for('static', filename='vendor/aos/aos.css') }}"
+  rel="stylesheet"
+/> -->
+<!-- <script
+  defer
+  src="{{ url_for('static', filename='vendor/aos/aos.js') }}"
+></script> -->
+<!-- AOS library end -->
+
+{% endblock externals %}
+
+<!-- Block content Overwrite -->
+{% block content %}
+
+<div class="container-fluid">
+  <!-- Hero Section -->
+  <div class="hero-wrap">
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            <h1>Abbreviated Links, Elongated Results</h1>
+            <h2>
+              Nobody likes long boring links that's why we built Abbrefy, a
+              powerful URL Shortening tool to help you grow.
+            </h2>
+            <div class="d-flex justify-content-center justify-content-lg-start">
+              <a href="" class="btn-get-started scrollto"
+                >Get Started for Free</a
+              >
+            </div>
+          </div>
+          <div
+            class="col-lg-6 order-1 order-lg-2 hero-img"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <img
+              src="{{url_for('static', filename='images/red-sit.jpg')}}"
+              class="img-fluid animated"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Quick Crop Section -->
+  <div class="card" id="qcrop">
+    <div class="container">
+      <div class="d-flex">
+        <div class="flex-grow-1">
+          <input
+            type="url"
+            class="form-control form-control-lg"
+            placeholder="Input a URL to shorten"
+          />
+        </div>
+
+        <div
+          style="margin-top: auto; margin-bottom: auto; margin-left: 4rem"
+          class="btn-con"
+        >
+          <button class="btn btn-primary btn-lg" type="button">Abbrefy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div id="info">
+    <div class="container">
+      <div class="info_title_con">
+        <h1>It's More Than Just Link Shortening</h1>
+      </div>
+
+      <section id="values" class="values">
+        <div class="container" data-aos="fade-up">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="box" data-aos="fade-up" data-aos-delay="200">
+                <img
+                  src="{{url_for('static', filename='images/green.jpg')}}"
+                  class="img-fluid"
+                  alt=""
+                />
+                <h3>Abbreviate Long Links</h3>
+                <p>
+                  Need to share a google form link with a few friends? Why deal
+                  with that long boring URL when you can crop it cute.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0">
+              <div class="box" data-aos="fade-up" data-aos-delay="400">
+                <img
+                  src="{{url_for('static', filename='images/manage.jpg')}}"
+                  class="img-fluid"
+                  alt=""
+                />
+                <h3>Manage Multiple URLs</h3>
+                <p>
+                  You don't just get to crop google form links. Provided it's a
+                  URL, you can Abbrefy it and freely share with anyone.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mt-4 mt-lg-0">
+              <div class="box" data-aos="fade-up" data-aos-delay="600">
+                <img
+                  src="{{url_for('static', filename='images/couch.jpg')}}"
+                  class="img-fluid"
+                  alt=""
+                />
+                <h3>Customize All You Want</h3>
+                <p>
+                  Sometimes, our auto generated slugs can even be hard to
+                  remember. So, Abbrefy allows you to edit shortened links and
+                  make them memorable.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="card" id="cta">
+    <div class="container">
+      <div class="info_title_con">
+        <h1 style="color: white" class="title">Power Up Your Link Sharing</h1>
+
+        <button
+          style="width: fit-content"
+          class="btn btn-primary btn-lg"
+          type="button"
+        >
+          Get Started Now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Block content Overwrite end -->
+
+{% endblock content %}

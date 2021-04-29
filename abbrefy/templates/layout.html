@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- block for meta data -->
+    {% block head %} {% endblock head %}
+    <!-- block for meta data -->
+
+    <!-- This will be fired if javascript is disabled in the client's browser-->
+    <noscript>
+      <style type="text/css">
+        div#page-wrapper {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      </style>
+
+      <div>
+        You currently have JavaScript disabled. This App requires JavaScript.<br />
+        Enable JavaScript in Your Browser to Continue Telling your Story!
+      </div>
+    </noscript>
+
+    <!-- Halfmoon CSS -->
+    <!-- <link
+      href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css"
+      rel="stylesheet"
+    /> -->
+    <link
+      href=" {{ url_for('static', filename='vendor/halfmoon/css/halfmoon.min.css') }} "
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/preset.css') }}"
+    />
+
+    <!-- Custom JS -->
+
+    <script
+      defer
+      src="{{ url_for('static', filename='js/preset.js') }}"
+    ></script>
+
+    <!-- Font awesome -->
+
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+      crossorigin="anonymous"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='vendor/fontawesome/css/all.min.css') }}"
+    />
+
+    <!-- Roboto font (Used when Apple system fonts are not available) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon and Title -->
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/halfmoon-icon.png') }}"
+    />
+
+    {% block externals %} {% endblock externals %} {% if title %}
+
+    <title>{{ title }}</title>
+
+    {% else %}
+
+    <title>Abbrefy | Your Free URL Shortner</title>
+
+    {% endif %}
+  </head>
+
+  <body
+    class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+    data-sidebar-shortcut-enabled="true"
+    data-dm-shortcut-enabled="true"
+  >
+    <!-- Page wrapper start -->
+    <div
+      id="page-wrapper"
+      class="page-wrapper with-navbar with-navbar-fixed-bottom with-transitions"
+    >
+      <!-- rendering sticky alerts start -->
+      <div class="sticky-alerts">
+        <!-- Collecting flashed messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+        <!-- checking if there are flashed messages -->
+        {% if messages %}
+        <!-- Looping thorugh the flashed messages -->
+        {% for category,message in messages %}
+
+        <!-- Rending the gotten message -->
+        <script>
+          window.onload = function () {
+            halfmoon.toastAlert('precompiled-alert-1', 4000);
+          };
+        </script>
+
+        <div
+          id="precompiled-alert-1"
+          class="alert alert-{{ category }} filled-lm"
+        >
+          <button
+            class="close"
+            data-dismiss="alert"
+            type="button"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="alert-heading">{{ message }}</h4>
+        </div>
+        <!-- Rending the gotten message end -->
+        {% endfor %}
+        <!-- Looping thorugh the flashed messages end -->
+        {% endif %}
+        <!-- checking if there are flashed messages end -->
+
+        {% endwith %}
+        <!-- Collecting flashed messages end -->
+      </div>
+      <!-- rendering sticky alerts end -->
+
+      <!-- Navbar start -->
+      <div class="container">
+        <nav class="navbar">
+          <div style="margin-left: 2rem">
+            <a
+              href="{{ url_for('main.home') }}"
+              class="navbar-brand ml-10 ml-sm-10"
+            >
+              Abbrefy
+            </a>
+          </div>
+          <ul class="navbar-nav hidden-sm-and-down">
+            <li class="nav-item">
+              <a href="" class="nav-link">Why Abbrefy</a>
+            </li>
+
+            <li class="nav-item dropdown with-arrow">
+              <a
+                class="nav-link"
+                data-toggle="dropdown"
+                id="nav-link-dropdown-toggle"
+              >
+                Our Solutions
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="nav-link-dropdown-toggle"
+              >
+                <a href="#" class="dropdown-item">Simplified Link Sharing</a>
+                <a href="#" class="dropdown-item">
+                  Actionable Analytics
+                  <!-- <strong class="badge badge-success float-right">Soon</strong> -->
+                  <!-- float-right = float: right -->
+                </a>
+                <a href="#" class="dropdown-item">
+                  Integration for Developers
+                </a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+            <li class="nav-item dropdown with-arrow">
+              <a
+                class="nav-link"
+                data-toggle="dropdown"
+                id="nav-link-dropdown-toggle"
+              >
+                Features
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="nav-link-dropdown-toggle"
+              >
+                <a href="#" class="dropdown-item">Mobile Links</a>
+                <a href="#" class="dropdown-item"> Links Customization </a>
+                <a href="#" class="dropdown-item"> Links Management </a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+            <li class="nav-item dropdown with-arrow">
+              <a
+                class="nav-link"
+                data-toggle="dropdown"
+                id="nav-link-dropdown-toggle"
+              >
+                Resources
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-left"
+                aria-labelledby="nav-link-dropdown-toggle"
+              >
+                <a href="#" class="dropdown-item">Blog</a>
+                <a href="#" class="dropdown-item"> Support </a>
+
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+
+            <li class="nav-item active">
+              <a href="" class="nav-link">Sign In</a>
+            </li>
+          </ul>
+          <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
+
+          <div class="navbar-content ml-auto">
+            <!-- Changing nav item based on user session (show {logout} if user is {signed in}) -->
+
+            <div style="margin-right: 4rem">
+              <a
+                href=""
+                class="btn btn-primary hidden-sm-and-down"
+                role="button"
+              >
+                Sign Up
+              </a>
+            </div>
+
+            <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
+
+            <!-- Dropdown Menu -->
+
+            <div class="dropdown with-arrow hidden-md-and-up">
+              <!-- Adding user profile picture as menu icon is logged in -->
+              {% if session.user %}
+              <div
+                data-toggle="dropdown"
+                type="button"
+                id="navbar-dropdown-toggle-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  src=""
+                  class="nav-icon"
+                  alt="Profile Picture"
+                  style="border: 1px solid grey; border-radius: 50%"
+                />
+              </div>
+              {% else %}
+
+              <button
+                class="btn"
+                data-toggle="dropdown"
+                type="button"
+                style="width: 7.5rem"
+                id="navbar-dropdown-toggle-btn-1"
+              >
+                <i class="fa fa-bars" aria-hidden="true"></i>
+                Menu
+              </button>
+              {% endif %}
+              <!-- Adding user profile picture as menu icon is logged in end -->
+
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="navbar-dropdown-toggle-btn"
+              >
+                <!-- Changing nav item based on user session (show {logout} if user is {signed in}) -->
+                {% if session.user %}
+                <a href="" class="dropdown-item">Collections</a>
+                <a href="" style="color: blue" class="dropdown-item">Logout</a>
+                <div class="dropdown-divider"></div>
+
+                <div class="dropdown-content">
+                  <a href="" class="btn btn-primary btn-block" role="button">
+                    <span class="ml-5">Dashboard</span>
+                  </a>
+                </div>
+                {% else %}
+                <a href="/" class="dropdown-item">Why Abbrefy</a>
+                <a href="" class="dropdown-item">Our Solutions</a>
+                <a href="" class="dropdown-item">Features</a>
+
+                <a href="#" class="dropdown-item">
+                  Support
+                  <!-- <strong class="badge badge-success float-right">Soon</strong> -->
+                  <!-- float-right = float: right -->
+                </a>
+                <a href="#" class="dropdown-item">Blog</a>
+
+                <div class="dropdown-divider"></div>
+                <a href="" style="color: #e3425a" class="dropdown-item"
+                  >Sign In</a
+                >
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-content">
+                  <a href="" class="btn btn-primary btn-block" role="button">
+                    <span class="ml-5">Sign Up</span>
+                  </a>
+                </div>
+                {% endif %}
+                <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
+              </div>
+            </div>
+
+            <!-- Dropdown Menu End -->
+          </div>
+        </nav>
+      </div>
+      <!-- Navbar end -->
+
+      <div class="content-wrapper">
+        <!-- Rending content to be overwritten -->
+        {% block content %} {% endblock content %}
+        <!-- Rending content to be overwritten end -->
+
+        <!-- page footer -->
+      </div>
+
+      <!-- Navbar fixed bottom (immediate child of the page wrapper) -->
+
+      <nav class="navbar navbar-fixed-bottom">
+        <!-- Navbar content with the dropup menu -->
+        <div class="navbar-content">
+          <div class="dropdown dropup with-arrow">
+            <button
+              class="btn btn-primary"
+              data-toggle="dropdown"
+              type="button"
+              id="navbar-fixed-bottom-dropdown-toggle"
+            >
+              Options
+              <i class="fa fa-angle-up" aria-hidden="true"></i>
+            </button>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="navbar-fixed-bottom-dropdown-toggle"
+            >
+              <a href="{{ url_for('main.about') }}" class="dropdown-item"
+                >Abbrefy 101</a
+              >
+              <a href="#" class="dropdown-item">Our Solutions</a>
+              <a href="#" class="dropdown-item">Privacy Policy</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">For Developers</a>
+              <a href="#" class="dropdown-item">Support</a>
+            </div>
+          </div>
+        </div>
+        <!-- Navbar brand -->
+        <a href="{{url_for('main.home')}}" class="navbar-brand ml-auto">
+          <img src="..." alt="..." />
+        </a>
+        <!-- Navbar text -->
+        <span style="color: #e3425a" class="navbar-text ml-auto">
+          <!-- ml-auto = margin-left: auto -->
+          &copy; {{datetime.now().year}} Abbrefy
+        </span>
+      </nav>
+    </div>
+
+    <!-- Halfmoon JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script> -->
+
+    <script src="{{ url_for('static', filename='vendor/halfmoon/js/halfmoon.min.js') }}"></script>
+  </body>
+</html>
