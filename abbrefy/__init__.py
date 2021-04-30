@@ -6,16 +6,16 @@ from abbrefy.config import Config
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(Config)
+    application = Flask(__name__)
+    application.config.from_object(Config)
 
     # mongo.init_app(app)
 
     from abbrefy.users.routes import users
     from abbrefy.links.routes import links
     from abbrefy.main.routes import main
-    app.register_blueprint(users)
-    app.register_blueprint(links)
-    app.register_blueprint(main)
+    application.register_blueprint(users)
+    application.register_blueprint(links)
+    application.register_blueprint(main)
 
-    return app
+    return application
