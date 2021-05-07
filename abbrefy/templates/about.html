@@ -1,21 +1,21 @@
-<!-- Including the preset html file -->
-{% extends "layout.html" %}
-<!-- Including the preset html file end -->
+{% extends 'layout.html'%}
 
+<!-- overriding for external scripts -->
 {% block externals %}
 
 <!-- Custom CSS -->
 <link
   rel="stylesheet"
-  href="{{ url_for('static', filename='css/home.css') }}"
+  href="{{ url_for('static', filename='css/about.css') }}"
 />
 
 <!-- Custom JS -->
-<script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script defer src="{{ url_for('static', filename='js/about.js') }}"></script>
 
 {% endblock externals %}
+<!-- overriding for external scripts end -->
 
-<!-- Block content Overwrite -->
+<!-- overriding for external contents -->
 {% block content %}
 
 <div class="container-fluid">
@@ -29,16 +29,21 @@
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <h1>Abbreviated Links, Elongated Results</h1>
-            <h2>
-              Nobody likes long boring links that's why we built Abbrefy, a
-              powerful URL Shortening tool to help you grow.
-            </h2>
+            <h1>Abbrefy 101</h1>
+            <h5>
+              Just a cheesy guess but you just thought about that question,
+              right?
+              <br />
+              <br />
+              Alright! wrong guess but something we're sure of is that the
+              powerful features of Abbrefy will wow your mind!
+            </h5>
+
             <div class="d-flex justify-content-center justify-content-lg-start">
               <a
                 href="{{url_for('users.signup')}}"
                 class="btn-get-started scrollto"
-                >Get Started for Free</a
+                >Try Them Out for Free</a
               >
             </div>
           </div>
@@ -48,7 +53,7 @@
             data-aos-delay="200"
           >
             <img
-              src="{{url_for('static', filename='images/red-sit.jpg')}}"
+              src="{{url_for('static', filename='images/think.jpg')}}"
               class="img-fluid animated"
               alt=""
             />
@@ -58,8 +63,13 @@
     </section>
   </div>
 
+  <div
+    style="background-color: rgba(0, 0, 0, 0.3)"
+    class="dropdown-divider"
+  ></div>
+
   <!-- Quick Crop Section -->
-  <div class="card" id="qcrop">
+  <!-- <div style="visibility: hidden" class="card" id="qcrop">
     <div class="container">
       <div class="d-flex">
         <div class="flex-grow-1">
@@ -78,13 +88,13 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Info Section -->
   <div id="info">
     <div class="container">
       <div class="info_title_con">
-        <h1>It's More Than Just Link Shortening</h1>
+        <h1>Reasons To Use Abbrefy</h1>
       </div>
 
       <section id="values" class="values">
@@ -93,14 +103,14 @@
             <div class="col-lg-4">
               <div class="box" data-aos="fade-up" data-aos-delay="200">
                 <img
-                  src="{{url_for('static', filename='images/green.jpg')}}"
+                  src="{{url_for('static', filename='images/5157442.jpg')}}"
                   class="img-fluid"
                   alt=""
                 />
-                <h3>Abbreviate Long Links</h3>
+                <h3>Abbrefy Makes Links Memorable</h3>
                 <p>
-                  Need to share a google form link with a few friends? Why deal
-                  with that long boring URL when you can crop it cute.
+                  Research shows that you experince a rise in link interaction
+                  if the link appears appealing and concise.
                 </p>
               </div>
             </div>
@@ -108,14 +118,15 @@
             <div class="col-lg-4 mt-4 mt-lg-0">
               <div class="box" data-aos="fade-up" data-aos-delay="400">
                 <img
-                  src="{{url_for('static', filename='images/manage.jpg')}}"
+                  src="{{url_for('static', filename='images/collab.jpg')}}"
                   class="img-fluid"
                   alt=""
                 />
-                <h3>Manage Multiple URLs</h3>
+                <h3>Abbrefy Allows For Custom Integration</h3>
                 <p>
-                  You don't just get to crop google form links. Provided it's a
-                  URL, you can Abbrefy it and freely share with anyone.
+                  Our interface can be boring...... but why stick to it?
+                  Integrate URL shortening into you own applications with our
+                  public APIs.
                 </p>
               </div>
             </div>
@@ -123,15 +134,15 @@
             <div class="col-lg-4 mt-4 mt-lg-0">
               <div class="box" data-aos="fade-up" data-aos-delay="600">
                 <img
-                  src="{{url_for('static', filename='images/couch.jpg')}}"
+                  src="{{url_for('static', filename='images/vase.jpg')}}"
                   class="img-fluid"
                   alt=""
                 />
-                <h3>Customize All You Want</h3>
+                <h3>Abbrefy Is Completely Free</h3>
                 <p>
-                  Sometimes, our auto generated slugs can even be hard to
-                  remember. So, Abbrefy allows you to edit shortened links and
-                  make them memorable.
+                  Who doesn't like free stuff? We keep adding more
+                  functionalities while ensuring you keep accessing all features
+                  free of charge.
                 </p>
               </div>
             </div>
@@ -144,22 +155,18 @@
   <div class="card" id="cta">
     <div class="container">
       <div class="info_title_con">
-        <h1 style="color: white" class="title">Power Up Your Link Sharing</h1>
+        <h1 style="color: white" class="title">Break Out On Boring Links</h1>
 
-        <a href="{{url_for('users.signup')}}"
-          ><button
-            style="width: fit-content"
-            class="btn btn-primary btn-lg"
-            type="button"
-          >
-            Get Started Now
-          </button></a
+        <button
+          style="width: fit-content; background-color: #04140d"
+          class="btn btn-primary btn-lg"
+          type="button"
         >
+          Get Started Now
+        </button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Block content Overwrite end -->
-
 {% endblock content %}
+<!-- overriding for external contents end -->

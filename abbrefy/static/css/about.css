@@ -5,9 +5,16 @@
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+
+h5{
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+}
+
 #hero {
     width: 100%;
     height: 40vh;
+    margin-bottom: 25rem;
     /* background: #224786; */
 }
 
@@ -20,7 +27,7 @@
     font-size: 48px;
     font-weight: 700;
     line-height: 56px;
-    /* color: #fff; */
+    color: #e3425a;
 }
 
 #hero h2 {
@@ -40,7 +47,7 @@
     transition: 0.5s;
     margin: 10px 0 0 0;
     color: #fff;
-    background: #e3425a;
+    background: #04140d;
     text-decoration: none;
 }
 
@@ -67,9 +74,9 @@
 }
 
 
-#hero .animated {
+/* #hero .animated {
     animation: up-down 2s ease-in-out infinite alternate-reverse both;
-}
+} */
 
 @media (max-width: 991px) {
     #hero {
@@ -107,12 +114,26 @@
         width: 70%;
     }
 
-    
+
 }
 
 @media (max-width: 575px) {
+
+    #hero{
+         margin-bottom: 0rem;
+    }
+    .hero-wrap{
+         margin-bottom: 13em;
+    }
+
+    /* #info h1 {
+        margin: 3rem 0 1rem 0 !important;
+    
+    } */
+
     #hero .hero-img img {
         width: 80%;
+    
     }
 
     #hero .btn-get-started {
@@ -121,7 +142,7 @@
     }
 
     #hero .container {
-        padding-top: 170px;
+        padding-top: 140px;
     }
 }
 
@@ -150,20 +171,20 @@
 # Quick Crop Section
 --------------------------------------------------------------*/
 
-#qcrop{
-margin-top: 30rem;
-background-color: #04140d;
-margin-left: 0;
-margin-right: 0;
-border-top-left-radius: unset;
-border-top-right-radius: unset;
-border-bottom-right-radius: unset;
-border-bottom-left-radius: unset;
+#qcrop {
+    margin-top: 30rem;
+    background-color: #04140d;
+    margin-left: 0;
+    margin-right: 0;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+    border-bottom-left-radius: unset;
 }
 
 .form-control-lg {
     height: 6rem !important;
-  /* width: 72% !important; */
+    /* width: 72% !important; */
 }
 
 .btn-lg {
@@ -188,7 +209,7 @@ border-bottom-left-radius: unset;
         border-bottom-left-radius: unset;
     }
 
-    
+
     .btn-lg {
         height: 6rem !important;
         line-height: 4rem;
@@ -197,19 +218,19 @@ border-bottom-left-radius: unset;
         /* width: 25rem; */
     }
 
-   #qcrop .d-flex{
+    #qcrop .d-flex {
         display: block !important;
     }
 
-    .flex-grow-1{
+    .flex-grow-1 {
         margin-bottom: 1.2rem;
     }
 
-    .btn-con{
+    .btn-con {
         margin-left: 0 !important;
     }
 
-    #qcrop button{
+    #qcrop button {
         width: 100%;
     }
 }
@@ -219,16 +240,16 @@ border-bottom-left-radius: unset;
 /*--------------------------------------------------------------
 # Info Section
 --------------------------------------------------------------*/
-#info h1{
-    margin: 10rem 0 1rem 0;
+#info h1 {
+    margin: 0rem 0 1rem 0;
     font-size: 48px;
     font-weight: 700;
     line-height: 56px;
-    /* color: #fff; */
+    color: #e3425a;
 }
 
-.info_title_con{
-  text-align: center;
+.info_title_con {
+    text-align: center;
 }
 
 .values .box {
@@ -247,7 +268,7 @@ border-bottom-left-radius: unset;
 
 .values .box h3 {
     font-size: 24px;
-    color: #e3425a;
+    color: #04140d;
     font-weight: 700;
     margin-bottom: 18px;
 }
@@ -267,7 +288,7 @@ border-bottom-left-radius: unset;
 
 #cta {
 
-    background-color: #04140d;
+    background-color: #e3425a;
     margin-left: 0;
     margin-right: 0;
     border-top-left-radius: unset;

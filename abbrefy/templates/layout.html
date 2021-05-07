@@ -29,7 +29,7 @@
       rel="stylesheet"
     /> -->
     <link
-      href=" {{ url_for('static', filename='vendor/halfmoon/css/halfmoon.min.css') }} "
+      href=" {{ url_for('static', filename='libraries/halfmoon/css/halfmoon.min.css') }} "
       rel="stylesheet"
     />
 
@@ -37,14 +37,14 @@
 
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/preset.css') }}"
+      href="{{ url_for('static', filename='css/layout.css') }}"
     />
 
     <!-- Custom JS -->
 
     <script
       defer
-      src="{{ url_for('static', filename='js/preset.js') }}"
+      src="{{ url_for('static', filename='js/layout.js') }}"
     ></script>
 
     <!-- Font awesome -->
@@ -57,7 +57,7 @@
     /> -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='vendor/fontawesome/css/all.min.css') }}"
+      href="{{ url_for('static', filename='libraries/fontawesome/css/all.min.css') }}"
     />
 
     <!-- Roboto font (Used when Apple system fonts are not available) -->
@@ -148,7 +148,9 @@
           </div>
           <ul class="navbar-nav hidden-sm-and-down">
             <li class="nav-item">
-              <a href="" class="nav-link">Why Abbrefy</a>
+              <a href="{{ url_for('main.why') }}" class="nav-link"
+                >Why Abbrefy</a
+              >
             </li>
 
             <li class="nav-item dropdown with-arrow">
@@ -163,13 +165,23 @@
                 class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="nav-link-dropdown-toggle"
               >
-                <a href="#" class="dropdown-item">Simplified Link Sharing</a>
-                <a href="#" class="dropdown-item">
+                <a
+                  href="{{url_for('main.solutions')}}#simplified"
+                  class="dropdown-item"
+                  >Simplified Link Sharing</a
+                >
+                <a
+                  href="{{url_for('main.solutions')}}#analytics"
+                  class="dropdown-item"
+                >
                   Actionable Analytics
                   <!-- <strong class="badge badge-success float-right">Soon</strong> -->
                   <!-- float-right = float: right -->
                 </a>
-                <a href="#" class="dropdown-item">
+                <a
+                  href="{{url_for('main.solutions')}}#developer"
+                  class="dropdown-item"
+                >
                   Integration for Developers
                 </a>
                 <div class="dropdown-divider"></div>
@@ -187,9 +199,23 @@
                 class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="nav-link-dropdown-toggle"
               >
-                <a href="#" class="dropdown-item">Mobile Links</a>
-                <a href="#" class="dropdown-item"> Links Customization </a>
-                <a href="#" class="dropdown-item"> Links Management </a>
+                <a
+                  href="{{url_for('main.features')}}#mobile"
+                  class="dropdown-item"
+                  >Mobile Links</a
+                >
+                <a
+                  href="{{url_for('main.features')}}#customization"
+                  class="dropdown-item"
+                >
+                  Links Customization
+                </a>
+                <a
+                  href="{{url_for('main.features')}}#management"
+                  class="dropdown-item"
+                >
+                  Links Management
+                </a>
                 <div class="dropdown-divider"></div>
               </div>
             </li>
@@ -213,7 +239,7 @@
             </li>
 
             <li class="nav-item active">
-              <a href="" class="nav-link">Sign In</a>
+              <a href="{{url_for('users.signin')}}" class="nav-link">Sign In</a>
             </li>
           </ul>
           <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
@@ -223,7 +249,7 @@
 
             <div style="margin-right: 4rem">
               <a
-                href=""
+                href="{{url_for('users.signup')}}"
                 class="btn btn-primary hidden-sm-and-down"
                 role="button"
               >
@@ -283,9 +309,15 @@
                   </a>
                 </div>
                 {% else %}
-                <a href="/" class="dropdown-item">Why Abbrefy</a>
-                <a href="" class="dropdown-item">Our Solutions</a>
-                <a href="" class="dropdown-item">Features</a>
+                <a href="{{ url_for('main.why') }}" class="dropdown-item"
+                  >Why Abbrefy</a
+                >
+                <a href="{{url_for('main.solutions')}}" class="dropdown-item"
+                  >Our Solutions</a
+                >
+                <a href="{{url_for('main.features')}}" class="dropdown-item"
+                  >Features</a
+                >
 
                 <a href="#" class="dropdown-item">
                   Support
@@ -295,12 +327,19 @@
                 <a href="#" class="dropdown-item">Blog</a>
 
                 <div class="dropdown-divider"></div>
-                <a href="" style="color: #e3425a" class="dropdown-item"
+                <a
+                  href="{{url_for('users.signin')}}"
+                  style="color: #e3425a"
+                  class="dropdown-item"
                   >Sign In</a
                 >
                 <div class="dropdown-divider"></div>
                 <div class="dropdown-content">
-                  <a href="" class="btn btn-primary btn-block" role="button">
+                  <a
+                    href="{{url_for('users.signup')}}"
+                    class="btn btn-primary btn-block"
+                    role="button"
+                  >
                     <span class="ml-5">Sign Up</span>
                   </a>
                 </div>
@@ -342,7 +381,7 @@
               class="dropdown-menu"
               aria-labelledby="navbar-fixed-bottom-dropdown-toggle"
             >
-              <a href="{{ url_for('main.about') }}" class="dropdown-item"
+              <a href="{{ url_for('main.abbrefy101') }}" class="dropdown-item"
                 >Abbrefy 101</a
               >
               <a href="#" class="dropdown-item">Our Solutions</a>
@@ -368,6 +407,6 @@
     <!-- Halfmoon JS -->
     <!-- <script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script> -->
 
-    <script src="{{ url_for('static', filename='vendor/halfmoon/js/halfmoon.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='libraries/halfmoon/js/halfmoon.min.js') }}"></script>
   </body>
 </html>

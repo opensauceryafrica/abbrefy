@@ -1,0 +1,258 @@
+{% extends 'layout.html'%}
+
+<!-- overriding for external scripts -->
+{% block externals %}
+
+<!-- RemixIcon CSS -->
+
+<link
+  href="{{ url_for('static', filename='libraries/bootstrap-icons/bootstrap-icons.css') }}"
+  rel="stylesheet"
+/>
+<link
+  href="{{ url_for('static', filename='libraries/remixicon/remixicon.css') }}"
+  rel="stylesheet"
+/>
+
+<!-- Custom CSS -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/solutions.css') }}"
+/>
+
+<!-- External JS -->
+<script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- Custom JS -->
+<script
+  defer
+  src="{{ url_for('static', filename='js/solutions.js') }}"
+></script>
+
+{% endblock externals %}
+<!-- overriding for external scripts end -->
+
+<!-- overriding for external contents -->
+{% block content %}
+
+<div class="container">
+  <!-- ======= Features Section ======= -->
+  <section id="features" class="features">
+    <div class="container" data-aos="fade-up">
+      <header id="mobile" class="section-header">
+        <p>Premium Features At Zero Cost</p>
+      </header>
+
+      <div class="row feature-icons">
+        <div class="col-lg-6">
+          <img
+            src="{{url_for('static', filename='images/mobile.jpg')}}"
+            class="img-fluid"
+            alt=""
+          />
+        </div>
+
+        <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
+          <div class="col-xl-8 d-flex content">
+            <div class="row align-self-center gy-4">
+              <div class="col-md-6 icon-box" data-aos="fade-up">
+                <i class="ri-line-chart-line"></i>
+                <div>
+                  <h4>Actionable Analytics</h4>
+                  <p>
+                    Don't just abbrefy. Abbrefy, share, and track as your links
+                    convert across the internet space.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <i class="ri-stack-line"></i>
+                <div>
+                  <h4>Scalable Insights</h4>
+                  <p>
+                    Track the number of clicks, the region of clicks, and much
+                    more info needed for you to grow.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <i class="ri-magic-line"></i>
+                <div>
+                  <h4>Privacy With Stealth</h4>
+                  <p>
+                    Want to keep a link inactive but not deleted? Simply keep it
+                    stealth with just one click.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="500"
+              >
+                <i class="ri-bubble-chart-line"></i>
+                <div>
+                  <h4>Single Click Control</h4>
+                  <p>
+                    All it takes is a click. Shorten URLs, track their
+                    conversions, keep them private, and even delete whenever you
+                    wish.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / row -->
+
+      <!-- Feature Tabs 3 -->
+      <div id="customization" class="row" data-aos="fade-up">
+        <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
+          <div class="row align-self-center gy-4">
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="200">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>Integration For Developers</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="300">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>Powerful Public APIs</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="400">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>Access From Any Application</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="500">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>Privacy With API Keys</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="600">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>Management From Anywhere</h3>
+              </div>
+            </div>
+
+            <div class="col-md-6" data-aos="zoom-out" data-aos-delay="700">
+              <div class="feature-box d-flex align-items-center">
+                <i class="bi bi-check"></i>
+                <h3>All Completely Free</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <img
+            src="{{url_for('static', filename='images/create.jpg')}}"
+            class="img-fluid"
+            alt=""
+          />
+        </div>
+      </div>
+      <!-- End Feature Tabs -->
+
+      <!-- Feature Tabs 2 -->
+      <div id="customization" class="row tab2 feature-icons" data-aos="fade-up">
+        <div class="col-lg-6">
+          <img
+            src="{{url_for('static', filename='images/5157442.jpg')}}"
+            class="img-fluid"
+            alt=""
+          />
+        </div>
+
+        <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
+          <div class="col-xl-8 d-flex content">
+            <div class="row align-self-center gy-4">
+              <div class="col-md-6 icon-box" data-aos="fade-up">
+                <i class="ri-line-chart-line"></i>
+                <div>
+                  <h4>Actionable Analytics</h4>
+                  <p>
+                    Don't just abbrefy. Abbrefy, share, and track as your links
+                    convert across the internet space.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <i class="ri-stack-line"></i>
+                <div>
+                  <h4>Scalable Insights</h4>
+                  <p>
+                    Track the number of clicks, the region of clicks, and much
+                    more info needed for you to grow.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <i class="ri-magic-line"></i>
+                <div>
+                  <h4>Privacy With Stealth</h4>
+                  <p>
+                    Want to keep a link inactive but not deleted? Simply keep it
+                    stealth with just one click.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                class="col-md-6 icon-box"
+                data-aos="fade-up"
+                data-aos-delay="500"
+              >
+                <i class="ri-bubble-chart-line"></i>
+                <div>
+                  <h4>Single Click Control</h4>
+                  <p>
+                    All it takes is a click. Shorten URLs, track their
+                    conversions, keep them private, and even delete whenever you
+                    wish.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Feature Tabs -->
+    </div>
+  </section>
+  <!-- End Features Section -->
+</div>
+
+{% endblock content %}
+<!-- overriding for external contents end -->
