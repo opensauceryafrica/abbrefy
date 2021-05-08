@@ -1,9 +1,16 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, send_from_directory, request, current_app
 from datetime import datetime
 
 
 # attaching the main blueprint
 main = Blueprint('main', __name__)
+
+
+# serving sitemap and robots file for webcrawlers
+@main.route('/robots.txt')
+@main.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(current_app.static_folder, request.path[1:])
 
 
 # the home route

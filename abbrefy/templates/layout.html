@@ -72,9 +72,9 @@
       href="{{ url_for('static', filename='img/halfmoon-icon.png') }}"
     />
 
-    {% block externals %} {% endblock externals %} {% if title %}
+    {% block externals %} {% endblock externals %} {% if site_title %}
 
-    <title>{{ title }}</title>
+    <title>{{ site_title }}</title>
 
     {% else %}
 
