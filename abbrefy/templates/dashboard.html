@@ -1,0 +1,23 @@
+{% extends 'layout.html'%}
+
+<!-- overriding for external scripts -->
+{% block externals %}
+
+<!-- Custom CSS -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/dashboard.css') }}"
+/>
+
+<!-- Custom JS -->
+<script
+  defer
+  src="{{ url_for('static', filename='js/dashboard.js') }}"
+></script>
+
+{% endblock externals %}
+<!-- overriding for external scripts end -->
+
+<!-- overriding for external contents -->
+{% block content %} {% endblock content %}
+<!-- overriding for external contents end -->

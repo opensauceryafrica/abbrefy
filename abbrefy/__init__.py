@@ -1,13 +1,21 @@
+# importing modules
 from flask import Flask
 from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
 from abbrefy.config import Config
-# mongo = PyMongo()
+
+# instantiating  pymongo
+mongo = PyMongo()
+
+# instantiating bcrypt for password hash
+bcrypt = Bcrypt()
 
 
 def create_app(config_class=Config):
     application = Flask(__name__)
     application.config.from_object(Config)
-    # mongo.init_app(application)
+    mongo.init_app(application)
+    bcrypt.init_app(application)
 
     from abbrefy.users.routes import users
     from abbrefy.links.routes import links

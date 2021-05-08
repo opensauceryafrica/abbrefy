@@ -3,12 +3,8 @@ import safe
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Regexp
-# from ss.models import User
-# from flask_login import current_user
+from abbrefy.users.models import User
 # importing the required modules end
-
-# forbiden usernames to allow for routes consistency
-FORBIDEN_NAMES = ['signin', 'signup', 'signout', 'about', 'collections']
 
 
 # defining the registration form class
@@ -33,26 +29,23 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Password not strong enough')
 
     # setting up custom validation to check if username exists
-    # def validate_username(self, username):
-    #     user = User.query.filter_by(username=username.data.lower()).first()
-    #     if user or username.data.lower() in FORBIDEN_NAMES:
-    #         raise ValidationError('That Username Has Been Taken')
+    def validate_username(self, username):
+        if User.check_username(username.data):
+            raise ValidationError('That Username Has Been Taken')
 
     # setting up custom validation to check if email exists
-    # def validate_email(self, email):
-    #     user = User.query.filter_by(email=email.data.lower()).first()
-    #     if user:
-    #         raise ValidationError('That Email Has Been Taken')
+    def validate_email(self, email):
+        if User.check_email(email.data):
+            raise ValidationError('That Email Has Been Taken')
 # defining the registration form class end
 
 
 # defining the login form class end
 class LoginForm(FlaskForm):
 
-    email = StringField("Email", validators=[DataRequired(), Email()], render_kw={
+    identifier = StringField("Email", validators=[DataRequired()], render_kw={
         'autocomplete': 'email'})
     password = PasswordField("Password", validators=[DataRequired()], render_kw={
                              'autocomplete': 'current-password'})
-    remember_me = BooleanField("Remember Me")
     submit = SubmitField('Sign In')
 # defining the login form class end
