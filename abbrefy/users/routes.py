@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, jsonify, flash
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify, flash, session
 from datetime import datetime
 from abbrefy.users.forms import RegistrationForm, LoginForm
 from abbrefy.users.models import User
@@ -53,7 +53,7 @@ def signin():
             "identifier": form.identifier.data,
             "password": form.password.data
         }
-        user = User.signin(data)
+        user = User().signin(data)
 
         if user == False:
             flash('Invalid Signin Details', "danger")

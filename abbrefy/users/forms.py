@@ -43,7 +43,7 @@ class RegistrationForm(FlaskForm):
 # defining the login form class end
 class LoginForm(FlaskForm):
 
-    identifier = StringField("Email", validators=[DataRequired()], render_kw={
+    identifier = StringField("Email or Username", validators=[DataRequired()], render_kw={
         'autocomplete': 'email'})
     password = PasswordField("Password", validators=[DataRequired()], render_kw={
                              'autocomplete': 'current-password'})

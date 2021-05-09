@@ -1,0 +1,24 @@
+{% extends 'layout.html'%}
+
+<!-- overriding for external scripts -->
+{% block externals %}
+
+<!-- Custom CSS -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/signin.css') }}"
+/>
+
+<!-- Custom JS -->
+<script defer src="{{ url_for('static', filename='js/signin.js') }}"></script>
+
+{% endblock externals %}
+<!-- overriding for external scripts end -->
+
+<!-- overriding for external contents -->
+{% block content %}
+
+<div class="container"></div>
+
+{% endblock content %}
+<!-- overriding for external contents end -->

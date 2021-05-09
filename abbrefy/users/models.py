@@ -1,13 +1,13 @@
 from uuid import uuid4
 from abbrefy import bcrypt, mongo
 from datetime import datetime
-from flask import jsonify
+from flask import session
 
 
 # the User class
 class User:
-
-    def __init__(self, username, email, password):
+    # initializing the class
+    def __init__(self, username=None, email=None, password=None):
         self.username = username
         self.email = email
         self.password = password
@@ -31,16 +31,24 @@ class User:
 
         return True
 
-    # signin helper function
+    # creating a user session
     @staticmethod
-    def signin(signin_data):
+    def init_session(user):
+        session['is_authenticated'] = True
+        del user['password']
+        del user['_id']
+        session['current_user'] = user
+        return user
+
+    # signin helper function
+    def signin(self, signin_data):
         # querying user from db with username
         user = mongo.db.users.find_one(
             {"username": signin_data['identifier'].lower()})
 
         # validating user and password
         if user and bcrypt.check_password_hash(user["password"], signin_data['password']):
-            return user
+            return self.init_session(user)
 
         else:
             # querying user from db  with email
@@ -49,14 +57,16 @@ class User:
 
             # validating user and password
             if user and bcrypt.check_password_hash(user["password"], signin_data['password']):
-                return user
+                return self.init_session(user)
 
         return False
 
+    # email validator helper function
     @staticmethod
     def check_email(email):
         return mongo.db.users.find_one({"email": email})
 
+    # username validator helper function
     @staticmethod
     def check_username(username):
         return mongo.db.users.find_one({"username": username})
