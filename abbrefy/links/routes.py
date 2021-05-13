@@ -4,6 +4,7 @@ from abbrefy.users.models import User
 from datetime import datetime
 from validators.url import url
 from abbrefy.links.tools import check_duplicate, get_title
+import os
 # attaching the links blueprint
 links = Blueprint('links', __name__)
 
@@ -38,7 +39,9 @@ def abbrefy():
 def router(slug):
     # querying the database for the origin URL
     ip_address = request.access_route[0] or request.remote_addr
-    print(ip_address)
+    location = request.get(os.environ.get(
+        'IP_GEOLOCATOR') + str(ip_address)).json()['country']
+    print(location)
     origin = Link().get_origin(slug)
     link = Link().get_link(slug)
     # checkking of an origin was found and handling error
@@ -49,7 +52,8 @@ def router(slug):
     filter = {"slug": slug}
     new = link
     new['clicks'] += 1
-    update = {"$set": {"clicks": new['clicks']}}
+    new['audience'] = link['audience'].append(location)
+    update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
     if "https://" not in origin and "http://" not in origin:
