@@ -57,6 +57,8 @@ def router(slug):
     new = link
     new['clicks'] += 1
     new['audience'] = link['audience'].append(location)
+    print(link['audience'])
+    print(new['audience'])
     update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
