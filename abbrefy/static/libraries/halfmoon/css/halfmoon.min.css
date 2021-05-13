@@ -6136,7 +6136,7 @@ select.form-control[multiple]>option:disabled {
     z-index: 10;
     text-align: left;
     width: auto;
-    min-width: 16.8rem;
+    min-width: 9em;
     padding: .4rem;
     color: rgba(0, 0, 0, .85);
     background-color: #fff;

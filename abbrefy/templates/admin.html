@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- block for meta data -->
+    {% block head %} {% endblock head %}
+    <!-- block for meta data -->
+
+    <!-- This will be fired if javascript is disabled in the client's browser-->
+    <noscript>
+      <style type="text/css">
+        div#page-wrapper {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      </style>
+
+      <div>
+        You currently have JavaScript disabled. This App requires JavaScript.<br />
+        Enable JavaScript in Your Browser to Continue Telling your Story!
+      </div>
+    </noscript>
+
+    <!-- Halfmoon CSS -->
+    <!-- <link
+      href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css"
+      rel="stylesheet"
+    /> -->
+    <link
+      href=" {{ url_for('static', filename='libraries/halfmoon/css/halfmoon.min.css') }} "
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/layout.css') }}"
+    />
+
+    <!-- Custom JS -->
+
+    <script
+      defer
+      src="{{ url_for('static', filename='js/layout.js') }}"
+    ></script>
+
+    <!-- Font awesome -->
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='libraries/fontawesome/css/all.min.css') }}"
+    />
+
+    <!-- Roboto font (Used when Apple system fonts are not available) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon and Title -->
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='img/halfmoon-icon.png') }}"
+    />
+
+    {% block externals %} {% endblock externals %} {% if site_title %}
+
+    <title>{{ site_title }}</title>
+
+    {% else %}
+
+    <title>Abbrefy | Your Free URL Shortner</title>
+
+    {% endif %}
+  </head>
+
+  <body
+    class="with-custom-webkit-scrollbars with-custom-css-scrollbars"
+    data-sidebar-shortcut-enabled="true"
+    data-dm-shortcut-enabled="true"
+  >
+    <!-- Page wrapper start -->
+    <div
+      id="page-wrapper"
+      class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom with-transitions"
+      data-sidebar-type="overlayed-all"
+    >
+      <!-- rendering sticky alerts start -->
+      <div class="sticky-alerts">
+        <!-- Collecting flashed messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+        <!-- checking if there are flashed messages -->
+        {% if messages %}
+        <!-- Looping thorugh the flashed messages -->
+        {% for category,message in messages %}
+
+        <!-- Rending the gotten message -->
+        <script>
+          window.onload = function () {
+            halfmoon.toastAlert('precompiled-alert-1', 4000);
+          };
+        </script>
+
+        <div
+          id="precompiled-alert-1"
+          class="alert alert-{{ category }} filled-lm"
+        >
+          <button
+            class="close"
+            data-dismiss="alert"
+            type="button"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="alert-heading">{{ message }}</h4>
+        </div>
+        <!-- Rending the gotten message end -->
+        {% endfor %}
+        <!-- Looping thorugh the flashed messages end -->
+        {% endif %}
+        <!-- checking if there are flashed messages end -->
+
+        {% endwith %}
+        <!-- Collecting flashed messages end -->
+      </div>
+      <!-- rendering sticky alerts end -->
+
+      <!-- Navbar start -->
+      <div class="container">
+        <nav class="navbar justify-content-between">
+          <!-- justify-content-between = justify-content: space-between -->
+          <!-- Navbar content with menu button -->
+          <div class="navbar-content">
+            <div style="">
+              <a href="{{ url_for('main.home') }}" class="navbar-brand">
+                Abbrefy
+              </a>
+            </div>
+          </div>
+          <!-- Navbar brand -->
+          <div class="navbar-content">
+            <form class="form-inline ml-auto" action="..." method="...">
+              <!-- ml-auto = margin-left: auto -->
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search docs"
+                  required="required"
+                />
+                <div class="input-group-append">
+                  <button class="btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <span class="sr-only">Search docs</span>
+                    <!-- sr-only = show only on screen readers -->
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="navbar-content">
+            <li class="nav-item dropdown with-arrow">
+              <a
+                class="nav-link btn btn-primary"
+                data-toggle="dropdown"
+                id="nav-link-dropdown-toggle"
+              >
+                <i class="fas fa-link mr-5"></i>
+                Abbrefy
+              </a>
+            </li>
+          </div>
+          <!-- Navbar content with sign up button -->
+          <div class="navbar-content">
+            <li class="nav-item dropdown with-arrow">
+              <a
+                class="nav-link btn"
+                data-toggle="dropdown"
+                id="nav-link-dropdown-toggle"
+              >
+                <i class="far fa-user mr-5"></i>
+                {{session['current_user']['username']}}
+                <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right"
+                aria-labelledby="nav-link-dropdown-toggle"
+              >
+                <a
+                  href="{{url_for('main.solutions')}}#simplified"
+                  class="dropdown-item"
+                  >Profile</a
+                >
+                <a
+                  href="{{url_for('main.solutions')}}#analytics"
+                  class="dropdown-item"
+                >
+                  Account
+                  <!-- <strong class="badge badge-success float-right">Soon</strong> -->
+                  <!-- float-right = float: right -->
+                </a>
+                <div class="dropdown-divider"></div>
+                <a
+                  href="{{url_for('main.solutions')}}#simplified"
+                  class="dropdown-item"
+                  >Blog</a
+                >
+                <a
+                  href="{{url_for('main.solutions')}}#analytics"
+                  class="dropdown-item"
+                >
+                  Support
+                  <!-- <strong class="badge badge-success float-right">Soon</strong> -->
+                  <!-- float-right = float: right -->
+                </a>
+
+                <div class="dropdown-divider"></div>
+                <a
+                  href="{{url_for('main.solutions')}}#developer"
+                  class="dropdown-item link-active"
+                >
+                  Sign Out
+                </a>
+              </div>
+            </li>
+
+            <!-- <button class="btn btn-primary" type="button">Sign up</button> -->
+          </div>
+        </nav>
+      </div>
+      <!-- Navbar end -->
+
+      <!-- Sidebar overlay -->
+      <!-- <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div> -->
+      <!-- Sidebar -->
+      <div class="sidebar">...</div>
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        <!-- Rending content to be overwritten -->
+        {% block content %} {% endblock content %}
+        <!-- Rending content to be overwritten end -->
+
+        <!-- page footer -->
+      </div>
+
+      <!-- Navbar fixed bottom (immediate child of the page wrapper) -->
+
+      <nav class="navbar navbar-fixed-bottom">
+        <!-- Navbar content with the dropup menu -->
+        <div class="navbar-content">
+          <div class="dropdown dropup with-arrow">
+            <button
+              class="btn btn-primary"
+              data-toggle="dropdown"
+              type="button"
+              id="navbar-fixed-bottom-dropdown-toggle"
+            >
+              Options
+              <i class="fa fa-angle-up" aria-hidden="true"></i>
+            </button>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="navbar-fixed-bottom-dropdown-toggle"
+            >
+              <a href="{{ url_for('main.abbrefy101') }}" class="dropdown-item"
+                >Abbrefy 101</a
+              >
+              <a href="{{url_for('main.solutions')}}" class="dropdown-item"
+                >Our Solutions</a
+              >
+              <a href="#" class="dropdown-item">Privacy Policy</a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">For Developers</a>
+              <a href="#" class="dropdown-item">Support</a>
+            </div>
+          </div>
+        </div>
+        <!-- Navbar brand -->
+        <a href="{{url_for('main.home')}}" class="navbar-brand ml-auto">
+          <img src="..." alt="..." />
+        </a>
+        <!-- Navbar text -->
+        <span style="color: #e3425a" class="navbar-text ml-auto">
+          <!-- ml-auto = margin-left: auto -->
+          &copy; {{datetime.now().year}} Abbrefy
+        </span>
+      </nav>
+    </div>
+
+    <!-- Halfmoon JS -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script> -->
+
+    <script src="{{ url_for('static', filename='libraries/halfmoon/js/halfmoon.min.js') }}"></script>
+  </body>
+</html>

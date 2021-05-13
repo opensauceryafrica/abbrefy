@@ -70,6 +70,6 @@ def signin():
 @users.route('/<string:username>/dashboard/', methods=['GET', 'POST'])
 def dashboard(username):
 
-    site_title = "Abbrefy | Grow With Every Link"
+    site_title = "Abbrefy | Grow As You Abbrefy"
 
     return render_template('dashboard.html', datetime=datetime, site_title=site_title)
