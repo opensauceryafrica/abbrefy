@@ -45,7 +45,7 @@ def router(slug):
             'IP_GEOLOCATOR') + str(ip_address)).json()['country']
     except:
         location = "Unknown"
-    print(location)
+
     origin = Link().get_origin(slug)
     link = Link().get_link(slug)
     # checkking of an origin was found and handling error
@@ -56,9 +56,8 @@ def router(slug):
     filter = {"slug": slug}
     new = link
     new['clicks'] += 1
-    if link['audience'] == None:
-        audience = [location]
-    new['audience'] = audience
+    link['audience'].append(location)
+    new['audience'] = link['audience']
     update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
