@@ -5,6 +5,7 @@ from datetime import datetime
 from validators.url import url
 from abbrefy.links.tools import check_duplicate, get_title
 import os
+import requests
 # attaching the links blueprint
 links = Blueprint('links', __name__)
 
@@ -38,9 +39,12 @@ def abbrefy():
 @links.route('/<string:slug>', methods=['GET'])
 def router(slug):
     # querying the database for the origin URL
-    ip_address = request.access_route[0] or request.remote_addr
-    location = request.get(os.environ.get(
-        'IP_GEOLOCATOR') + str(ip_address)).json()['country']
+    try:
+        ip_address = request.access_route[0] or request.remote_addr
+        location = requests.get(os.environ.get(
+            'IP_GEOLOCATOR') + str(ip_address)).json()['country']
+    except:
+        location = "Unknown"
     print(location)
     origin = Link().get_origin(slug)
     link = Link().get_link(slug)
