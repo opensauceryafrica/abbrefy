@@ -38,14 +38,14 @@ def abbrefy():
 # the link abbrefy route
 @links.route('/<string:slug>', methods=['GET'])
 def router(slug):
-    # querying the database for the origin URL
+    # Getting IP address and querying user location
     try:
         ip_address = request.access_route[0] or request.remote_addr
         location = requests.get(os.environ.get(
             'IP_GEOLOCATOR') + str(ip_address)).json()['country']
     except:
         location = "Unknown"
-
+    # querying the database for the origin URL
     origin = Link().get_origin(slug)
     link = Link().get_link(slug)
     # checkking of an origin was found and handling error
@@ -56,6 +56,7 @@ def router(slug):
     filter = {"slug": slug}
     new = link
     new['clicks'] += 1
+    # updating the audience of the link object
     link['audience'].append(location)
     new['audience'] = link['audience']
     update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
