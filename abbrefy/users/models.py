@@ -70,3 +70,8 @@ class User:
     @staticmethod
     def check_username(username):
         return mongo.db.users.find_one({"username": username})
+
+    @staticmethod
+    def my_links(user):
+        links = mongo.db.links.find({"author": user['public_id']})
+        return links

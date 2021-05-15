@@ -7,4 +7,27 @@
   #search {
         display: none;
     }
+
+    .page-wrapper.with-sidebar[data-sidebar-hidden]>.sidebar {
+        left: -100%
+    }
+}
+
+.fa-link {
+    font-size: 1.1rem;
+}
+
+.lspan{
+    font-size: 1.1rem;
+}
+a{
+       text-decoration: none !important;  
+}
+
+.user:hover{
+    color: initial !important;
+}
+
+.feedback_container{
+    cursor: pointer;
 }

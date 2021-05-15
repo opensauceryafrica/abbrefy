@@ -7,6 +7,7 @@ from flask_cors import CORS
 
 # instantiating  pymongo
 mongo = PyMongo()
+# mongo = "make"
 
 # instantiating bcrypt for password hash
 bcrypt = Bcrypt()

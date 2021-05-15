@@ -71,5 +71,6 @@ def signin():
 def dashboard(username):
 
     site_title = "Abbrefy | Grow As You Abbrefy"
+    links = User.my_links(session['current_user'])
 
-    return render_template('dashboard.html', datetime=datetime, site_title=site_title)
+    return render_template('dashboard.html', datetime=datetime, site_title=site_title, links=links)

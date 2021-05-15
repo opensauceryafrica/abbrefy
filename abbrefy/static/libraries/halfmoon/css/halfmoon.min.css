@@ -782,7 +782,7 @@ html {
 }
 
 .page-wrapper.with-sidebar[data-sidebar-hidden]>.sidebar {
-    left: -100%
+    /* left: -100% */
 }
 
 .page-wrapper.with-sidebar[data-sidebar-hidden]>.content-wrapper {
