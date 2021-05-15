@@ -26,16 +26,18 @@
   <div class="feedback">
     <span class="nav-link user" style="width: fit-content">
       <small style="font-weight: 700; font-size: 0.8rem" class="pl-10"
-        >{{link.date_created}}</small
+        >{{link['date_created'].strftime("%b %d, %Y")}}</small
       >
     </span>
     {% if link.title %}
 
-    <p style="font-size: 1.1rem" class="sidebar-link">{{ link.title}}</p>
+    <p style="font-size: 1.1rem" class="sidebar-link">
+      {{ link.title[:50] +"..." if len(link.title) > 50 else link.title}}
+    </p>
     {% else %}
 
     <p style="font-size: 1.1rem; word-break: break-all" class="sidebar-link">
-      {{ link.origin}}
+      {{ link.origin[:50] +"..." if len(link.origin) > 50 else link.origin}}
     </p>
     {% endif %}
     <div class="sidebar-link">
