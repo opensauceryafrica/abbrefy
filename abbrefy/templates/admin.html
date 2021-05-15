@@ -86,7 +86,6 @@
     <div
       id="page-wrapper"
       class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom with-transitions"
-      data-sidebar-type="overlayed-all"
     >
       <!-- rendering sticky alerts start -->
       <div class="sticky-alerts">
@@ -135,6 +134,7 @@
         <nav class="navbar justify-content-between">
           <!-- justify-content-between = justify-content: space-between -->
           <!-- Navbar content with menu button -->
+
           <div class="navbar-content">
             <div style="">
               <a href="{{ url_for('main.home') }}" class="navbar-brand">
@@ -235,10 +235,75 @@
       </div>
       <!-- Navbar end -->
 
-      <!-- Sidebar overlay -->
-      <!-- <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div> -->
-      <!-- Sidebar -->
-      <div class="sidebar">...</div>
+      <!-- Sidebar Start -->
+      <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-menu">
+          <!-- Sidebar brand -->
+          <!-- <h4 href="#" class="sidebar-brand">Feedbacks</h4> -->
+          <!-- Sidebar content with the input box -->
+
+          <div class="sidebar-content">
+            <textarea
+              type="text"
+              class="form-control"
+              placeholder="Voice your thoughts"
+              style="resize: none"
+            ></textarea>
+            <small id="error" class="invalid-feedback"></small>
+          </div>
+          <div class="text-right" style="margin-right: 2.5rem">
+            <input
+              id="feedback"
+              class="btn btn-primary"
+              type="submit"
+              value="Feedback"
+            />
+          </div>
+
+          <!-- Sidebar links and titles -->
+          <div class="sidebar-divider"></div>
+
+          <div class="feedback_container">
+            <div class="feedback">
+              <a href="" class="nav-link user" style="width: fit-content">
+                <img
+                  src=""
+                  class="img-fluid"
+                  alt="Profile Picture"
+                  style="border: 1px solid grey; border-radius: 50%"
+                />
+                <small
+                  style="
+                    color: #1890ff;
+                    font-weight: 700;
+                    font-size: 1.3rem;
+                    letter-spacing: 1px;
+                  "
+                  class="pl-5"
+                  >username</small
+                >
+              </a>
+
+              <p class="sidebar-link">content</p>
+              <div class="sidebar-link">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div id="lcon">
+                    <i id="story-id" data-storyid="" class="fa fa-heart"></i>
+
+                    <span class="lspan">4</span>
+                  </div>
+
+                  <div class="btn-group">2 seconds ago</div>
+                </div>
+              </div>
+
+              <div class="sidebar-divider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sidebar End -->
 
       <!-- Content wrapper -->
       <div class="content-wrapper">
