@@ -235,34 +235,34 @@
             <!-- <button class="btn btn-primary" type="button">Sign up</button> -->
           </div>
         </nav>
-      </div>
-      <!-- Navbar end -->
 
-      <!-- Sidebar Start -->
-      <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
-      <div class="sidebar" id="sidebar">
-        <div class="sidebar-menu">
-          <!-- Sidebar brand -->
-          <!-- <h4 href="#" class="sidebar-brand">Feedbacks</h4> -->
-          <!-- Sidebar content with the input box -->
+        <!-- Sidebar Start -->
+        <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+        <div class="sidebar" id="sidebar">
+          <div class="sidebar-menu">
+            <!-- Sidebar brand -->
+            <h4 href="#" class="sidebar-brand">Abbrefy</h4>
+            <!-- Sidebar content with the input box -->
 
-          <div class="sidebar-content"></div>
+            <div class="sidebar-content"></div>
 
-          <!-- Sidebar links and titles -->
+            <!-- Sidebar links and titles -->
 
-          {% block sidelinks %} {% endblock sidelinks %}
+            {% block sidelinks %} {% endblock sidelinks %}
+          </div>
+        </div>
+        <!-- Sidebar End -->
+
+        <!-- Content wrapper -->
+        <div class="content-wrapper">
+          <!-- Rending content to be overwritten -->
+          {% block content %} {% endblock content %}
+          <!-- Rending content to be overwritten end -->
+
+          <!-- page footer -->
         </div>
       </div>
-      <!-- Sidebar End -->
-
-      <!-- Content wrapper -->
-      <div class="content-wrapper">
-        <!-- Rending content to be overwritten -->
-        {% block content %} {% endblock content %}
-        <!-- Rending content to be overwritten end -->
-
-        <!-- page footer -->
-      </div>
+      <!-- Navbar end -->
 
       <!-- Navbar fixed bottom (immediate child of the page wrapper) -->
 

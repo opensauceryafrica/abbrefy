@@ -73,47 +73,11 @@
 <!-- overriding for external contents -->
 {% block content %}
 <div class="container">
-  <div class="feedback_container">
-    {% for link in links %}
-    <div class="feedback">
-      <div class="sidebar-divider"></div>
-      <span class="nav-link user" style="width: fit-content">
-        <small style="font-weight: 700; font-size: 0.8rem" class="pl-10"
-          >{{link.date_created}}</small
-        >
-      </span>
-      {% if link.title %}
-
-      <p style="font-size: 1.1rem" class="sidebar-link">{{ link.title}}</p>
-      {% else %}
-
-      <p style="font-size: 1.1rem; word-break: break-all" class="sidebar-link">
-        {{ link.origin}}
-      </p>
-      {% endif %}
-      <div class="sidebar-link">
-        <div class="d-flex justify-content-between align-items-center">
-          <div id="lcon">
-            <i id="story-id" data-storyid="" class="fa fa-link"></i>
-            <span class="lspan"
-              ><a target="_blank" class="" href="abbrefy.xyz/{{link.slug}}"
-                >{{url_for("links.router", slug=link.slug, _external=True),}}</a
-              ></span
-            >
-          </div>
-
-          <div style="font-size: 1.1rem" class="btn-group">
-            <span
-              >{{link.clicks}}
-              <i class="fas fa-mouse"></i>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-divider"></div>
-    </div>
-    {% endfor %}
+  <div class="card">
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem molestiae iure
+    laborum deserunt. Eveniet adipisci, placeat aut necessitatibus magni
+    eligendi expedita molestias fugit quia sapiente dolor commodi, laudantium
+    quo incidunt!
   </div>
 </div>
 
