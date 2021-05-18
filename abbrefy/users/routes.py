@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, jsonif
 from datetime import datetime
 from abbrefy.users.forms import RegistrationForm, LoginForm
 from abbrefy.users.models import User
+from abbrefy.users.tools import login_required
 # attaching the users blueprint
 users = Blueprint('users', __name__)
 
@@ -68,9 +69,18 @@ def signin():
 
 # the dashboard route
 @users.route('/<string:username>/dashboard/', methods=['GET', 'POST'])
-def dashboard(username):
+@login_required
+def dashboard(user, username):
 
     site_title = "Abbrefy | Grow As You Abbrefy"
-    links = User.my_links(session['current_user'])
+    links = User.my_links(user)
 
     return render_template('dashboard.html', datetime=datetime, site_title=site_title, links=links, len=len)
+
+
+@users.route('/auth/signout/', methods=['GET'])
+@login_required
+def signout(user):
+    response = User.signout()
+    if response:
+        return redirect(url_for('main.home'))

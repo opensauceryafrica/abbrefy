@@ -26,7 +26,7 @@
 <!-- overriding for external contents -->
 {% block content %}
 <div class="layout--wrapper">
-  <div class="list--MAIN">
+  <div class="overflow-y-hidden overflow-y-md-auto list--MAIN">
     <span class="list--total">{{links.count()}} Links</span
     ><span class="list--filter">Clicks all time</span>
     <div>
@@ -36,6 +36,7 @@
           ><div class="checkbox--SMALL" id="3uyFTMA">
             <i class="fas fa-code-branch"></i></div></span
         ><time
+          data-date_created="{{link['date_created'].strftime('%b %d, %Y, %I:%M %p')}}"
           class="bitlink-item--created-date"
           datetime="{{link['date_created'].strftime('%m-%d-%Y')}}"
           >{{link['date_created'].strftime("%b %d, %Y")}}</time
@@ -43,12 +44,19 @@
 
         {% if link.title %}
 
-        <div class="bitlink-item--title">
+        <div
+          data-author="{{session['current_user']['username']}}"
+          data-title='{{ link.title[:50] +"..." if len(link.title) > 50 else link.title}}'
+          class="bitlink-item--title"
+        >
           {{ link.title[:50] +"..." if len(link.title) > 50 else link.title}}
         </div>
         {% else %}
 
-        <div class="bitlink-item--title">
+        <div
+          data-title='{{ link.origin[:50] +"..." if len(link.origin) > 50 else link.origin}}'
+          class="bitlink-item--title"
+        >
           {{ link.origin[:50] +"..." if len(link.origin) > 50 else link.origin}}
         </div>
         {% endif %}
@@ -56,60 +64,63 @@
         <div>
           <div
             class="bitlink--MAIN"
+            data-origin="{{link.origin}}"
+            data-abbrefy='{{url_for("links.router", slug=link.slug, _external=True)}}'
             tabindex="-1"
             title='{{url_for("links.router", slug=link.slug, _external=True)}}'
           >
-            {{url_for("links.router", slug=link.slug, _external=True)}} >
+            {{url_for("links.router", slug=link.slug, _external=True)}}
           </div>
-          <span class="click-count--MAIN"
+          <span
+            data-clicks="{{link.clicks}}"
+            data-audience="{{link.audience}}"
+            class="click-count--MAIN"
             >{{link.clicks}}<span class="icon clicks-icon"></span
           ></span></div
       ></a>
       {% endfor %}
     </div>
   </div>
-  <div class="item-detail--MAIN open">
+  <div class="item-detail--MAIN open" style="height: 100vh !important">
     <div class="bitlink-detail">
       <span class="item-detail--back-nav"
-        >Bitlink Details<a href="#" class="icon close-icon"></a
+        >Abbrefy Link Details<a href="#" class="icon close-icon"></a
       ></span>
       <div>
         <time class="item-detail--created-date" datetime="2021-05-10"
           >CREATED May 10, 8:03 am</time
         ><span
           ><span class="info-wrapper--divider">|</span
-          ><span class="item-detail--created-link">samperfect</span></span
+          ><span class="item-detail--created-link"
+            >{{session["current_user"]['username']}}</span
+          ></span
         >
         <div class="item-detail--title">Bitly. The power of the link.</div>
         <div>
-          <a
-            class="item-detail--url"
-            href="https://app.bitly.com/Bj6s3eLEZJT/bitlinks/3vpBFH2?actions=create&amp;filterActive="
-            target="_blank"
-            >https://app.bitly.com/Bj6s3eLEZJT/bitlinks/3vpBFH2?actions=create&amp;filterActive=</a
-          >
+          <a class="item-detail--url" href="" target="_blank"></a>
         </div>
       </div>
       <div class="bitlink--copy-wrapper">
         <div class="bitlink--copy-tooltip">
-          <input
-            tabindex="-1"
-            readonly=""
-            value="https://bitly.is/3uyFTMA"
-          /><span class="bitlink--copy-tooltip-text">Press Ctrl-c to copy</span>
+          <input tabindex="-1" value="" /><span
+            class="bitlink--copy-tooltip-text"
+            >Press Ctrl-c to copy</span
+          >
         </div>
         <div class="bitlink--copy-interface">
-          <a
-            href="https://bitly.is/3uyFTMA"
-            class="bitlink--copyable-text"
-            target="_blank"
-            ><div class="bitlink--MAIN" tabindex="-1" title="bitly.is/3uyFTMA">
-              bitly.is<span class="bitlink--hash">/3uyFTMA</span>
-            </div>
-            <div class="bitlink--MAIN" tabindex="-1" title="bitly.is/3uyFTMA">
-              bitly.is<span class="bitlink--hash">/3uyFTMA</span>
-            </div></a
-          >
+          <a href="" class="bitlink--copyable-text" target="_blank"
+            ><div
+              class="bitlink--MAIN bitlink--detail--MAIN"
+              tabindex="-1"
+              title=""
+            ></div>
+
+            <div
+              class="bitlink--MAIN bitlink--detail--MAIN"
+              tabindex="-1"
+              title=""
+            ></div>
+          </a>
           <div class="undefined item--action-buttons">
             <button class="button--ACTION" type="button" tabindex="0" id="">
               SHARE</button
@@ -151,700 +162,13 @@
               <div class="item-detail--selected-day">total click</div>
             </div>
           </div>
-          <div>
-            <!-- <div class="bar-chart--MAIN" data-highcharts-chart="5">
-              <div
-                id="highcharts-odtsofg-14"
-                class="highcharts-container"
-                style="
-                  position: relative;
-                  overflow: hidden;
-                  width: 623px;
-                  height: 200px;
-                  text-align: left;
-                  line-height: normal;
-                  z-index: 0;
-                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                  font-family: 'Proxima Nova';
-                "
-              >
-                <svg
-                  version="1.1"
-                  class="highcharts-root"
-                  style="font-family: Proxima Nova; font-size: 12px"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="623"
-                  height="200"
-                  viewBox="0 0 623 200"
-                >
-                  <desc>Created with Highcharts 6.0.0</desc>
-                  <defs>
-                    <clipPath id="highcharts-odtsofg-15">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="623"
-                        height="144"
-                        fill="none"
-                      ></rect>
-                    </clipPath>
-                  </defs>
-                  <rect
-                    fill="transparent"
-                    class="highcharts-background"
-                    x="0"
-                    y="0"
-                    width="623"
-                    height="200"
-                    rx="0"
-                    ry="0"
-                  ></rect>
-                  <rect
-                    fill="none"
-                    class="highcharts-plot-background"
-                    x="0"
-                    y="0"
-                    width="623"
-                    height="144"
-                  ></rect>
-                  <g class="highcharts-grid highcharts-xaxis-grid">
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 8.5 0 L 8.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 96.5 0 L 96.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 183.5 0 L 183.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 271.5 0 L 271.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 359.5 0 L 359.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 447.5 0 L 447.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 534.5 0 L 534.5 144"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 622.5 0 L 622.5 144"
-                      opacity="1"
-                    ></path>
-                  </g>
-                  <g class="highcharts-grid highcharts-yaxis-grid">
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 0 144.5 L 623 144.5"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 0 72.5 L 623 72.5"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-grid-line"
-                      d="M 0 0.5 L 623 0.5"
-                      opacity="1"
-                    ></path>
-                  </g>
-                  <rect
-                    fill="none"
-                    class="highcharts-plot-border"
-                    x="0"
-                    y="0"
-                    width="623"
-                    height="144"
-                  ></rect>
-                  <g class="highcharts-axis highcharts-xaxis">
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 8.5 144 L 8.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 96.5 144 L 96.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 183.5 144 L 183.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 271.5 144 L 271.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 359.5 144 L 359.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 447.5 144 L 447.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 534.5 144 L 534.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-tick"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 623.5 144 L 623.5 154"
-                      opacity="1"
-                    ></path>
-                    <path
-                      fill="none"
-                      class="highcharts-axis-line"
-                      stroke="#DDE0E2"
-                      stroke-width="1"
-                      d="M 0 144.5 L 623 144.5"
-                    ></path>
-                  </g>
-                  <g class="highcharts-axis highcharts-yaxis">
-                    <path
-                      fill="none"
-                      class="highcharts-axis-line"
-                      d="M 623 0 L 623 144"
-                    ></path>
-                  </g>
-                  <g class="highcharts-series-group">
-                    <g
-                      class="
-                        highcharts-series
-                        highcharts-series-0
-                        highcharts-column-series
-                        highcharts-tracker
-                      "
-                      transform="translate(0,0) scale(1 1)"
-                      clip-path="url(#highcharts-odtsofg-15)"
-                    >
-                      <rect
-                        x="123"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="167"
-                        y="73"
-                        width="35"
-                        height="72"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="211"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="254"
-                        y="145"
-                        width="36"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="298"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="342"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="386"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="430"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                      <rect
-                        x="474"
-                        y="145"
-                        width="35"
-                        height="0"
-                        fill="#4DCDFC"
-                        class="highcharts-point"
-                      ></rect>
-                    </g>
-                    <g
-                      class="
-                        highcharts-markers
-                        highcharts-series-0
-                        highcharts-column-series
-                      "
-                      transform="translate(0,0) scale(1 1)"
-                      clip-path="none"
-                    ></g>
-                  </g>
-                  <g class="highcharts-axis-labels highcharts-xaxis-labels">
-                    <text
-                      x="8.774647887323944"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="167"
-                      opacity="1"
-                    >
-                      <tspan>May 6</tspan>
-                    </text>
-                    <text
-                      x="0"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="-9999"
-                    >
-                      <tspan>May 8</tspan>
-                    </text>
-                    <text
-                      x="0"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="-9999"
-                    >
-                      <tspan>May 10</tspan>
-                    </text>
-                    <text
-                      x="272.01408450704224"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="167"
-                      opacity="1"
-                    >
-                      <tspan>May 12</tspan>
-                    </text>
-                    <text
-                      x="0"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="-9999"
-                    >
-                      <tspan>May 14</tspan>
-                    </text>
-                    <text
-                      x="0"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="-9999"
-                    >
-                      <tspan>May 16</tspan>
-                    </text>
-                    <text
-                      x="535.2535211267606"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="167"
-                      opacity="1"
-                    >
-                      <tspan>May 18</tspan>
-                    </text>
-                    <text
-                      x="0"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 1.1rem;
-                        text-transform: uppercase;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="middle"
-                      transform="translate(0,0)"
-                      y="-9999"
-                    >
-                      <tspan>May 20</tspan>
-                    </text>
-                  </g>
-                  <g class="highcharts-axis-labels highcharts-yaxis-labels">
-                    <text
-                      x="623"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 11px;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="end"
-                      transform="translate(0,0)"
-                      y="159"
-                      opacity="1"
-                    ></text>
-                    <text
-                      x="623"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 11px;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="end"
-                      transform="translate(0,0)"
-                      y="87"
-                      opacity="1"
-                    >
-                      <tspan>1</tspan>
-                    </text>
-                    <text
-                      x="623"
-                      style="
-                        color: #9b9b9b;
-                        cursor: default;
-                        font-size: 11px;
-                        fill: #9b9b9b;
-                      "
-                      text-anchor="end"
-                      transform="translate(0,0)"
-                      y="15"
-                      opacity="1"
-                    >
-                      <tspan>2</tspan>
-                    </text>
-                  </g>
-                </svg>
-              </div>
-            </div> -->
-          </div>
+          <div></div>
         </div>
         <div class="info-wrapper--ALTERNATE">
-          <div class=""><h4 class="info-wrapper--header">Locations</h4></div>
-          <!-- <div class="doughnut-graph--MAIN">
-            <div class="doughnut-graph--total">
-              1<span class="doughnut-graph--total-label">TOTAL CLICK</span>
-            </div>
-            <div class="doughnut-graph--chart" data-highcharts-chart="3">
-              <div
-                id="highcharts-odtsofg-9"
-                class="highcharts-container"
-                style="
-                  position: relative;
-                  overflow: hidden;
-                  width: 473px;
-                  height: 400px;
-                  text-align: left;
-                  line-height: normal;
-                  z-index: 0;
-                  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-                "
-              >
-                <svg
-                  version="1.1"
-                  class="highcharts-root"
-                  style="
-                    font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial,
-                      Helvetica, sans-serif;
-                    font-size: 12px;
-                  "
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="473"
-                  height="400"
-                  viewBox="0 0 473 400"
-                >
-                  <desc>Created with Highcharts 6.0.0</desc>
-                  <defs>
-                    <clipPath id="highcharts-odtsofg-10">
-                      <rect
-                        x="0"
-                        y="0"
-                        width="473"
-                        height="400"
-                        fill="none"
-                      ></rect>
-                    </clipPath>
-                  </defs>
-                  <rect
-                    fill="transparent"
-                    class="highcharts-background"
-                    x="0"
-                    y="0"
-                    width="473"
-                    height="400"
-                    rx="0"
-                    ry="0"
-                  ></rect>
-                  <rect
-                    fill="none"
-                    class="highcharts-plot-background"
-                    x="0"
-                    y="0"
-                    width="473"
-                    height="400"
-                  ></rect>
-                  <rect
-                    fill="none"
-                    class="highcharts-plot-border"
-                    x="0"
-                    y="0"
-                    width="473"
-                    height="400"
-                  ></rect>
-                  <g class="highcharts-series-group">
-                    <g
-                      class="
-                        highcharts-series
-                        highcharts-series-0
-                        highcharts-pie-series
-                        highcharts-tracker
-                      "
-                      transform="translate(0,0) scale(1 1)"
-                    >
-                      <path
-                        fill="#11628d"
-                        d="M 236.4613020912979 10.000003940863564 A 190 190 0 1 1 236.2360938117664 10.000183280288894 M 236.3020703588248 57.50013746021668 A 142.5 142.5 0 1 0 236.47097656847345 57.50000295564766 "
-                        transform="translate(0,0)"
-                        stroke-linejoin="round"
-                        class="highcharts-point highcharts-color-0"
-                      ></path>
-                    </g>
-                    <g
-                      class="
-                        highcharts-markers
-                        highcharts-series-0
-                        highcharts-pie-series
-                      "
-                      transform="translate(0,0) scale(1 1)"
-                    ></g>
-                  </g>
-                  <g class="highcharts-legend" transform="translate(118,370)">
-                    <rect
-                      fill="none"
-                      class="highcharts-legend-box"
-                      rx="0"
-                      ry="0"
-                      x="0"
-                      y="0"
-                      width="237"
-                      height="30"
-                      visibility="visible"
-                    ></rect>
-                    <g>
-                      <g>
-                        <g
-                          class="
-                            highcharts-legend-item
-                            highcharts-pie-series
-                            highcharts-color-0
-                          "
-                          transform="translate(8,3)"
-                        >
-                          <rect
-                            x="2"
-                            y="4"
-                            width="12"
-                            height="12"
-                            fill="#11628d"
-                            rx="6"
-                            ry="6"
-                            class="highcharts-point"
-                          ></rect>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-                <div
-                  class="highcharts-legend"
-                  style="
-                    position: absolute;
-                    left: 118px;
-                    top: 370px;
-                    opacity: 1;
-                  "
-                >
-                  <div
-                    style="position: absolute; left: 0px; top: 0px; opacity: 1"
-                  >
-                    <div
-                      style="
-                        position: absolute;
-                        left: 0px;
-                        top: 0px;
-                        opacity: 1;
-                      "
-                    >
-                      <div
-                        class="
-                          highcharts-legend-item
-                          highcharts-pie-series
-                          highcharts-color-0
-                        "
-                        style="
-                          position: absolute;
-                          left: 0px;
-                          top: 0px;
-                          opacity: 1;
-                        "
-                      >
-                        <span
-                          style="
-                            font-family: 'Lucida Grande', 'Lucida Sans Unicode',
-                              Arial, Helvetica, sans-serif;
-                            font-size: 12px;
-                            position: absolute;
-                            white-space: nowrap;
-                            color: rgb(51, 51, 51);
-                            font-weight: bold;
-                            text-overflow: ellipsis;
-                            cursor: pointer;
-                            overflow: hidden;
-                            margin-left: 0px;
-                            margin-top: 0px;
-                            left: 21px;
-                            top: 3px;
-                            fill: rgb(51, 51, 51);
-                          "
-                          transform="translate(0,0)"
-                          ><div
-                            data-index="0"
-                            class="doughnut-graph--legend-labels"
-                          >
-                            <div
-                              class="doughnut-graph--legend-icon"
-                              style="background-color: #11628d"
-                            ></div>
-                            <span class="doughnut-graph--legend-name"
-                              >Nigeria</span
-                            ><span class="doughnut-graph--legend-value">1</span>
-                            <div class="doughnut-graph--legend-percentage">
-                              100%
-                            </div>
-                          </div></span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
+          <div class="">
+            <h4 class="info-wrapper--header">Audience Locations</h4>
+          </div>
+          <div class="audience--locations---MAIN"></div>
         </div>
       </div>
     </div>

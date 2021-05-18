@@ -6239,15 +6239,16 @@ form.disabled .orb-button.white:enabled:hover {
 }
 
 .list--MAIN {
-    flex: 2;
-    -webkit-flex: 2;
+    flex: 2 !important;
+    -webkit-flex: 2 !important;
     -ms-flex: 2;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     position: relative;
     background-color: #f5f6f7;
-    padding-top: 1.5rem
+    padding-top: 1.5rem;
+    height: 100vh;
 }
 
 .list--MAIN .bitlink-item--MAIN,

@@ -38,6 +38,7 @@ class User:
         del user['password']
         del user['_id']
         session['current_user'] = user
+        session.permanent = True
         return user
 
     # signin helper function
@@ -60,6 +61,14 @@ class User:
                 return self.init_session(user)
 
         return False
+
+    # signout helper function
+    @staticmethod
+    def signout():
+        if session['is_authenticated'] and session['current_user']:
+            session['is_authenticated'] = False
+            del session['current_user']
+        return True
 
     # email validator helper function
     @staticmethod
