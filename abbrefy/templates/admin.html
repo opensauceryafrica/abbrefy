@@ -85,10 +85,7 @@
     <!-- Page wrapper start -->
     <div
       id="page-wrapper"
-      class="
-        page-wrapper
-        with-navbar with-sidebar with-navbar-fixed-bottom with-transitions
-      "
+      class="page-wrapper with-navbar with-navbar-fixed-bottom with-transitions"
     >
       <!-- rendering sticky alerts start -->
       <div class="sticky-alerts">
@@ -238,28 +235,13 @@
       </div>
       <!-- Navbar end -->
 
-      <!-- Sidebar Start -->
-      <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
-      <div class="sidebar" id="sidebar">
-        <div class="sidebar-menu">
-          <!-- Sidebar brand -->
-          <!-- <h4 href="#" class="sidebar-brand">Feedbacks</h4> -->
-          <!-- Sidebar content with the input box -->
-
-          <div class="sidebar-content"></div>
-
-          <!-- Sidebar links and titles -->
-
-          {% block sidelinks %} {% endblock sidelinks %}
-        </div>
-      </div>
-      <!-- Sidebar End -->
-
       <!-- Content wrapper -->
       <div class="content-wrapper">
-        <!-- Rending content to be overwritten -->
-        {% block content %} {% endblock content %}
-        <!-- Rending content to be overwritten end -->
+        <div class="container">
+          <!-- Rending content to be overwritten -->
+          {% block content %} {% endblock content %}
+          <!-- Rending content to be overwritten end -->
+        </div>
 
         <!-- page footer -->
       </div>
