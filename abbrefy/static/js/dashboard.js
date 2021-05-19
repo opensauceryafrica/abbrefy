@@ -187,3 +187,18 @@ function linkCopy() {
   });
   link.remove();
 }
+
+//helper functions for link sharing
+function twitterShare(el) {
+  el.href = `https://twitter.com/intent/tweet?text=${
+    document.querySelector('.bitlink-item--title').dataset.title
+  }&url=${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`;
+}
+function linkedInShare(el) {
+  el.href = `https://www.linkedin.com/shareArticle?mini=true&url=${
+    document.querySelector('.bitlink--MAIN').dataset.abbrefy
+  }&title=${
+    document.querySelector('.bitlink-item--title').dataset.title
+  }&summary=${document.querySelector('.bitlink-item--title').dataset.title}`;
+}
+//helper functions for link sharing end

@@ -129,9 +129,44 @@
             >
               COPY
             </button>
+
+            <div class="dropdown dropdown with-arrow">
+              <button
+                id="avatar-popover-toggle"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-toggle="dropdown"
+                class="button--ACTION"
+                type="button"
+                tabindex="0"
+                id=""
+              >
+                SHARE
+              </button>
+              <div
+                class="dropdown-menu dropdown-menu-center"
+                aria-labelledby="avatar-popover-toggle"
+                style="min-width: unset; border-color: #e3425a"
+              >
+                <a
+                  class="dropdown-header"
+                  href=""
+                  target="_blank"
+                  onclick="twitterShare(this)"
+                  >Twitter</a
+                >
+                <div class="dropdown-divider"></div>
+                <a
+                  href=""
+                  target="_blank"
+                  onclick="linkedInShare(this)"
+                  class="dropdown-header"
+                  >LinkedIn</a
+                >
+              </div>
+            </div>
+
             <button class="button--ACTION" type="button" tabindex="0" id="">
-              SHARE</button
-            ><button class="button--ACTION" type="button" tabindex="0" id="">
               EDIT
             </button>
           </div>
@@ -145,7 +180,7 @@
                 <span class="info-wrapper--clicks-text">1</span
                 ><span class="icon clicks-icon"></span>
               </div>
-              <div class="item-detail--selected-day">total click</div>
+              <div class="item-detail--selected-day">total clicks</div>
             </div>
           </div>
           <div></div>

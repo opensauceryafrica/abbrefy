@@ -6270,20 +6270,20 @@ select.form-control[multiple]>option:disabled {
 .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.toggle-on-hover:hover .dropdown-menu::after {
     border-left: .8rem solid transparent;
     border-right: .8rem solid transparent;
-    border-bottom: .8rem solid #bababc
+    border-bottom: .8rem solid #e3425a
 }
 
 .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.show .dropdown-menu::before,
 .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.toggle-on-hover:hover .dropdown-menu::before {
     border-left: .8rem solid transparent;
     border-right: .8rem solid transparent;
-    border-bottom: .8rem solid #bababc;
+    border-bottom: .8rem solid #e3425a;
     top: calc(.8rem*-1)
 }
 
 .dark-mode .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.show .dropdown-menu::before,
 .dark-mode .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.toggle-on-hover:hover .dropdown-menu::before {
-    border-bottom-color: #111417
+    border-bottom-color: #e3425a
 }
 
 .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.show .dropdown-menu::after,
@@ -6294,7 +6294,7 @@ select.form-control[multiple]>option:disabled {
 
 .dark-mode .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.show .dropdown-menu::after,
 .dark-mode .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.toggle-on-hover:hover .dropdown-menu::after {
-    border-bottom-color: #191c20
+    border-bottom-color: #e3425a
 }
 
 .dropdown:not(.dropup):not(.dropright):not(.dropleft).with-arrow.show .dropdown-menu:not(.dropdown-menu-center):not(.dropdown-menu-right)::after,
