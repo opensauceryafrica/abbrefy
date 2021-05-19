@@ -190,15 +190,21 @@ function linkCopy() {
 
 //helper functions for link sharing
 function twitterShare(el) {
+  var parent =
+    el.parentElement.parentElement.parentElement.parentElement.parentElement
+      .parentElement;
   el.href = `https://twitter.com/intent/tweet?text=${
-    document.querySelector('.bitlink-item--title').dataset.title
-  }&url=${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`;
+    parent.querySelector('.item-detail--title').textContent
+  }&url=${parent.querySelector('.bitlink--detail--MAIN').textContent}`;
 }
 function linkedInShare(el) {
+  var parent =
+    el.parentElement.parentElement.parentElement.parentElement.parentElement
+      .parentElement;
   el.href = `https://www.linkedin.com/shareArticle?mini=true&url=${
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy
-  }&title=${
-    document.querySelector('.bitlink-item--title').dataset.title
-  }&summary=${document.querySelector('.bitlink-item--title').dataset.title}`;
+    parent.querySelector('.bitlink--detail--MAIN').textContent
+  }&title=${parent.querySelector('.item-detail--title').textContent}&summary=${
+    parent.querySelector('.item-detail--title').textContent
+  }`;
 }
 //helper functions for link sharing end
