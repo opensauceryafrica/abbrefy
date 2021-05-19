@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.bitlink--detail--MAIN').textContent =
     document.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  document
-    .querySelector('.bitlink--copy-tooltip')
-    .querySelector('input').value =
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy;
+  // document
+  //   .querySelector('.bitlink--copy-tooltip')
+  //   .querySelector('input').value =
+  //   document.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
   document
     .querySelector('.bitlink--detail--MAIN')
@@ -127,10 +127,10 @@ function updateView(link) {
   document.querySelector('.bitlink--detail--MAIN').textContent =
     link.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  document
-    .querySelector('.bitlink--copy-tooltip')
-    .querySelector('input').value =
-    link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+  // document
+  //   .querySelector('.bitlink--copy-tooltip')
+  //   .querySelector('input').value =
+  //   link.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
   document
     .querySelector('.bitlink--detail--MAIN')
@@ -167,4 +167,23 @@ function updateView(link) {
   }
 
   // end of view update
+}
+
+// helper function for copying link to clipboard
+document.querySelector('.button--COPY').addEventListener('click', linkCopy);
+function linkCopy() {
+  var data = document.querySelector('.button--COPY').dataset.clipboard;
+  console.log(data);
+  const link = document.createElement('input');
+  link.value = data;
+  document.body.append(link);
+  link.select();
+  link.setSelectionRange(0, 99999);
+  document.execCommand('copy');
+  halfmoon.initStickyAlert({
+    content: 'Link copied',
+    alertType: 'alert-success',
+    fillType: 'filled-lm',
+  });
+  link.remove();
 }
