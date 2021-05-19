@@ -238,9 +238,11 @@
               </div>
             </li>
 
+            {% if session['is_authenticated'] == False %}
             <li class="nav-item active">
               <a href="{{url_for('users.signin')}}" class="nav-link">Sign In</a>
             </li>
+            {% endif %}
           </ul>
           <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
 
@@ -248,6 +250,7 @@
             <!-- Changing nav item based on user session (show {logout} if user is {signed in}) -->
 
             <div style="margin-right: 4rem">
+              {% if session['is_authenticated'] == False %}
               <a
                 href="{{url_for('users.signup')}}"
                 class="btn btn-primary hidden-sm-and-down"
@@ -255,6 +258,15 @@
               >
                 Sign Up
               </a>
+              {% else %}
+              <a
+                href="{{url_for('users.dashboard', username=session['current_user']['username'])}}"
+                class="btn btn-primary hidden-sm-and-down"
+                role="button"
+              >
+                Dashboard
+              </a>
+              {% endif %}
             </div>
 
             <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->
@@ -298,7 +310,7 @@
                 aria-labelledby="navbar-dropdown-toggle-btn"
               >
                 <!-- Changing nav item based on user session (show {logout} if user is {signed in}) -->
-                {% if session.user %}
+                <!-- {% if session.user %}
                 <a href="" class="dropdown-item">Collections</a>
                 <a href="" style="color: blue" class="dropdown-item">Logout</a>
                 <div class="dropdown-divider"></div>
@@ -308,7 +320,7 @@
                     <span class="ml-5">Dashboard</span>
                   </a>
                 </div>
-                {% else %}
+                {% else %} -->
                 <a href="{{ url_for('main.why') }}" class="dropdown-item"
                   >Why Abbrefy</a
                 >
@@ -325,16 +337,20 @@
                   <!-- float-right = float: right -->
                 </a>
                 <a href="#" class="dropdown-item">Blog</a>
-
+                {% if session['is_authenticated'] == False %}
                 <div class="dropdown-divider"></div>
+
                 <a
                   href="{{url_for('users.signin')}}"
                   style="color: #e3425a"
                   class="dropdown-item"
                   >Sign In</a
                 >
+
+                {% endif %}
                 <div class="dropdown-divider"></div>
                 <div class="dropdown-content">
+                  {% if session['is_authenticated'] == False %}
                   <a
                     href="{{url_for('users.signup')}}"
                     class="btn btn-primary btn-block"
@@ -342,6 +358,15 @@
                   >
                     <span class="ml-5">Sign Up</span>
                   </a>
+                  {% else %}
+                  <a
+                    href="{{url_for('users.dashboard', username=session['current_user']['username'])}}"
+                    class="btn btn-primary btn-block"
+                    role="button"
+                  >
+                    <span class="ml-5">Dashboard</span>
+                  </a>
+                  {% endif %}
                 </div>
                 {% endif %}
                 <!-- Changing nav item based on user session (show {logout} if user is {signed in}) end -->

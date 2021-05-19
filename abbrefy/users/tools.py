@@ -16,3 +16,15 @@ def login_required(f):
         return f(user, *args, **kwargs)
 
     return decorated
+
+
+# login in required decorator
+def no_login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if session['is_authenticated'] and "current_user" in session:
+            return redirect(url_for('users.dashboard', username=session['current_user']['username']))
+
+        return f(*args, **kwargs)
+
+    return decorated

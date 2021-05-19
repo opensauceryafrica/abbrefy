@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, send_from_directory, request, current_app
 from datetime import datetime
+from abbrefy.users.tools import no_login_required
 
 
 # attaching the main blueprint
@@ -16,6 +17,7 @@ def static_from_root():
 # the home route
 @main.route('/')
 @main.route('/home/')
+@no_login_required
 def home():
     return render_template('home.html', datetime=datetime)
 
@@ -34,6 +36,7 @@ def abbrefy101():
 
 # the why abbrefy route
 @main.route('/pages/why-abbrefy/')
+@no_login_required
 def why():
     return render_template('about.html', datetime=datetime)
 
@@ -46,5 +49,6 @@ def solutions():
 
 # the features route
 @main.route('/pages/features#')
+@no_login_required
 def features():
     return render_template('features.html', datetime=datetime)

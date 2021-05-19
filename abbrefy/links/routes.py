@@ -57,9 +57,13 @@ def router(slug):
     new = link
     new['clicks'] += 1
     # updating the audience of the link object
-    link['audience'].append(location)
-    new['audience'] = link['audience']
-    update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
+    if location not in link['audience']:
+        link['audience'].append(location)
+        new['audience'] = link['audience']
+        update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
+    else:
+        print('got here'.upper())
+        update = {"$set": {"clicks": new['clicks']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
     if "https://" not in origin and "http://" not in origin:
