@@ -22,7 +22,7 @@ def login_required(f):
 def no_login_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        if session['is_authenticated'] and "current_user" in session:
+        if 'is_authenticated' in session and session["is_authenticated"] == True:
             return redirect(url_for('users.dashboard', username=session['current_user']['username']))
 
         return f(*args, **kwargs)
