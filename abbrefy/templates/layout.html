@@ -238,7 +238,8 @@
               </div>
             </li>
 
-            {% if session['is_authenticated'] == False %}
+            {% if 'is_authenticated' not in session or
+            session['is_authenticated'] == False %}
             <li class="nav-item active">
               <a href="{{url_for('users.signin')}}" class="nav-link">Sign In</a>
             </li>
@@ -250,7 +251,8 @@
             <!-- Changing nav item based on user session (show {logout} if user is {signed in}) -->
 
             <div style="margin-right: 4rem">
-              {% if session['is_authenticated'] == False %}
+              {% if 'is_authenticated' not in session or
+              session['is_authenticated'] == False %}
               <a
                 href="{{url_for('users.signup')}}"
                 class="btn btn-primary hidden-sm-and-down"
@@ -337,7 +339,8 @@
                   <!-- float-right = float: right -->
                 </a>
                 <a href="#" class="dropdown-item">Blog</a>
-                {% if session['is_authenticated'] == False %}
+                {% if 'is_authenticated' not in session or
+                session['is_authenticated'] == False %}
                 <div class="dropdown-divider"></div>
 
                 <a
@@ -350,7 +353,8 @@
                 {% endif %}
                 <div class="dropdown-divider"></div>
                 <div class="dropdown-content">
-                  {% if session['is_authenticated'] == False %}
+                  {% if 'is_authenticated' not in session or
+                  session['is_authenticated'] == False %}
                   <a
                     href="{{url_for('users.signup')}}"
                     class="btn btn-primary btn-block"
