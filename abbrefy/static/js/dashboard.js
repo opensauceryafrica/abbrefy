@@ -203,8 +203,14 @@ function linkedInShare(el) {
       .parentElement;
   el.href = `https://www.linkedin.com/shareArticle?mini=true&url=${
     parent.querySelector('.bitlink--detail--MAIN').textContent
-  }&title=${parent.querySelector('.item-detail--title').textContent}&summary=${
-    parent.querySelector('.item-detail--title').textContent
+  }&summary=${parent.querySelector('.item-detail--title').textContent}`;
+}
+function facebookShare(el) {
+  var parent =
+    el.parentElement.parentElement.parentElement.parentElement.parentElement
+      .parentElement;
+  el.href = `http://www.facebook.com/sharer/sharer.php?u=${
+    parent.querySelector('.bitlink--detail--MAIN').textContent
   }`;
 }
 //helper functions for link sharing end
