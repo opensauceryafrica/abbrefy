@@ -234,8 +234,11 @@ edit.onclick = function () {
   slug = document.querySelector('#abbrefy__slug');
   stealth.checked =
     parent.querySelector('.bitlink--detail--MAIN').dataset.stealth == 'True';
-  title.value = parent.querySelector('.item-detail--title').textContent;
-  slug.value = parent.querySelector('.bitlink--detail--MAIN').textContent;
+  title.value = parent.querySelector('.item-detail--title').textContent.trim();
+  slug.value = parent
+    .querySelector('.bitlink--detail--MAIN')
+    .textContent.trim()
+    .split('/')[3];
 };
 //saving the changes when the save button gets clicked
 save.onclick = function (e) {
@@ -243,14 +246,12 @@ save.onclick = function (e) {
   stealth = document.querySelector('#abbrefy__stealth');
   slug = document.querySelector('#abbrefy__slug');
 
-  console.log(title.value);
-  console.log(slug.value);
-  console.log(stealth.checked);
+  error = 'Only text, hyphen, and underscore';
 
   window.history.back();
 };
 //deleting the link when the delete button gets clicked
 del.onclick = function () {
-  slug = document.querySelector('#abbrefy__title').value.split('/');
+  slug = document.querySelector('#abbrefy__title').value;
 };
 // helper function for modifying and deleting links end
