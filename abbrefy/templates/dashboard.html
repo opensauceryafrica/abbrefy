@@ -66,6 +66,7 @@
             class="bitlink--MAIN"
             data-origin="{{link.origin}}"
             data-abbrefy='{{url_for("links.router", slug=link.slug, _external=True)}}'
+            data-stealth="{{link.stealth}}"
             tabindex="-1"
             title='{{url_for("links.router", slug=link.slug, _external=True)}}'
           >
@@ -87,15 +88,14 @@
         >Abbrefy Link Details<a href="#" class="icon close-icon"></a
       ></span>
       <div>
-        <time class="item-detail--created-date" datetime="2021-05-10"
-          >CREATED May 10, 8:03 am</time
+        <time class="item-detail--created-date" datetime="2021-05-10"></time
         ><span
           ><span class="info-wrapper--divider">|</span
           ><span class="item-detail--created-link"
             >{{session["current_user"]['username']}}</span
           ></span
         >
-        <div class="item-detail--title">Bitly. The power of the link.</div>
+        <div class="item-detail--title"></div>
         <div>
           <a class="item-detail--url" href="" target="_blank"></a>
         </div>
@@ -178,8 +178,13 @@
               </div>
             </div>
 
-            <button class="button--ACTION" type="button" tabindex="0" id="">
-              EDIT
+            <button
+              class="button--ACTION button__edit"
+              type="button"
+              tabindex="0"
+              id=""
+            >
+              <a href="#modal-1" role="button"> Edit </a>
             </button>
           </div>
         </div>

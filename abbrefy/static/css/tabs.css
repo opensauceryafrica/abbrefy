@@ -4497,7 +4497,7 @@ form.disabled .orb-button.white:enabled:hover {
 
 @media(max-width:600px) {
     .modal-content {
-        margin-top: 2rem
+        /* margin-top: 2rem */
     }
 }
 

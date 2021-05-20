@@ -236,6 +236,73 @@
       </div>
       <!-- Navbar end -->
 
+      <div class="modal" id="modal-1" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- <a href="#" class="close" role="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a> -->
+            <h5 style="color: #e3425a" class="modal-title">
+              Edit Abbrefy Link
+            </h5>
+
+            <!-- Rendering Edit Profile Form  -->
+            <form
+              method="POST"
+              class="form-signin"
+              enctype="multipart/form-data"
+            >
+              <fieldset class="w-400 mw-full">
+                <!-- username input -->
+                <div class="form-group">
+                  <label for="full-name">Title</label>
+                  <input type="text" class="form-control" id="abbrefy__title" />
+                </div>
+                <div class="form-group">
+                  <label for="full-name">Customize Link Slug</label>
+                  <input type="text" class="form-control" id="abbrefy__slug" />
+                </div>
+                <div class="form-group">
+                  <div class="custom-switch">
+                    <input type="checkbox" id="abbrefy__stealth" />
+                    <label for="abbrefy__stealth">Stealth Mode</label>
+                    <small
+                      data-toggle="tooltip"
+                      data-title="Make abbrefy links inactive without deleting them"
+                      data-placement="right"
+                      style="padding: 0.2rem"
+                      ><i class="far fa-question-circle"></i
+                    ></small>
+                  </div>
+
+                  <!-- <button type="button">Right</button> -->
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-right mt-20">
+                  <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+                  <a
+                    style="
+                      outline-color: #e3425a;
+                      border-color: #e3425a;
+                      font-weight: 600;
+                    "
+                    id="delete"
+                    href="#"
+                    class="btn mr-5"
+                    role="button"
+                    >Delete</a
+                  >
+                  <a id="save" class="btn btn-primary mr-5" role="button"
+                    >Save</a
+                  >
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <!-- Content wrapper -->
       <div class="content-wrapper">
         <div class="container">

@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.item-detail--url').textContent =
     document.querySelector('.bitlink--MAIN').dataset.origin;
 
+  document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+    document.querySelector('.bitlink--MAIN').dataset.stealth;
+
   document
     .querySelector('.item-detail--url')
     .setAttribute(
@@ -117,6 +120,9 @@ function updateView(link) {
   document.querySelector('.item-detail--url').textContent =
     link.querySelector('.bitlink--MAIN').dataset.origin;
 
+  document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+    link.querySelector('.bitlink--MAIN').dataset.stealth;
+
   document
     .querySelector('.item-detail--url')
     .setAttribute('href', link.querySelector('.bitlink--MAIN').dataset.origin);
@@ -214,3 +220,37 @@ function facebookShare(el) {
   }`;
 }
 //helper functions for link sharing end
+
+// helper function for modifying and deleting links
+let edit = document.querySelector('.button__edit');
+let save = document.querySelector('#save');
+let del = document.querySelector('#delete');
+let modal = document.querySelector('#modal-1');
+// prefilling values when the edit button gets clicked
+edit.onclick = function () {
+  var parent = this.parentElement.parentElement.parentElement.parentElement;
+  title = document.querySelector('#abbrefy__title');
+  stealth = document.querySelector('#abbrefy__stealth');
+  slug = document.querySelector('#abbrefy__slug');
+  stealth.checked =
+    parent.querySelector('.bitlink--detail--MAIN').dataset.stealth == 'True';
+  title.value = parent.querySelector('.item-detail--title').textContent;
+  slug.value = parent.querySelector('.bitlink--detail--MAIN').textContent;
+};
+//saving the changes when the save button gets clicked
+save.onclick = function (e) {
+  title = document.querySelector('#abbrefy__title');
+  stealth = document.querySelector('#abbrefy__stealth');
+  slug = document.querySelector('#abbrefy__slug');
+
+  console.log(title.value);
+  console.log(slug.value);
+  console.log(stealth.checked);
+
+  window.history.back();
+};
+//deleting the link when the delete button gets clicked
+del.onclick = function () {
+  slug = document.querySelector('#abbrefy__title').value.split('/');
+};
+// helper function for modifying and deleting links end
