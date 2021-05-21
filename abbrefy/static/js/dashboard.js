@@ -269,10 +269,44 @@ async function updateLink(title, stealth, newSlug, slug) {
   });
 
   response = await request.json();
+  // handling response based on error gotten
+  if (response.status == false) {
+    if (response.error == 'USAGE_ERROR') {
+      document.querySelector('#slug__error').textContent = get_error(
+        response.error
+      );
+    } else {
+      history.back();
+      document.querySelector('#slug__error').textContent = '';
+      halfmoon.initStickyAlert({
+        content: get_error(response.error),
+        alertType: 'alert-danger',
+        fillType: 'filled-lm',
+      });
+    }
+  } else {
+    window.history.back();
+    document.querySelector('#slug__error').textContent = '';
+    halfmoon.initStickyAlert({
+      content: 'Abbrefy link updated successfully',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+  }
+}
 
-  console.log(response);
-
-  window.history.back();
+// helper function for passing error
+function get_error(identifier) {
+  messages = {
+    DATA_ERROR: 'URL data is required',
+    URL_ERROR: 'That URL is invalid',
+    DUPLICATE_ERROR: "That's already an Abbrefy link",
+    USAGE_ERROR: 'That slug is already in use',
+    EXISTENCE_ERROR: "We couldn't find that link",
+    AUTHORIZATION_ERROR: "You aren't authorized for that action",
+    UNKNOWN_ERROR: 'Something completely went wrong',
+  };
+  return messages[identifier];
 }
 
 //deleting the link when the delete button gets clicked

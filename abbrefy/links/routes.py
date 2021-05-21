@@ -52,6 +52,10 @@ def router(slug):
     if not origin:
         flash('We couldn\'t find that link', 'danger')
         return redirect(url_for('main.home'))
+    # checking if stealth mode is activated
+    if link and link['stealth'] == True:
+        flash('The author has made that link private', 'danger')
+        return redirect(url_for('main.home'))
     # updating the number of clicks
     filter = {"slug": slug}
     new = link
@@ -84,7 +88,7 @@ def update():
             return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
         
         if data['new_slug'] and Link.check_slug(data['new_slug']):
-            return jsonify({"status": False, "error": "DUPLICATE_ERROR"}), 400
+            return jsonify({"status": False, "error": "USAGE_ERROR"}), 400
         
         # creating the URL object and abbrefying it
         if not "current_user" in session:
