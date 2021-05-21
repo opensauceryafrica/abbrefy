@@ -36,7 +36,7 @@ def abbrefy():
 
 
 # the link abbrefy route
-@links.route('/<string:slug>', methods=['GET'])
+@links.route('/<string:slug>/', methods=['GET'])
 def router(slug):
     # Getting IP address and querying user location
     try:
@@ -62,7 +62,6 @@ def router(slug):
         new['audience'] = link['audience']
         update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
     else:
-        print('got here'.upper())
         update = {"$set": {"clicks": new['clicks']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
@@ -70,3 +69,42 @@ def router(slug):
         return redirect("https://" + origin)
     else:
         return redirect(origin)
+
+
+@links.route('/api/hidden/url/update/', methods=['UPDATE'])
+def update():
+    data = request.get_json()
+    # validating the data was sent
+    if not data:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+    # validating that URL isn't already abbrefied
+    try:
+        # checking if the link exists on abbrefy
+        if not Link.check_slug(data['slug']):
+            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
+        
+        if data['new_slug'] and Link.check_slug(data['new_slug']):
+            return jsonify({"status": False, "error": "DUPLICATE_ERROR"}), 400
+        
+        # creating the URL object and abbrefying it
+        if not "current_user" in session:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+        link = Link().get_link(data['slug'])
+        author = session['current_user']['public_id']
+        if link['author'] != author:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        # updating the Link object and saving to the database
+        filter = {"slug": data['slug']}
+        update = {"$set": {"title": data['title'], "slug": data['new_slug'], "stealth": data['stealth']}}
+        link['title'] = data['title']
+        link['slug'] = data['new_slug']
+        link['stealth'] = data['stealth']
+        response = Link.update_link(filter, link, update)
+        return jsonify({"status": True, "message": "UPDATE_SUCCESS"}), 201
+        
+    except KeyError:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+    
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400

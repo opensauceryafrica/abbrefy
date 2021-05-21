@@ -239,19 +239,44 @@ edit.onclick = function () {
     .querySelector('.bitlink--detail--MAIN')
     .textContent.trim()
     .split('/')[3];
+  slug.dataset.slug = slug.value;
 };
 //saving the changes when the save button gets clicked
 save.onclick = function (e) {
-  title = document.querySelector('#abbrefy__title');
-  stealth = document.querySelector('#abbrefy__stealth');
-  slug = document.querySelector('#abbrefy__slug');
+  title = document.querySelector('#abbrefy__title').value;
+  stealth = document.querySelector('#abbrefy__stealth').checked;
+  newSlug = document.querySelector('#abbrefy__slug').value;
+  slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   error = 'Only text, hyphen, and underscore';
+  updateLink(title, stealth, newSlug, slug);
+};
+
+// ansynchronous function for updating the URL
+async function updateLink(title, stealth, newSlug, slug) {
+  updateURL = '/api/hidden/url/update/';
+  request = await fetch(updateURL, {
+    method: 'UPDATE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: title,
+      stealth: stealth,
+      new_slug: newSlug,
+      slug: slug,
+    }),
+  });
+
+  response = await request.json();
+
+  console.log(response);
 
   window.history.back();
-};
+}
+
 //deleting the link when the delete button gets clicked
 del.onclick = function () {
-  slug = document.querySelector('#abbrefy__title').value;
+  slug = document.querySelector('#abbrefy__slug').dataset.slug;
 };
 // helper function for modifying and deleting links end

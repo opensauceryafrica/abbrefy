@@ -60,7 +60,8 @@ class Link:
             "origin": new['origin'],
             "url": url_for("links.router", slug=new['slug'], _external=True),
             "title": new['title'],
-            "clicks": new['clicks']
+            "clicks": new['clicks'],
+            "stealth": new['stealth']
         }
 
         return response
