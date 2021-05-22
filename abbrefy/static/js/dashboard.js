@@ -233,7 +233,9 @@ edit.onclick = function () {
   stealth = document.querySelector('#abbrefy__stealth');
   slug = document.querySelector('#abbrefy__slug');
   stealth.checked =
-    parent.querySelector('.bitlink--detail--MAIN').dataset.stealth == 'True';
+    parent
+      .querySelector('.bitlink--detail--MAIN')
+      .dataset.stealth.toUpperCase() == 'TRUE';
   initTitle = parent.querySelector('.item-detail--title').textContent.trim();
   title.value = initTitle;
   slug.value = parent
@@ -315,6 +317,37 @@ function initUpdate() {
   }
 }
 
+// helper function for updating view
+function modView(title, url, stealth) {
+  document.querySelector('.item-detail--title').textContent = title;
+  document.querySelector('.bitlink--detail--MAIN').textContent = url;
+  document.querySelector(
+    '.bitlink--detail--MAIN'
+  ).dataset.stealth = `${stealth}`;
+  document.querySelector('.bitlink--detail--MAIN').setAttribute('title', url);
+  document.querySelector('.bitlink--copyable-text').setAttribute('href', url);
+
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink-item--title').textContent = title;
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink-item--title').dataset.title = title;
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink--MAIN').textContent = url;
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink--MAIN').dataset.abbrefy = url;
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink--MAIN').dataset.stealth = `${stealth}`;
+  document
+    .querySelector('.bitlink-item--ACTIVE')
+    .querySelector('.bitlink--MAIN')
+    .setAttribute('title', url);
+}
+
 // ansynchronous function for updating the URL
 async function updateLink(data) {
   updateURL = '/api/hidden/url/update/';
@@ -344,6 +377,7 @@ async function updateLink(data) {
     }
   } else {
     console.log(response.data);
+    modView(response.data.title, response.data.url, response.data.stealth);
     window.history.back();
     document.querySelector('#slug__error').textContent = '';
     halfmoon.initStickyAlert({
