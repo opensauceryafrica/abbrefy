@@ -84,28 +84,34 @@ def update():
     # validating that URL isn't already abbrefied
     try:
         # checking if the link exists on abbrefy
-        if not Link.check_slug(data['slug']):
+        if not Link.check_slug(data['idSlug']):
             return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
         
-        if data['new_slug'] and Link.check_slug(data['new_slug']):
-            return jsonify({"status": False, "error": "USAGE_ERROR"}), 400
+        if "slug" in data:
+            if data['slug'] and Link.check_slug(data['slug']):
+                return jsonify({"status": False, "error": "USAGE_ERROR"}), 400
         
         # creating the URL object and abbrefying it
         if not "current_user" in session:
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
-        link = Link().get_link(data['slug'])
+        link = Link().get_link(data['idSlug'])
         author = session['current_user']['public_id']
         if link['author'] != author:
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
 
-        # updating the Link object and saving to the database
-        filter = {"slug": data['slug']}
-        update = {"$set": {"title": data['title'], "slug": data['new_slug'], "stealth": data['stealth']}}
-        link['title'] = data['title']
-        link['slug'] = data['new_slug']
-        link['stealth'] = data['stealth']
+         # updating the Link object and saving to the database
+        update_data = {}
+        for key in data:
+            if key == "idSlug":
+                continue
+            update_data[key] = data[key]
+            link[key] = data[key]
+        filter = {"slug": data['idSlug']}
+        update = {"$set": update_data}
+        # print(update_data)
+  
         response = Link.update_link(filter, link, update)
-        return jsonify({"status": True, "message": "UPDATE_SUCCESS"}), 201
+        return jsonify({"status": True, "message": "UPDATE_SUCCESS", "data": response}), 201
         
     except KeyError:
         return jsonify({"status": False, "error": "DATA_ERROR"}), 400

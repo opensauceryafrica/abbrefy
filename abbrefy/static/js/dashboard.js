@@ -234,7 +234,8 @@ edit.onclick = function () {
   slug = document.querySelector('#abbrefy__slug');
   stealth.checked =
     parent.querySelector('.bitlink--detail--MAIN').dataset.stealth == 'True';
-  title.value = parent.querySelector('.item-detail--title').textContent.trim();
+  initTitle = parent.querySelector('.item-detail--title').textContent.trim();
+  title.value = initTitle;
   slug.value = parent
     .querySelector('.bitlink--detail--MAIN')
     .textContent.trim()
@@ -242,30 +243,87 @@ edit.onclick = function () {
   slug.dataset.slug = slug.value;
 };
 //saving the changes when the save button gets clicked
+function handleError(OK1, OK2) {
+  console.log(OK1, OK2);
+  titleError = 'Only letters, numbers, and spaces';
+  slugError = 'Only letters, numbers, underscores and hyphens';
+  if (!OK1 && !OK2) {
+    document.querySelector('#title__error').textContent = titleError;
+    document.querySelector('#slug__error').textContent = slugError;
+  } else if (!OK1) {
+    error = 'Only text, hyphen, and underscore';
+    document.querySelector('#title__error').textContent = titleError;
+    document.querySelector('#slug__error').textContent = '';
+  } else if (!OK2) {
+    error = 'Only text, hyphen, and underscore';
+    document.querySelector('#slug__error').textContent = slugError;
+    document.querySelector('#title__error').textContent = '';
+  }
+}
 save.onclick = function (e) {
-  title = document.querySelector('#abbrefy__title').value;
+  newTitle = document.querySelector('#abbrefy__title').value.trim();
   stealth = document.querySelector('#abbrefy__stealth').checked;
-  newSlug = document.querySelector('#abbrefy__slug').value;
+  newSlug = document.querySelector('#abbrefy__slug').value.trim();
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
-  error = 'Only text, hyphen, and underscore';
-  updateLink(title, stealth, newSlug, slug);
+  regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
+  regexp2 = /^[a-zA-Z0-9_]+(?:[\w- ]*[a-zA-Z0-9]+)*$/gm;
+  OK1 = regexp2.test(newTitle);
+  OK2 = regexp.test(newSlug);
+  if (!OK1 || !OK2) {
+    handleError(OK1, OK2);
+  } else {
+    initUpdate();
+  }
 };
 
+// helper function for initiating the link update
+function initUpdate() {
+  document.querySelector('#title__error').textContent = '';
+  document.querySelector('#slug__error').textContent = '';
+  if (newSlug == slug && newTitle == initTitle) {
+    data = {
+      stealth: stealth,
+      idSlug: slug,
+    };
+
+    updateLink(data);
+  } else if (newSlug != slug && newTitle != initTitle) {
+    data = {
+      title: newTitle,
+      slug: newSlug,
+      stealth: stealth,
+      idSlug: slug,
+    };
+    updateLink(data);
+  } else if (newSlug != slug) {
+    data = {
+      slug: newSlug,
+      stealth: stealth,
+      idSlug: slug,
+    };
+
+    updateLink(data);
+  } else if (newTitle != initTitle) {
+    data = {
+      title: newTitle,
+      stealth: stealth,
+      idSlug: slug,
+    };
+
+    updateLink(data);
+  }
+}
+
 // ansynchronous function for updating the URL
-async function updateLink(title, stealth, newSlug, slug) {
+async function updateLink(data) {
   updateURL = '/api/hidden/url/update/';
   request = await fetch(updateURL, {
     method: 'UPDATE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      title: title,
-      stealth: stealth,
-      new_slug: newSlug,
-      slug: slug,
-    }),
+    body: JSON.stringify(data),
   });
 
   response = await request.json();
@@ -285,6 +343,7 @@ async function updateLink(title, stealth, newSlug, slug) {
       });
     }
   } else {
+    console.log(response.data);
     window.history.back();
     document.querySelector('#slug__error').textContent = '';
     halfmoon.initStickyAlert({
