@@ -114,7 +114,7 @@ class Link:
             "status": True,
             "message": "URL abbrefy successful.",
             "origin": self.url,
-            "url": url_for("links.router", slug=slug, _external=True),
+            "url": f"http://abbrefy.xyz/{slug}",
             "title": self.title}
 
         return response
