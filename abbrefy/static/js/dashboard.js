@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.bitlink--MAIN').dataset.origin
     );
 
-  document.querySelector('.button--COPY').dataset.clipboard =
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy;
+  document.querySelector('.button--COPY').dataset.clipboard = `http://${
+    document.querySelector('.bitlink--MAIN').dataset.abbrefy
+  }`;
 
-  document.querySelector('.bitlink--detail--MAIN').textContent =
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy;
+  document.querySelector('.bitlink--detail--MAIN').textContent = `${
+    document.querySelector('.bitlink--MAIN').dataset.abbrefy
+  }`;
 
   // document
   //   .querySelector('.bitlink--copy-tooltip')
@@ -37,32 +39,40 @@ document.addEventListener('DOMContentLoaded', () => {
     .querySelector('.bitlink--detail--MAIN')
     .setAttribute(
       'title',
-      document.querySelector('.bitlink--MAIN').dataset.abbrefy
+      `http://${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`
     );
 
   document
     .querySelector('.bitlink--copyable-text')
     .setAttribute(
       'href',
-      document.querySelector('.bitlink--MAIN').dataset.abbrefy
+      `http://${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`
     );
 
   document.querySelector('.info-wrapper--clicks-text').textContent =
     document.querySelector('.click-count--MAIN').dataset.clicks;
 
-  locations = [
-    ...document
-      .querySelector('.click-count--MAIN')
-      .dataset.audience.split('[')[1]
-      .split(']')[0]
-      .split(', '),
-  ];
+  if (
+    document.querySelector('.click-count--MAIN').dataset.audience.length > 2
+  ) {
+    locations = [
+      ...document
+        .querySelector('.click-count--MAIN')
+        .dataset.audience.split('[')[1]
+        .split(']')[0]
+        .split(', '),
+    ];
 
-  locations.forEach((location) => {
-    document.querySelector('.audience--locations---MAIN').innerHTML += `<h6>${
-      location.split("'")[1].split("'")[0]
-    }</h6>`;
-  });
+    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+
+    locations.forEach((location) => {
+      document.querySelector('.audience--locations---MAIN').innerHTML += `<h6>${
+        location.split("'")[1].split("'")[0]
+      }</h6>`;
+    });
+  } else {
+    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+  }
 });
 
 // closing the link details view when in mobile view
@@ -127,8 +137,9 @@ function updateView(link) {
     .querySelector('.item-detail--url')
     .setAttribute('href', link.querySelector('.bitlink--MAIN').dataset.origin);
 
-  document.querySelector('.button--COPY').dataset.clipboard =
-    link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+  document.querySelector('.button--COPY').dataset.clipboard = `http://${
+    link.querySelector('.bitlink--MAIN').dataset.abbrefy
+  }`;
 
   document.querySelector('.bitlink--detail--MAIN').textContent =
     link.querySelector('.bitlink--MAIN').dataset.abbrefy;
@@ -147,7 +158,10 @@ function updateView(link) {
 
   document
     .querySelector('.bitlink--copyable-text')
-    .setAttribute('href', link.querySelector('.bitlink--MAIN').dataset.abbrefy);
+    .setAttribute(
+      'href',
+      `http://${link.querySelector('.bitlink--MAIN').dataset.abbrefy}`
+    );
 
   document.querySelector('.info-wrapper--clicks-text').textContent =
     link.querySelector('.click-count--MAIN').dataset.clicks;
@@ -241,7 +255,7 @@ edit.onclick = function () {
   slug.value = parent
     .querySelector('.bitlink--detail--MAIN')
     .textContent.trim()
-    .split('/')[3];
+    .split('/')[1];
   slug.dataset.slug = slug.value;
 };
 //saving the changes when the save button gets clicked
@@ -269,7 +283,7 @@ save.onclick = function (e) {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
-  regexp2 = /^[a-zA-Z0-9_]+(?:[\w- ]*[a-zA-Z0-9]+)*$/gm;
+  regexp2 = /^[a-zA-Z0-9_:]+(?:[\w- ]*[a-zA-Z0-9]+)*$/gm;
   OK1 = regexp2.test(newTitle);
   OK2 = regexp.test(newSlug);
   if (!OK1 || !OK2) {
@@ -324,8 +338,14 @@ function modView(title, url, stealth) {
   document.querySelector(
     '.bitlink--detail--MAIN'
   ).dataset.stealth = `${stealth}`;
-  document.querySelector('.bitlink--detail--MAIN').setAttribute('title', url);
-  document.querySelector('.bitlink--copyable-text').setAttribute('href', url);
+  document
+    .querySelector('.bitlink--detail--MAIN')
+    .setAttribute('title', `http://${url}`);
+  document
+    .querySelector('.bitlink--copyable-text')
+    .setAttribute('href', `http://${url}`);
+
+  document.querySelector('.button--COPY').dataset.clipboard = `http://${url}`;
 
   document
     .querySelector('.bitlink-item--ACTIVE')
@@ -405,5 +425,54 @@ function get_error(identifier) {
 //deleting the link when the delete button gets clicked
 del.onclick = function () {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
+
+  deleteLink({ idSlug: slug });
 };
+
+// helper function for deleting links
+async function deleteLink(data) {
+  deleteURL = '/api/hidden/url/delete/';
+
+  request = await fetch(deleteURL, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  response = await request.json();
+  console.log(response);
+
+  // handling response based on error gotten
+  if (response.status == false) {
+    history.back();
+    // document.querySelector('#slug__error').textContent = '';
+    halfmoon.initStickyAlert({
+      content: get_error(response.error),
+      alertType: 'alert-danger',
+      fillType: 'filled-lm',
+    });
+  } else {
+    deleteView();
+    window.history.back();
+    // document.querySelector('#slug__error').textContent = '';
+    halfmoon.initStickyAlert({
+      content: 'Abbrefy link deleted successfully',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+  }
+}
+// helper function for deleting link from view
+function deleteView() {
+  const newView = document.querySelector('.bitlink-item--MAIN');
+  const oldView = document.querySelector('.bitlink-item--ACTIVE');
+  const linkCount = document.querySelector('.link__count');
+  linkCount.textContent = parseInt(linkCount.textContent) - 1;
+
+  oldView.remove();
+  newView.classList = 'bitlink-item--ACTIVE';
+  updateView(newView);
+}
 // helper function for modifying and deleting links end

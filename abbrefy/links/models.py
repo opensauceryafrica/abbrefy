@@ -32,6 +32,22 @@ class Link:
     def check_slug(slug):
         return mongo.db.links.find_one({"slug": slug})
 
+    # slug validator helper function
+    @staticmethod
+    def delete(link):
+        
+        try:
+            mongo.db.links.delete_one({"slug": link["slug"]})
+        except:
+             response = {
+                "status": False,
+                "error": "Something went wrong. Please try again."
+            }
+             return response
+            
+        return { "status": True,
+            "message": "Abbrefy link deletion successful"}
+    
     # slug generator helper function
     def new_slug(self):
         slug = generate_slug()
@@ -58,7 +74,7 @@ class Link:
             "status": True,
             "message": "Abbrefy link update successful.",
             "origin": new['origin'],
-            "url": url_for("links.router", slug=new['slug'], _external=True),
+            "url": f"abbrefy.xyz/{new['slug']}",
             "title": new['title'],
             "clicks": new['clicks'],
             "stealth": new['stealth']

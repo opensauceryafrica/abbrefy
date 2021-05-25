@@ -2,13 +2,14 @@ from flask import Blueprint, render_template, redirect, url_for, request, jsonif
 from datetime import datetime
 from abbrefy.users.forms import RegistrationForm, LoginForm
 from abbrefy.users.models import User
-from abbrefy.users.tools import login_required
+from abbrefy.users.tools import login_required, no_login_required
 # attaching the users blueprint
 users = Blueprint('users', __name__)
 
 
 # the signup route
 @users.route('/auth/signup/', methods=['GET', 'POST'])
+@no_login_required
 def signup():
 
     # instantiationg the form
@@ -41,6 +42,7 @@ def signup():
 
 # the signin route
 @users.route('/auth/signin/', methods=['GET', 'POST'])
+@no_login_required
 def signin():
 
     # instantiationg the form

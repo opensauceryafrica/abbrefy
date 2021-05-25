@@ -118,3 +118,38 @@ def update():
     
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+
+
+@links.route('/api/hidden/url/delete/', methods=['DELETE'])
+def delete():
+    data = request.get_json()
+    # validating the data was sent
+    if not data:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+    # validating that URL isn't already abbrefied
+    try:
+        # checking if the link exists on abbrefy
+        if not Link.check_slug(data['idSlug']):
+            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
+
+        # creating the URL object and abbrefying it
+        if not "current_user" in session:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        # retrieving the link from the DB
+        link = Link().get_link(data['idSlug'])
+        author = session['current_user']['public_id']
+        
+        if link['author'] != author:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        response = Link.delete(link)
+        print(response)
+        return jsonify({"status": True, "message": "DELETE_SUCCESS", "data": response}), 200
+
+    except KeyError:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+    
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400

@@ -19,7 +19,7 @@ class User:
             user = {
                 'public_id': uuid4().hex,
                 'username': self.username.lower(),
-                'email': self.email,
+                'email': self.email.lower(),
                 'password': bcrypt.generate_password_hash(
                     self.password).decode('utf-8'),
                 'join_date': datetime.utcnow()
@@ -54,7 +54,7 @@ class User:
         else:
             # querying user from db  with email
             user = mongo.db.users.find_one(
-                {"email": signin_data['identifier']})
+                {"email": signin_data['identifier'].lower()})
 
             # validating user and password
             if user and bcrypt.check_password_hash(user["password"], signin_data['password']):
@@ -73,12 +73,12 @@ class User:
     # email validator helper function
     @staticmethod
     def check_email(email):
-        return mongo.db.users.find_one({"email": email})
+        return mongo.db.users.find_one({"email": email.lower()})
 
     # username validator helper function
     @staticmethod
     def check_username(username):
-        return mongo.db.users.find_one({"username": username})
+        return mongo.db.users.find_one({"username": username.lower()})
 
     @staticmethod
     def my_links(user):

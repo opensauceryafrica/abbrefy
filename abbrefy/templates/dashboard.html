@@ -27,7 +27,8 @@
 {% block content %}
 <div class="layout--wrapper">
   <div class="overflow-y-hidden overflow-y-md-auto list--MAIN">
-    <span class="list--total">{{links.count()}} Links</span
+    <span class="list--total"
+      ><span class="link__count">{{links.count()}}</span> Links</span
     ><span class="list--filter">Clicks all time</span>
     <div>
       {% for link in links %}
@@ -65,12 +66,12 @@
           <div
             class="bitlink--MAIN"
             data-origin="{{link.origin}}"
-            data-abbrefy='{{url_for("links.router", slug=link.slug, _external=True)}}'
+            data-abbrefy="abbrefy.xyz/{{link.slug}}"
             data-stealth="{{link.stealth}}"
             tabindex="-1"
-            title='{{url_for("links.router", slug=link.slug, _external=True)}}'
+            title="abbrefy.xyz/{{link.slug}}"
           >
-            {{url_for("links.router", slug=link.slug, _external=True)}}
+            abbrefy.xyz/<span>{{ link.slug }}</span>
           </div>
           <span
             data-clicks="{{link.clicks}}"
