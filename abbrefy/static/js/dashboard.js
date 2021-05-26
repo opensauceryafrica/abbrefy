@@ -283,7 +283,7 @@ save.onclick = function (e) {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
-  regexp2 = /^[a-zA-Z0-9_:]+(?:[\w- ]*[a-zA-Z0-9]+)*$/gm;
+  regexp2 = /^[a-zA-Z0-9_:]+(?:[\w-| ]*[a-zA-Z0-9]+)*$/gm;
   OK1 = regexp2.test(newTitle);
   OK2 = regexp.test(newSlug);
   if (!OK1 || !OK2) {
@@ -476,3 +476,39 @@ function deleteView() {
   updateView(newView);
 }
 // helper function for modifying and deleting links end
+
+// helper function for creating abbrefy link
+const create = document.querySelector('#create');
+create.onclick = function () {
+  const longURL = document.querySelector('#abbrefy__url').value;
+  create.setAttribute('disabled', 'disabled');
+  console.log(longURL);
+};
+
+// helper function for shortening Long URLs
+async function shorten(longURL) {
+  url = '/api/hidden/url/abbrefy/';
+  request = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ url: longURL }),
+  });
+  response = await request.json();
+
+  // handling server response
+  if (response.status == false) {
+    halfmoon.initStickyAlert({
+      content: get_error(response.error),
+      alertType: 'alert-danger',
+      fillType: 'filled-lm',
+    });
+  } else {
+    halfmoon.initStickyAlert({
+      content: 'Abbrefy Link Created Successfully',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+  }
+}
