@@ -82,5 +82,5 @@ class User:
 
     @staticmethod
     def my_links(user):
-        links = mongo.db.links.find({"author": user['public_id']})
+        links = mongo.db.links.find({"author": user['public_id']}).sort('date_created', -1)
         return links

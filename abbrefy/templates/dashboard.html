@@ -92,7 +92,9 @@
         <time class="item-detail--created-date" datetime="2021-05-10"></time
         ><span
           ><span class="info-wrapper--divider">|</span
-          ><span class="item-detail--created-link"
+          ><span
+            class="item-detail--created-link"
+            data-auth="{{session['is_authenticated']}}"
             >{{session["current_user"]['username']}}</span
           ></span
         >

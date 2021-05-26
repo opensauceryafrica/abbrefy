@@ -481,8 +481,25 @@ function deleteView() {
 const create = document.querySelector('#create');
 create.onclick = function () {
   const longURL = document.querySelector('#abbrefy__url').value;
-  create.setAttribute('disabled', 'disabled');
-  console.log(longURL);
+  const isAuth = document.querySelector('.item-detail--created-link').dataset
+    .auth;
+  if (longURL.length < 1) {
+    return (document.querySelector('#url__error').textContent =
+      'Long URL is required');
+  } else {
+    document.querySelector('#url__error').textContent = '';
+  }
+  create.remove;
+  if (isAuth != 'True') {
+    window.history.back();
+    return halfmoon.initStickyAlert({
+      content: get_error('AUTHORIZATION_ERROR'),
+      alertType: 'alert-danger',
+      fillType: 'filled-lm',
+    });
+  }
+
+  shorten(longURL);
 };
 
 // helper function for shortening Long URLs
