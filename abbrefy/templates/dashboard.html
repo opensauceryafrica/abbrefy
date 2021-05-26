@@ -30,7 +30,7 @@
     <span class="list--total"
       ><span class="link__count">{{links.count()}}</span> Links</span
     ><span class="list--filter">Clicks all time</span>
-    <div>
+    <div id="abbrefy__links__con">
       {% for link in links %}
       <a class="bitlink-item--MAIN"
         ><span class="bitlink-item--checkbox"
@@ -55,6 +55,7 @@
         {% else %}
 
         <div
+          data-author="{{session['current_user']['username']}}"
           data-title='{{ link.origin[:50] +"..." if len(link.origin) > 50 else link.origin}}'
           class="bitlink-item--title"
         >

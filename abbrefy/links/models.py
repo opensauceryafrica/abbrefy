@@ -2,7 +2,7 @@ from uuid import uuid4
 from abbrefy import mongo
 from datetime import datetime
 from abbrefy.links.tools import generate_slug, get_title
-from flask import url_for
+from flask import url_for, session
 
 
 class Link:
@@ -115,6 +115,13 @@ class Link:
             "message": "URL abbrefy successful.",
             "origin": self.url,
             "url": f"http://abbrefy.xyz/{slug}",
-            "title": self.title}
+            "title": self.title,
+            "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'), 
+            "dateCreated2": link['date_created'].strftime("%b %d, %Y"),
+            "slug": slug,
+            "stealth": False, 
+            "audience": [], 
+            "clicks": 0
+            }
 
         return response

@@ -283,7 +283,7 @@ save.onclick = function (e) {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
-  regexp2 = /^[a-zA-Z0-9_:]+(?:[\w-| ]*[a-zA-Z0-9]+)*$/gm;
+  regexp2 = /^[a-zA-Z0-9_.:]+(?:[\w-|. ]*[a-zA-Z0-9]+)*$/gm;
   OK1 = regexp2.test(newTitle);
   OK2 = regexp.test(newSlug);
   if (!OK1 || !OK2) {
@@ -522,10 +522,49 @@ async function shorten(longURL) {
       fillType: 'filled-lm',
     });
   } else {
+    addToView(response);
+    window.history.back();
     halfmoon.initStickyAlert({
       content: 'Abbrefy Link Created Successfully',
       alertType: 'alert-success',
       fillType: 'filled-lm',
     });
   }
+}
+// helper function to update view after abbrefying Long URL
+function addToView(data) {
+  initLinks = document.querySelector('#abbrefy__links__con');
+  console.log(data);
+
+  const newLink = `<a class="bitlink-item--MAIN"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">
+            <i class="fas fa-code-branch"></i></div></span><time data-date_created="${
+              data.dateCreated
+            }" class="bitlink-item--created-date" datetime="05-26-2021">${
+    data.dateCreated2
+  }</time>
+
+        
+
+        <div data-author="${
+          document.querySelector('.bitlink-item--title').dataset.author
+        }" data-title="${data.title}" class="bitlink-item--title">
+         ${data.title}
+        </div>
+        
+
+        <div>
+          <div class="bitlink--MAIN" data-origin="${
+            data.origin
+          }" data-stealth="${data.stealth}" tabindex="-1" title="abbrefy.xyz/${
+    data.slug
+  }" data-abbrefy="abbrefy.xyz/${data.slug}">
+            abbrefy.xyz/<span>${data.slug}</span>
+          </div>
+          <span data-clicks="${data.clicks}" data-audience="${
+    data.audience
+  }" class="click-count--MAIN">${
+    data.clicks
+  }<span class="icon clicks-icon"></span></span></div></a>`;
+
+  initLinks.innerHTML = newLink + initLinks.innerHTML;
 }
