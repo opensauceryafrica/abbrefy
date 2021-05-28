@@ -283,7 +283,7 @@ save.onclick = function (e) {
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
 
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
-  regexp2 = /^[a-zA-Z0-9_.:]+(?:[\w-|. ]*[a-zA-Z0-9]+)*$/gm;
+  regexp2 = /^[a-zA-Z0-9_.:|()]+(?:[\w-|.(): ]*[a-zA-Z0-9]+)*$/gm;
   OK1 = regexp2.test(newTitle);
   OK2 = regexp.test(newSlug);
   if (!OK1 || !OK2) {
@@ -489,7 +489,9 @@ create.onclick = function () {
   } else {
     document.querySelector('#url__error').textContent = '';
   }
-  create.remove;
+  create.textContent = 'Abbrefying...';
+  create.style.backgroundColor = '#e67083';
+
   if (isAuth != 'True') {
     window.history.back();
     return halfmoon.initStickyAlert({
@@ -516,6 +518,8 @@ async function shorten(longURL) {
 
   // handling server response
   if (response.status == false) {
+    create.textContent = 'Abbrefy';
+    create.style.backgroundColor = '#e3425a';
     halfmoon.initStickyAlert({
       content: get_error(response.error),
       alertType: 'alert-danger',
@@ -533,7 +537,13 @@ async function shorten(longURL) {
 }
 // helper function to update view after abbrefying Long URL
 function addToView(data) {
+  const linkCount = document.querySelector('.link__count');
+  linkCount.textContent = parseInt(linkCount.textContent) + 1;
+  document.querySelector('#abbrefy__url').value = '';
+  create.textContent = 'Abbrefy';
+  create.style.backgroundColor = '#e3425a';
   initLinks = document.querySelector('#abbrefy__links__con');
+
   console.log(data);
 
   const newLink = `<a class="bitlink-item--MAIN"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">

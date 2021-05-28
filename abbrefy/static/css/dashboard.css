@@ -5,3 +5,11 @@ a{
     cursor: pointer;
 }
 
+.content-wrapper{
+    overflow: unset !important;
+}
+
+.list--MAIN,
+.item-detail--MAIN {
+    height: calc(100vh - 10rem) !important;
+}
