@@ -193,11 +193,7 @@
                 class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="nav-link-dropdown-toggle"
               >
-                <a
-                  href="{{url_for('main.solutions')}}#simplified"
-                  class="dropdown-item"
-                  >Profile</a
-                >
+                <a href="#modal-3" class="dropdown-item">Profile</a>
                 <a
                   href="{{url_for('main.solutions')}}#analytics"
                   class="dropdown-item"
@@ -358,6 +354,83 @@
         </div>
       </div>
       <!-- create abbrefy link end -->
+
+      <!-- modify profile modal -->
+      <div class="modal" id="modal-3" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- <a href="#" class="close" role="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a> -->
+            <h6 style="color: #e3425a; font-size: 2rem" class="modal-title">
+              Edit Profile
+            </h6>
+
+            <!-- Rendering Edit Profile Form  -->
+            <form
+              method="POST"
+              class="form-signin"
+              enctype="multipart/form-data"
+            >
+              <fieldset class="w-400 mw-full">
+                <!-- username input -->
+                <div class="form-group">
+                  <label for="full-name">Username</label>
+                  <input type="text" class="form-control" id="abbrefy__title" />
+                  <small id="title__error" class="invalid-feedback"></small>
+                </div>
+                <div style="text-align: center"><h5>Change Password</h1></div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="abbrefy__slug" />
+                  <small id="slug__error" class="invalid-feedback"></small>
+                  <label for="full-name">Previous Password</label>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" id="abbrefy__slug" />
+                  <small id="slug__error" class="invalid-feedback"></small>
+                  <label for="full-name">New Password</label>
+                </div>
+                <div class="form-group">
+                  <!-- <div class="custom-switch">
+                    <input type="checkbox" id="abbrefy__stealth" />
+                    <label for="abbrefy__stealth">Stealth Mode</label>
+                    <small
+                      data-toggle="tooltip"
+                      data-title="Make abbrefy links inactive without deleting them"
+                      data-placement="right"
+                      style="padding: 0.2rem"
+                      ><i class="far fa-question-circle"></i
+                    ></small>
+                  </div> -->
+
+                  <!-- <button type="button">Right</button> -->
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-right mt-20">
+                  <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+                  <a
+                    style="
+                      outline-color: #e3425a;
+                      border-color: #e3425a;
+                      font-weight: 600;
+                    "
+                    href="#"
+                    id="cancel"
+                    class="btn mr-5"
+                    role="button"
+                    >Cancel</a
+                  >
+                  <a id="update" class="btn btn-primary mr-5" role="button"
+                    >Update</a
+                  >
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- modify profile modal end -->
 
       <!-- Content wrapper -->
       <div class="content-wrapper">
