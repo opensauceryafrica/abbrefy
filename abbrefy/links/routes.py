@@ -145,7 +145,9 @@ def delete():
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
 
         response = Link.delete(link)
-        print(response)
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"})
+
         return jsonify({"status": True, "message": "DELETE_SUCCESS", "data": response}), 200
 
     except KeyError:

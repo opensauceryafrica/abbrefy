@@ -93,23 +93,34 @@ def signout(user):
 @users.route('/auth/profile/', methods=['POST'])
 @login_required
 def profile(user):
-    # getting the request data
-    data = request.get_json()
-    # validating the data was sent
-    if not data:
+    try:
+
+        # getting the request data
+        data = request.get_json()
+        # validating the data was sent
+        if not data:
+            return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+        if not validate_username(data['usernameData']):
+            return jsonify({"status": False,
+                            "error": "DATA_VALIDATION_ERROR"}), 200
+
+        # creating the URL object and abbrefying it
+        if not "current_user" in session:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        user = session['current_user']['public_id']
+        response = User().update_profile(user, data)
+        print(response)
+
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+        return jsonify({"status": True, "message": "UPDATE_SUCCESS", "data": response}), 200
+
+    # handling errors
+    except KeyError:
         return jsonify({"status": False, "error": "DATA_ERROR"}), 400
 
-    if not validate_username(data['usernameData']):
-        return jsonify({"status": False,
-                        "error": "DATA_VALIDATION_ERROR"}), 200
-
-    # creating the URL object and abbrefying it
-    if not "current_user" in session:
-        return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
-
-    user = session['current_user']['public_id']
-    response = User().update_profile(user, data)
-
-    print(response)
-
-    return jsonify({"status": True}), 200
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
