@@ -100,10 +100,14 @@ def profile(user):
         # validating the data was sent
         if not data:
             return jsonify({"status": False, "error": "DATA_ERROR"}), 400
-
+        # validating the username character context
         if not validate_username(data['usernameData']):
             return jsonify({"status": False,
-                            "error": "DATA_VALIDATION_ERROR"}), 200
+                            "error": "DATA_VALIDATION_ERROR"}), 400
+        # validating the username length
+        if len(data['usernameData']) > 10 or len(data['usernameData']) < 3:
+            return jsonify({"status": False,
+                            "error": "CHARACTER_LIMIT_ERROR"}), 400
 
         # creating the URL object and abbrefying it
         if not "current_user" in session:
@@ -111,7 +115,12 @@ def profile(user):
 
         user = session['current_user']['public_id']
         response = User().update_profile(user, data)
-        print(response)
+
+        if response == False:
+            return jsonify({"status": False, "error": "PASSWORD_MATCH_ERROR"}), 400
+
+        if response == True:
+            return jsonify({"status": False, "error": "SECURE_PASSWORD_ERROR"}), 400
 
         if response['status'] == False:
             return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400

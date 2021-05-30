@@ -185,7 +185,12 @@
                 id="nav-link-dropdown-toggle"
               >
                 <i class="far fa-user mr-5"></i>
-                {{session['current_user']['username']}}
+                <span
+                  class="username"
+                  data-author="{{session['current_user']['username']}}"
+                >
+                  {{session['current_user']['username']}}</span
+                >
                 <i class="fa fa-angle-down ml-5" aria-hidden="true"></i>
               </a>
               <div

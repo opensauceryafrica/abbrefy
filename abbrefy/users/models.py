@@ -2,6 +2,7 @@ from uuid import uuid4
 from abbrefy import bcrypt, mongo
 from datetime import datetime
 from flask import session
+import safe
 
 
 # the User class
@@ -107,6 +108,9 @@ class User:
                 if key == "passwordData":
                     if not (bcrypt.check_password_hash(user['password'], data[key]['oldPassword'])):
                         return False
+                    strong = safe.check(data[key]['newPassword'])
+                    if not strong:
+                        return True
                     newPassword = bcrypt.generate_password_hash(
                         data[key]['newPassword']).decode("utf-8")
                     updateData["password"] = newPassword
@@ -122,17 +126,16 @@ class User:
             # starting a new session for the user
             userData = self.init_session(userUpdate)
 
+            response = {
+                "status": True,
+                "message": "Your profile has been updated successfully",
+                "userData": userData
+            }
+
         except:
             response = {
                 "status": False,
                 "error": "Something went wrong. Please try again."
             }
-            return response
-
-        response = {
-            "status": True,
-            "message": "Your profiel has been updated successfully",
-            "userData": userData
-        }
-
+            # return response
         return response

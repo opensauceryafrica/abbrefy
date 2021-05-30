@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // setting the Edit Profile Username on page load
-  document.querySelector('#username').value = document.querySelector(
-    '.bitlink-item--title'
-  ).dataset.author;
+  document.querySelector('#username').value =
+    document.querySelector('.username').dataset.author;
 
   document.querySelector('.bitlink-item--MAIN').classList =
     'bitlink-item--ACTIVE';
@@ -423,10 +422,10 @@ function get_error(identifier) {
     EXISTENCE_ERROR: "We couldn't find that link",
     AUTHORIZATION_ERROR: "You aren't authorized for that action",
     UNKNOWN_ERROR: 'Something completely went wrong',
-    CHARACTER_LIMIT: 'You have exceeded the character limit',
+    CHARACTER_LIMIT_ERROR: 'You have exceeded the character limit',
     DATA_VALIDATION_ERROR: 'Invalid characters in data sent',
     SECURE_PASSWORD_ERROR: 'Password not strong enough',
-    PASSWORD_MATCH_ERROR: 'Your password do not match',
+    PASSWORD_MATCH_ERROR: 'You provided the wrong password',
   };
   return messages[identifier];
 }
@@ -455,7 +454,7 @@ async function deleteLink(data) {
 
   // handling response based on error gotten
   if (response.status == false) {
-    history.back();
+    window.history.back();
     // document.querySelector('#slug__error').textContent = '';
     halfmoon.initStickyAlert({
       content: get_error(response.error),
@@ -529,6 +528,7 @@ async function shorten(longURL) {
   if (response.status == false) {
     create.textContent = 'Abbrefy';
     create.style.backgroundColor = '#e3425a';
+    window.history.back();
     halfmoon.initStickyAlert({
       content: get_error(response.error),
       alertType: 'alert-danger',
@@ -565,7 +565,7 @@ function addToView(data) {
         
 
         <div data-author="${
-          document.querySelector('.bitlink-item--title').dataset.author
+          document.querySelector('.username').dataset.author
         }" data-title="${data.title}" class="bitlink-item--title">
          ${data.title}
         </div>
@@ -599,7 +599,7 @@ update.onclick = function () {
   let validator = /^[a-zA-Z0-9_]+$/gm;
   let validated = validator.test(newUsername);
 
-  if (newUsername.length == 0 || newUsername.length > 10) {
+  if (newUsername.length < 3 || newUsername.length > 10) {
     return (document.querySelector('#username__error').textContent =
       'must be between 3 and 10 characters');
   } else if (!validated) {
@@ -619,7 +619,7 @@ update.onclick = function () {
 
     profileData.passwordData = passwordData;
   }
-  console.log(profileData);
+  update.textContent = 'Updating...';
   updateProfile(profileData);
 };
 
@@ -634,10 +634,63 @@ async function updateProfile(data) {
   });
 
   response = await request.json();
-  console.log(response);
+  // handling server response
+  if (response.status == false) {
+    if (response.error == 'PASSWORD_MATCH_ERROR') {
+      document.querySelector('#new__error').textContent = '';
+      document.querySelector('#old__error').textContent = get_error(
+        response.error
+      );
+      // reseting the button value
+      update.textContent = 'Update';
+      create.style.backgroundColor = '#e3425a';
+    } else if (response.error == 'SECURE_PASSWORD_ERROR') {
+      document.querySelector('#old__error').textContent = '';
+      document.querySelector('#new__error').textContent = get_error(
+        response.error
+      );
+      // reseting the button value
+      update.textContent = 'Update';
+      create.style.backgroundColor = '#e3425a';
+    } else {
+      // clearing the errors
+      document.querySelector('#new__error').textContent = '';
+      document.querySelector('#old__error').textContent = '';
+      // reseting the button value
+      update.textContent = 'Update';
+      create.style.backgroundColor = '#e3425a';
+      document.querySelector('#old__pass').value = '';
+      document.querySelector('#new__pass').value = '';
+      window.history.back();
+      halfmoon.initStickyAlert({
+        content: get_error(response.error),
+        alertType: 'alert-danger',
+        fillType: 'filled-lm',
+      });
+    }
+  } else {
+    profileViewMod(response.data.userData.username);
+    document.querySelector('#username').value =
+      document.querySelector('.username').dataset.author;
+    window.history.back();
+    halfmoon.initStickyAlert({
+      content: 'Profile update successfully',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+  }
 }
 
-// handling form clearing after request is complete
-// handling request sending
-// ensure data doesn't change at backend when nothing is changing
-// set up validation for username data on frontend and backend
+function profileViewMod(username) {
+  let oldPassword = document.querySelector('#old__pass').value;
+  let newPassword = document.querySelector('#new__pass').value;
+  // setting the username in all aspect of the view
+  document.querySelectorAll('.username')[0].textContent = username;
+  document.querySelectorAll('.username')[1].textContent = username;
+  document.querySelector('.username').dataset.author = username;
+  update.textContent = 'Update';
+  create.style.backgroundColor = '#e3425a';
+  // clearing the input of the password fields
+  oldPassword = '';
+  newPassword = '';
+}

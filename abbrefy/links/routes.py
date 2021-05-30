@@ -112,6 +112,8 @@ def update():
         # print(update_data)
 
         response = Link.update_link(filter, link, update)
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"})
         return jsonify({"status": True, "message": "UPDATE_SUCCESS", "data": response}), 201
 
     except KeyError:
