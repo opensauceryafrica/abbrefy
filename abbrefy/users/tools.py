@@ -1,6 +1,8 @@
 # importing modules
 from functools import wraps
 from flask import session, flash, redirect, url_for
+import re
+
 
 # login in required decorator
 def login_required(f):
@@ -29,3 +31,12 @@ def no_login_required(f):
         return f(*args, **kwargs)
 
     return decorated
+
+
+# helper function for validating username
+def validate_username(username):
+    validator = "^[a-zA-Z0-9_]+$"
+    validated = re.match(validator, username)
+    if not validated:
+        return False
+    return True

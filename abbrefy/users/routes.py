@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, jsonif
 from datetime import datetime
 from abbrefy.users.forms import RegistrationForm, LoginForm
 from abbrefy.users.models import User
-from abbrefy.users.tools import login_required, no_login_required
+from abbrefy.users.tools import login_required, no_login_required, validate_username
 # attaching the users blueprint
 users = Blueprint('users', __name__)
 
@@ -80,9 +80,36 @@ def dashboard(user, username):
     return render_template('dashboard.html', datetime=datetime, site_title=site_title, links=links, len=len)
 
 
+# the signout route
 @users.route('/auth/signout/', methods=['GET'])
 @login_required
 def signout(user):
     response = User.signout()
     if response:
         return redirect(url_for('main.home'))
+
+
+# the update profile route
+@users.route('/auth/profile/', methods=['POST'])
+@login_required
+def profile(user):
+    # getting the request data
+    data = request.get_json()
+    # validating the data was sent
+    if not data:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+    if not validate_username(data['usernameData']):
+        return jsonify({"status": False,
+                        "error": "DATA_VALIDATION_ERROR"}), 200
+
+    # creating the URL object and abbrefying it
+    if not "current_user" in session:
+        return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+    user = session['current_user']['public_id']
+    response = User().update_profile(user, data)
+
+    print(response)
+
+    return jsonify({"status": True}), 200

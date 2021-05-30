@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // setting the Edit Profile Username on page load
+  document.querySelector('#username').value = document.querySelector(
+    '.bitlink-item--title'
+  ).dataset.author;
+
   document.querySelector('.bitlink-item--MAIN').classList =
     'bitlink-item--ACTIVE';
 
@@ -418,6 +423,10 @@ function get_error(identifier) {
     EXISTENCE_ERROR: "We couldn't find that link",
     AUTHORIZATION_ERROR: "You aren't authorized for that action",
     UNKNOWN_ERROR: 'Something completely went wrong',
+    CHARACTER_LIMIT: 'You have exceeded the character limit',
+    DATA_VALIDATION_ERROR: 'Invalid characters in data sent',
+    SECURE_PASSWORD_ERROR: 'Password not strong enough',
+    PASSWORD_MATCH_ERROR: 'Your password do not match',
   };
   return messages[identifier];
 }
@@ -578,3 +587,57 @@ function addToView(data) {
 
   initLinks.innerHTML = newLink + initLinks.innerHTML;
 }
+
+// helper function for updating the USER PROFILE
+const update = document.querySelector('#update');
+
+update.onclick = function () {
+  let newUsername = document.querySelector('#username').value;
+  let oldPassword = document.querySelector('#old__pass').value;
+  let newPassword = document.querySelector('#new__pass').value;
+
+  let validator = /^[a-zA-Z0-9_]+$/gm;
+  let validated = validator.test(newUsername);
+
+  if (newUsername.length == 0 || newUsername.length > 10) {
+    return (document.querySelector('#username__error').textContent =
+      'must be between 3 and 10 characters');
+  } else if (!validated) {
+    return (document.querySelector('#username__error').textContent =
+      'can contain only text and underscore');
+  } else {
+    document.querySelector('#username__error').textContent = '';
+  }
+
+  let profileData = { usernameData: newUsername };
+
+  if (oldPassword.length > 0 && newPassword.length > 0) {
+    let passwordData = {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    };
+
+    profileData.passwordData = passwordData;
+  }
+  console.log(profileData);
+  updateProfile(profileData);
+};
+
+async function updateProfile(data) {
+  let profileUrl = '/auth/profile/';
+  request = await fetch(profileUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  response = await request.json();
+  console.log(response);
+}
+
+// handling form clearing after request is complete
+// handling request sending
+// ensure data doesn't change at backend when nothing is changing
+// set up validation for username data on frontend and backend

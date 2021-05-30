@@ -80,7 +80,34 @@ class User:
     def check_username(username):
         return mongo.db.users.find_one({"username": username.lower()})
 
+    # link retrieval helper function
     @staticmethod
     def my_links(user):
-        links = mongo.db.links.find({"author": user['public_id']}).sort('date_created', -1)
+        links = mongo.db.links.find(
+            {"author": user['public_id']}).sort('date_created', -1)
         return links
+
+    # user retrieval helper function
+    @staticmethod
+    def get_user(public_id):
+        return mongo.db.users.find_one({"public_id": public_id})
+
+    # profile update helper function
+    def update_profile(self, user, data):
+        updateData = {}
+
+        user = self.get_user(user)
+        for key in data:
+            if key == "usernameData":
+                if user['username'] == data[key]:
+                    continue
+                updateData["username"] = data[key]
+
+            if key == "passwordData":
+                if not (bcrypt.check_password_hash(user['password'], data[key]['oldPassword'])):
+                    return False
+
+        update = {"$set": updateData}
+        mongo.db.update_one(user['public_id'], updateData)
+
+        return True

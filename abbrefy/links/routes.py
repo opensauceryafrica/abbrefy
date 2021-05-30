@@ -64,7 +64,8 @@ def router(slug):
     if location not in link['audience']:
         link['audience'].append(location)
         new['audience'] = link['audience']
-        update = {"$set": {"clicks": new['clicks'], "audience": new['audience']}}
+        update = {
+            "$set": {"clicks": new['clicks'], "audience": new['audience']}}
     else:
         update = {"$set": {"clicks": new['clicks']}}
     response = Link.update_link(filter, new, update)
@@ -86,11 +87,11 @@ def update():
         # checking if the link exists on abbrefy
         if not Link.check_slug(data['idSlug']):
             return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
-        
+
         if "slug" in data:
             if data['slug'] and Link.check_slug(data['slug']):
                 return jsonify({"status": False, "error": "USAGE_ERROR"}), 400
-        
+
         # creating the URL object and abbrefying it
         if not "current_user" in session:
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
@@ -109,16 +110,15 @@ def update():
         filter = {"slug": data['idSlug']}
         update = {"$set": update_data}
         # print(update_data)
-  
+
         response = Link.update_link(filter, link, update)
         return jsonify({"status": True, "message": "UPDATE_SUCCESS", "data": response}), 201
-        
+
     except KeyError:
         return jsonify({"status": False, "error": "DATA_ERROR"}), 400
-    
+
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
-
 
 
 @links.route('/api/hidden/url/delete/', methods=['DELETE'])
@@ -140,7 +140,7 @@ def delete():
         # retrieving the link from the DB
         link = Link().get_link(data['idSlug'])
         author = session['current_user']['public_id']
-        
+
         if link['author'] != author:
             return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
 
@@ -150,6 +150,6 @@ def delete():
 
     except KeyError:
         return jsonify({"status": False, "error": "DATA_ERROR"}), 400
-    
+
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
