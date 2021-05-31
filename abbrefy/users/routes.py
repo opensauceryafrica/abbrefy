@@ -70,7 +70,7 @@ def signin():
 
 
 # the dashboard route
-@users.route('/<string:username>/dashboard/', methods=['GET', 'POST'])
+@users.route('/<string:username>/dashboard/')
 @login_required
 def dashboard(user, username):
 
@@ -133,3 +133,34 @@ def profile(user):
 
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+
+# the API Key route
+@users.route('/auth/account/apiKey/', methods=['POST'])
+@login_required
+def account(user):
+    try:
+
+        # getting the request data
+        data = request.get_json()
+        # validating the data was sent
+        if not data:
+            return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+        # creating the URL object and abbrefying it
+        if not "current_user" in session:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        user = user['public_id']
+        response = User().generate_api_key(user)
+
+        print(response)
+
+        return jsonify(response)
+
+    # handling errors
+    except KeyError:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+    # except:
+    #     return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400

@@ -228,3 +228,33 @@
 
 {% endblock content %}
 <!-- overriding for external contents end -->
+
+<!-- overriding for API Keys -->
+{% block apiKeys %}
+<div class="form-group">
+  <label for="full-name">API Key One</label>
+  <input
+    value=""
+    readonly
+    type="text"
+    class="form-control"
+    id="api__key__one"
+  />
+  <small id="old__error" class="invalid-feedback"></small>
+  <div class="text-right mt-5">
+    <a class="api__delete mr-5" role="button">Delete</a>
+  </div>
+</div>
+
+<!-- <div class="form-group">
+  <label for="full-name">API Key Two</label>
+  <input type="text" class="form-control" id="api__key__two" />
+  <small id="new__error" class="invalid-feedback"></small>
+
+  <div class="text-right mt-5">
+    <a class="api__delete mr-5" role="button">Delete</a>
+  </div>
+</div> -->
+{% endblock apiKeys %}
+
+<!-- overriding for API Keys end -->

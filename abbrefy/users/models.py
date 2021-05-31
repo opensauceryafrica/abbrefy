@@ -139,3 +139,52 @@ class User:
             }
             # return response
         return response
+
+    # generate API Key helper function
+    def generate_api_key(self, id):
+
+        try:
+            # getting the user object
+            user = self.get_user(id)
+            # retrieving all the user's API keys
+            userKeys = self.get_keys(user)
+            # validating user hasn't created more than 2 API keys
+            if userKeys.count() > 2:
+                return False
+
+            # creating the API key object
+            key = {
+                "author": user['public_id'],
+                "apiKey": uuid4().hex,
+                "dateCreated": datetime.utcnow()
+            }
+            # adding the API key to the database
+            mongo.db.keys.insert(key)
+
+            del key["_id"]
+
+        except:
+
+            response = {
+                "status": False,
+                "message": "Something went wrong. Please try again."
+            }
+
+            return response
+
+        response = {
+            "status": True,
+            "message": "API Key successfully generate",
+            "apiData": key
+        }
+        return response
+
+    # retrieve API Key helper function
+    @staticmethod
+    def get_key_owner(key):
+        return mongo.db.keys.find_one({"apiKey": key})['author']
+
+    # retrieve API Key helper function
+    @staticmethod
+    def get_keys(user):
+        return mongo.db.keys.find({"author": user['public_id']})

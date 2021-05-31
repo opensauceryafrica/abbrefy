@@ -623,6 +623,7 @@ update.onclick = function () {
   updateProfile(profileData);
 };
 
+// helper function for sending profile update request
 async function updateProfile(data) {
   let profileUrl = '/auth/profile/';
   request = await fetch(profileUrl, {
@@ -680,7 +681,7 @@ async function updateProfile(data) {
     });
   }
 }
-
+// helper function for updating UI after profile update
 function profileViewMod(username) {
   // setting the username in all aspect of the view
   document.querySelectorAll('.username')[0].textContent = username;
@@ -692,3 +693,22 @@ function profileViewMod(username) {
   document.querySelector('#old__pass').value = '';
   document.querySelector('#new__pass').value = '';
 }
+
+const key = document.querySelector('#createKey');
+// helper function for creating API key
+key.onclick = async function createKey() {
+  let apiKeyUrl = '/auth/account/apiKey/';
+  request = await fetch(apiKeyUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      action: 'createAPIKey',
+    }),
+  });
+
+  response = await request.json();
+  // handling server response
+  console.log(response);
+};
