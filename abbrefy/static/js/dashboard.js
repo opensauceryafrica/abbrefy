@@ -682,8 +682,6 @@ async function updateProfile(data) {
 }
 
 function profileViewMod(username) {
-  let oldPassword = document.querySelector('#old__pass').value;
-  let newPassword = document.querySelector('#new__pass').value;
   // setting the username in all aspect of the view
   document.querySelectorAll('.username')[0].textContent = username;
   document.querySelectorAll('.username')[1].textContent = username;
@@ -691,6 +689,6 @@ function profileViewMod(username) {
   update.textContent = 'Update';
   create.style.backgroundColor = '#e3425a';
   // clearing the input of the password fields
-  oldPassword = '';
-  newPassword = '';
+  document.querySelector('#old__pass').value = '';
+  document.querySelector('#new__pass').value = '';
 }

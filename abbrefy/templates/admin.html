@@ -169,7 +169,7 @@
                 class="nav-link btn btn-primary"
                 data-toggle="dropdown"
                 id="nav-link-dropdown-toggle"
-                href="#modal-2"
+                href="#abbrefyCreate"
               >
                 <i class="fas fa-link mr-5"></i>
                 Abbrefy
@@ -198,11 +198,8 @@
                 class="dropdown-menu dropdown-menu-right"
                 aria-labelledby="nav-link-dropdown-toggle"
               >
-                <a href="#modal-3" class="dropdown-item">Profile</a>
-                <a
-                  href="{{url_for('main.solutions')}}#analytics"
-                  class="dropdown-item"
-                >
+                <a href="#profile" class="dropdown-item">Profile</a>
+                <a href="#account" class="dropdown-item">
                   Account
                   <!-- <strong class="badge badge-success float-right">Soon</strong> -->
                   <!-- float-right = float: right -->
@@ -239,7 +236,7 @@
       <!-- Navbar end -->
 
       <!-- update abbrefy link modal -->
-      <div class="modal" id="modal-1" tabindex="-1" role="dialog">
+      <div class="modal" id="abbrefyEdit" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <!-- <a href="#" class="close" role="button" aria-label="Close">
@@ -309,7 +306,7 @@
       <!-- update abbrefy link modal end -->
 
       <!-- create abbrefy link -->
-      <div class="modal" id="modal-2" tabindex="-1" role="dialog">
+      <div class="modal" id="abbrefyCreate" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <!-- <a href="#" class="close" role="button" aria-label="Close">
@@ -361,7 +358,7 @@
       <!-- create abbrefy link end -->
 
       <!-- modify profile modal -->
-      <div class="modal" id="modal-3" tabindex="-1" role="dialog">
+      <div class="modal" id="profile" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <!-- <a href="#" class="close" role="button" aria-label="Close">
@@ -431,6 +428,86 @@
         </div>
       </div>
       <!-- modify profile modal end -->
+
+      <!-- account settings modal -->
+      <div class="modal" id="account" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <!-- <a href="#" class="close" role="button" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a> -->
+            <h6 style="color: #e3425a; font-size: 2rem" class="modal-title">
+              Account Settings
+            </h6>
+
+            <!-- Rendering Edit Profile Form  -->
+            <form
+              method="POST"
+              class="form-signin"
+              enctype="multipart/form-data"
+            >
+              <fieldset class="w-400 mw-full">
+                <!-- username input -->
+                <div
+                  style="
+                    text-align: left;
+                    color: #e3425a;
+                    font-size: 2rem;
+                    font-weight: 600;
+                  "
+                >
+                  <p>My API Keys</p>
+                </div>
+
+                <div class="form-group">
+                  <label for="full-name">API Key One</label>
+                  <input type="text" class="form-control" id="api__key__one" />
+                  <small id="old__error" class="invalid-feedback"></small>
+                  <div class="text-right mt-5">
+                    <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+
+                    <a id="update" class="mr-5" role="button">Delete</a>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="full-name">API Key Two</label>
+                  <input type="text" class="form-control" id="api__key__two" />
+                  <small id="new__error" class="invalid-feedback"></small>
+
+                  <div class="text-right mt-5">
+                    <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+
+                    <a id="update" class="mr-5" role="button">Delete</a>
+                  </div>
+                </div>
+
+                <div class="form-group"></div>
+                <div class="text-right mt-20">
+                  <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+                  <a
+                    style="
+                      outline-color: #e3425a;
+                      border-color: #e3425a;
+                      font-weight: 600;
+                    "
+                    href="#"
+                    id="cancel"
+                    class="btn mr-5"
+                    role="button"
+                    >Cancel</a
+                  >
+                  <a id="update" class="btn btn-primary mr-5" role="button"
+                    >Create New</a
+                  >
+                </div>
+                <!-- Submit button -->
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- account settings modal end -->
 
       <!-- Content wrapper -->
       <div class="content-wrapper">
