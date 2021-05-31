@@ -426,6 +426,7 @@ function get_error(identifier) {
     DATA_VALIDATION_ERROR: 'Invalid characters in data sent',
     SECURE_PASSWORD_ERROR: 'Password not strong enough',
     PASSWORD_MATCH_ERROR: 'You provided the wrong password',
+    KEY_LIMIT_EXCEEDED: 'You have exceeded the allowed API Key limit',
   };
   return messages[identifier];
 }
@@ -697,6 +698,7 @@ function profileViewMod(username) {
 const key = document.querySelector('#createKey');
 // helper function for creating API key
 key.onclick = async function createKey() {
+  key.textContent = 'Creating...';
   let apiKeyUrl = '/auth/account/apiKey/';
   request = await fetch(apiKeyUrl, {
     method: 'POST',
@@ -711,4 +713,16 @@ key.onclick = async function createKey() {
   response = await request.json();
   // handling server response
   console.log(response);
+
+  if (response.status === false) {
+    key.textContent = 'Create API Key';
+    window.history.back();
+    halfmoon.initStickyAlert({
+      content: get_error(response.error),
+      alertType: 'alert-danger',
+      fillType: 'filled-lm',
+    });
+  } else {
+    key.textContent = 'Create API Key';
+  }
 };

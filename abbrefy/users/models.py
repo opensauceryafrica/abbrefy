@@ -149,7 +149,7 @@ class User:
             # retrieving all the user's API keys
             userKeys = self.get_keys(user)
             # validating user hasn't created more than 2 API keys
-            if userKeys.count() > 2:
+            if userKeys.count() >= 2:
                 return False
 
             # creating the API key object

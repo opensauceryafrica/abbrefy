@@ -154,9 +154,13 @@ def account(user):
         user = user['public_id']
         response = User().generate_api_key(user)
 
-        print(response)
+        if response == False:
+            return jsonify({"status": False, "error": "KEY_LIMIT_EXCEEDED"}), 400
 
-        return jsonify(response)
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+        return jsonify({"status": True, "message": "CREATE_SUCCESS", "data": response}), 200
 
     # handling errors
     except KeyError:
