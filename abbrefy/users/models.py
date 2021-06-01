@@ -199,7 +199,7 @@ class User:
                 return False
 
             # deleting the API key from the database
-            mongo.db.links.delete_one({"apiKey": key})
+            mongo.db.keys.delete_one({"apiKey": key})
 
         except:
 

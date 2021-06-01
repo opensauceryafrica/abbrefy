@@ -1,3 +1,5 @@
+// getting API Key Elements
+getEl();
 document.addEventListener('DOMContentLoaded', () => {
   // setting the Edit Profile Username on page load
   document.querySelector('#username').value =
@@ -724,66 +726,78 @@ key.onclick = async function createKey() {
     });
   } else {
     key.textContent = 'Create API Key';
+    content = `
+    <div class="form-group">
+  <label for="full-name">API Key</label>
+  <input
+    value="${response.data.apiData.apiKey}"
+    readonly
+    type="text"
+    class="form-control api__key"
+  />
+  <!-- <small id="old__error" class="invalid-feedback"></small> -->
+  <div class="text-right mt-5">
+    <a class="api__delete mr-5" role="button">Delete</a>
+  </div>
+</div>
+    
+    `;
+
+    document.querySelector('#api__key__con').innerHTML += content;
   }
+  getEl();
 };
 
 // function for handling API Keys
-{
-  let apiKeys = document.querySelectorAll('.api__key');
-  let apiDelete = document.querySelectorAll('.api__delete');
-
-  // helper function for copying API Keys to clipboard
-  apiKeys.forEach((key) => {
-    key.onclick = function () {
-      key.select();
-      key.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      window.history.back();
-      halfmoon.initStickyAlert({
-        content: 'API key copied',
-        alertType: 'alert-success',
-        fillType: 'filled-lm',
-      });
-    };
-  });
-
-  // helper function for deleting API Keys
-  apiDelete.forEach((key) => {
-    key.onclick = async function () {
-      apiKey = key.parentElement.parentElement.querySelector('input').value;
-      let apiKeyDeleteUrl = '/auth/account/apiKey/delete';
-      request = await fetch(apiKeyDeleteUrl, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          apiKey: apiKey,
-        }),
-      });
-
-      response = await request.json();
-      // handling server response
-      console.log(response);
-
-      if (response.status === false) {
-        window.history.back();
-        halfmoon.initStickyAlert({
-          content: get_error(response.error),
-          alertType: 'alert-danger',
-          fillType: 'filled-lm',
-        });
-      } else {
-        key.parentElement.parentElement.remove();
-      }
-    };
-  });
+function getEl() {
+  apiKeys = document.querySelectorAll('.api__key');
+  apiDelete = document.querySelectorAll('.api__delete');
 }
 
-`
-TODO
+// helper function for copying API Keys to clipboard
+apiKeys.forEach((key) => {
+  key.onclick = function () {
+    key.select();
+    key.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    window.history.back();
+    halfmoon.initStickyAlert({
+      content: 'API key copied',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+  };
+});
 
+// helper function for deleting API Keys
+apiDelete.forEach((key) => {
+  key.onclick = async function () {
+    apiKey = key.parentElement.parentElement.querySelector('input').value;
+    let apiKeyDeleteUrl = '/auth/account/apiKey/delete';
+    request = await fetch(apiKeyDeleteUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        apiKey: apiKey,
+      }),
+    });
 
-handling the adding of new API key to the DOM after creation
+    response = await request.json();
+    // handling server response
+    console.log(response);
 
-`;
+    if (response.status === false) {
+      window.history.back();
+      halfmoon.initStickyAlert({
+        content: get_error(response.error),
+        alertType: 'alert-danger',
+        fillType: 'filled-lm',
+      });
+    } else {
+      key.parentElement.parentElement.remove();
+      getEl();
+    }
+  };
+});
