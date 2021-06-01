@@ -174,7 +174,7 @@ class User:
 
         response = {
             "status": True,
-            "message": "API Key successfully generate",
+            "message": "API Key successfully generated",
             "apiData": key
         }
         return response
@@ -188,3 +188,30 @@ class User:
     @staticmethod
     def get_keys(user):
         return mongo.db.keys.find({"author": user['public_id']})
+
+    # delete API Key helper function
+    def delete_api_key(self, user, key):
+        try:
+            # getting the key owner
+            author = self.get_key_owner(key)
+
+            if author != user:
+                return False
+
+            # deleting the API key from the database
+            mongo.db.links.delete_one({"apiKey": key})
+
+        except:
+
+            response = {
+                "status": False,
+                "message": "Something went wrong. Please try again."
+            }
+
+            return response
+
+        response = {
+            "status": True,
+            "message": "API Key successfully deleted",
+        }
+        return response

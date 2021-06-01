@@ -139,7 +139,7 @@ def profile(user):
 # the API Key route
 @users.route('/auth/account/apiKey/', methods=['POST'])
 @login_required
-def account(user):
+def create(user):
     try:
 
         # getting the request data
@@ -167,5 +167,39 @@ def account(user):
     except KeyError:
         return jsonify({"status": False, "error": "DATA_ERROR"}), 400
 
-    # except:
-    #     return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+
+# the API Key route
+@users.route('/auth/account/apiKey/delete', methods=['DELETE'])
+@login_required
+def delete(user):
+    try:
+
+        # getting the request data
+        data = request.get_json()
+        # validating the data was sent
+        if not data:
+            return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+        # creating the URL object and abbrefying it
+        if not "current_user" in session:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        response = User().delete_api_key(user['public_id'], data['apiKey'])
+
+        if response == False:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+        return jsonify({"status": True, "message": "DELETE_SUCCESS", "data": response}), 200
+
+    # handling errors
+    except KeyError:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400

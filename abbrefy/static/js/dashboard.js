@@ -727,10 +727,12 @@ key.onclick = async function createKey() {
   }
 };
 
-// function for copying API Keys to clipboard
+// function for handling API Keys
 {
   let apiKeys = document.querySelectorAll('.api__key');
+  let apiDelete = document.querySelectorAll('.api__delete');
 
+  // helper function for copying API Keys to clipboard
   apiKeys.forEach((key) => {
     key.onclick = function () {
       key.select();
@@ -744,4 +746,44 @@ key.onclick = async function createKey() {
       });
     };
   });
+
+  // helper function for deleting API Keys
+  apiDelete.forEach((key) => {
+    key.onclick = async function () {
+      apiKey = key.parentElement.parentElement.querySelector('input').value;
+      let apiKeyDeleteUrl = '/auth/account/apiKey/delete';
+      request = await fetch(apiKeyDeleteUrl, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          apiKey: apiKey,
+        }),
+      });
+
+      response = await request.json();
+      // handling server response
+      console.log(response);
+
+      if (response.status === false) {
+        window.history.back();
+        halfmoon.initStickyAlert({
+          content: get_error(response.error),
+          alertType: 'alert-danger',
+          fillType: 'filled-lm',
+        });
+      } else {
+        key.parentElement.parentElement.remove();
+      }
+    };
+  });
 }
+
+`
+TODO
+
+
+handling the adding of new API key to the DOM after creation
+
+`;
