@@ -199,7 +199,7 @@ function updateView(link) {
 document.querySelector('.button--COPY').addEventListener('click', linkCopy);
 function linkCopy() {
   var data = document.querySelector('.button--COPY').dataset.clipboard;
-  console.log(data);
+
   const link = document.createElement('input');
   link.value = data;
   document.body.append(link);
@@ -266,7 +266,6 @@ edit.onclick = function () {
 };
 //saving the changes when the save button gets clicked
 function handleError(OK1, OK2) {
-  console.log(OK1, OK2);
   titleError = 'Only letters, numbers, and spaces';
   slugError = 'Only letters, numbers, underscores and hyphens';
   if (!OK1 && !OK2) {
@@ -402,7 +401,6 @@ async function updateLink(data) {
       });
     }
   } else {
-    console.log(response.data);
     modView(response.data.title, response.data.url, response.data.stealth);
     window.history.back();
     document.querySelector('#slug__error').textContent = '';
@@ -453,7 +451,6 @@ async function deleteLink(data) {
   });
 
   response = await request.json();
-  console.log(response);
 
   // handling response based on error gotten
   if (response.status == false) {
@@ -555,8 +552,6 @@ function addToView(data) {
   create.textContent = 'Abbrefy';
   create.style.backgroundColor = '#e3425a';
   initLinks = document.querySelector('#abbrefy__links__con');
-
-  console.log(data);
 
   const newLink = `<a class="bitlink-item--MAIN"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">
             <i class="fas fa-code-branch"></i></div></span><time data-date_created="${
@@ -714,7 +709,6 @@ key.onclick = async function createKey() {
 
   response = await request.json();
   // handling server response
-  console.log(response);
 
   if (response.status === false) {
     key.textContent = 'Create API Key';
@@ -771,8 +765,6 @@ function getEl() {
   // helper function for deleting API Keys
   apiDelete.forEach((key) => {
     key.onclick = async function () {
-      console.log('DELETE');
-
       apiKey = key.parentElement.parentElement.querySelector('input').value;
       let apiKeyDeleteUrl = '/auth/account/apiKey/delete';
       request = await fetch(apiKeyDeleteUrl, {
@@ -787,7 +779,6 @@ function getEl() {
 
       response = await request.json();
       // handling server response
-      console.log(response);
 
       if (response.status === false) {
         window.history.back();

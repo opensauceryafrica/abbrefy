@@ -182,7 +182,10 @@ class User:
     # retrieve API Key helper function
     @staticmethod
     def get_key_owner(key):
-        return mongo.db.keys.find_one({"apiKey": key})['author']
+        key = mongo.db.keys.find_one({"apiKey": key})
+        if key:
+            return key['author']
+        return None
 
     # retrieve API Key helper function
     @staticmethod
