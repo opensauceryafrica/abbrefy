@@ -76,8 +76,9 @@ def dashboard(user, username):
 
     site_title = "Abbrefy | Grow As You Abbrefy"
     links = User.my_links(user)
+    keys = User.get_keys(user)
 
-    return render_template('dashboard.html', datetime=datetime, site_title=site_title, links=links, len=len)
+    return render_template('dashboard.html', datetime=datetime, site_title=site_title, links=links, len=len, keys=keys)
 
 
 # the signout route

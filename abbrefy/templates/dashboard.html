@@ -230,17 +230,17 @@
 <!-- overriding for external contents end -->
 
 <!-- overriding for API Keys -->
-{% block apiKeys %}
+{% block apiKeys %} {% for key in keys %}
+
 <div class="form-group">
-  <label for="full-name">API Key One</label>
+  <label for="full-name">API Key</label>
   <input
-    value=""
+    value="{{key.apiKey}}"
     readonly
     type="text"
-    class="form-control"
-    id="api__key__one"
+    class="form-control api__key"
   />
-  <small id="old__error" class="invalid-feedback"></small>
+  <!-- <small id="old__error" class="invalid-feedback"></small> -->
   <div class="text-right mt-5">
     <a class="api__delete mr-5" role="button">Delete</a>
   </div>
@@ -255,6 +255,7 @@
     <a class="api__delete mr-5" role="button">Delete</a>
   </div>
 </div> -->
-{% endblock apiKeys %}
+
+{% endfor %} {% endblock apiKeys %}
 
 <!-- overriding for API Keys end -->

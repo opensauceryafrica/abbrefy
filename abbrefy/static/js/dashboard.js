@@ -219,13 +219,13 @@ function twitterShare(el) {
       .parentElement;
   el.href = `https://twitter.com/intent/tweet?text=${
     parent.querySelector('.item-detail--title').textContent
-  }&url=${parent.querySelector('.bitlink--detail--MAIN').textContent}`;
+  }&url=http://${parent.querySelector('.bitlink--detail--MAIN').textContent}`;
 }
 function linkedInShare(el) {
   var parent =
     el.parentElement.parentElement.parentElement.parentElement.parentElement
       .parentElement;
-  el.href = `https://www.linkedin.com/shareArticle?mini=true&url=${
+  el.href = `https://www.linkedin.com/shareArticle?mini=true&url=http://${
     parent.querySelector('.bitlink--detail--MAIN').textContent
   }&summary=${parent.querySelector('.item-detail--title').textContent}`;
 }
@@ -233,7 +233,7 @@ function facebookShare(el) {
   var parent =
     el.parentElement.parentElement.parentElement.parentElement.parentElement
       .parentElement;
-  el.href = `http://www.facebook.com/sharer/sharer.php?u=${
+  el.href = `http://www.facebook.com/sharer/sharer.php?u=http://${
     parent.querySelector('.bitlink--detail--MAIN').textContent
   }`;
 }
@@ -726,3 +726,22 @@ key.onclick = async function createKey() {
     key.textContent = 'Create API Key';
   }
 };
+
+// function for copying API Keys to clipboard
+{
+  let apiKeys = document.querySelectorAll('.api__key');
+
+  apiKeys.forEach((key) => {
+    key.onclick = function () {
+      key.select();
+      key.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      window.history.back();
+      halfmoon.initStickyAlert({
+        content: 'API key copied',
+        alertType: 'alert-success',
+        fillType: 'filled-lm',
+      });
+    };
+  });
+}
