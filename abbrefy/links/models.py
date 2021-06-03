@@ -35,19 +35,19 @@ class Link:
     # slug validator helper function
     @staticmethod
     def delete(link):
-        
+
         try:
             mongo.db.links.delete_one({"slug": link["slug"]})
         except:
-             response = {
+            response = {
                 "status": False,
                 "error": "Something went wrong. Please try again."
             }
-             return response
-            
-        return { "status": True,
-            "message": "Abbrefy link deletion successful"}
-    
+            return response
+
+        return {"status": True,
+                "message": "Abbrefy link deletion successful"}
+
     # slug generator helper function
     def new_slug(self):
         slug = generate_slug()
@@ -116,12 +116,12 @@ class Link:
             "origin": self.url,
             "url": f"http://abbrefy.xyz/{slug}",
             "title": self.title,
-            "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'), 
+            "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'),
             "dateCreated2": link['date_created'].strftime("%b %d, %Y"),
             "slug": slug,
-            "stealth": False, 
-            "audience": [], 
+            "stealth": False,
+            "audience": [],
             "clicks": 0
-            }
+        }
 
         return response
