@@ -26,8 +26,10 @@ def create_app(config_class=Config):
     from abbrefy.users.routes import users
     from abbrefy.links.routes import links
     from abbrefy.main.routes import main
+    from abbrefy.links.api import api
     application.register_blueprint(users)
     application.register_blueprint(links)
     application.register_blueprint(main)
+    application.register_blueprint(api)
 
     return application

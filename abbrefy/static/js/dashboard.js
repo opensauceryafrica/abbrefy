@@ -1,6 +1,9 @@
 // getting API Key Elements
 getEl();
 document.addEventListener('DOMContentLoaded', () => {
+  const itemDetail = document.querySelector('.item-detail--MAIN');
+  itemDetail.classList.remove('open');
+
   // setting the Edit Profile Username on page load
   document.querySelector('#username').value =
     document.querySelector('.username').dataset.author;
@@ -85,28 +88,36 @@ document.addEventListener('DOMContentLoaded', () => {
 const close = document.querySelector('.icon.close-icon');
 
 close.onclick = function () {
-  const itemDetail = document.querySelector('.item-detail--MAIN.open');
+  const itemDetail = document.querySelector('.item-detail--MAIN');
   const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
-  activeDetail.classList = 'bitlink-item--MAIN';
+  // activeDetail.classList = 'bitlink-item--MAIN';
+
   itemDetail.classList.remove('open');
 };
 
 // listening for click function on any of the links
 document.querySelector('.list--MAIN').onclick = function (e) {
-  if (e.target.classList == 'bitlink-item--MAIN') {
+  if (
+    e.target.classList == 'bitlink-item--MAIN' ||
+    e.target.classList == 'bitlink-item--ACTIVE'
+  ) {
     const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
     activeDetail.classList = 'bitlink-item--MAIN';
     link = e.target;
     link.classList = 'bitlink-item--ACTIVE';
     updateView(link);
-  } else if (e.target.parentElement.classList == 'bitlink-item--MAIN') {
+  } else if (
+    e.target.parentElement.classList == 'bitlink-item--MAIN' ||
+    e.target.parentElement.classList == 'bitlink-item--ACTIVE'
+  ) {
     const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
     activeDetail.classList = 'bitlink-item--MAIN';
     link = e.target.parentElement;
     link.classList = 'bitlink-item--ACTIVE';
     updateView(link);
   } else if (
-    e.target.parentElement.parentElement.classList == 'bitlink-item--MAIN'
+    e.target.parentElement.parentElement.classList == 'bitlink-item--MAIN' ||
+    e.target.parentElement.parentElement.classList == 'bitlink-item--ACTIVE'
   ) {
     const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
     activeDetail.classList = 'bitlink-item--MAIN';
@@ -115,7 +126,9 @@ document.querySelector('.list--MAIN').onclick = function (e) {
     updateView(link);
   } else if (
     e.target.parentElement.parentElement.parentElement.classList ==
-    'bitlink-item--MAIN'
+      'bitlink-item--MAIN' ||
+    e.target.parentElement.parentElement.parentElement.classList ==
+      'bitlink-item--ACTIVE'
   ) {
     const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
     activeDetail.classList = 'bitlink-item--MAIN';
@@ -191,6 +204,11 @@ function updateView(link) {
   } else {
     document.querySelector('.audience--locations---MAIN').innerHTML = '';
   }
+
+  const itemDetail = document.querySelector('.item-detail--MAIN');
+  itemDetail.classList.add('open');
+
+  console.log(itemDetail);
 
   // end of view update
 }
