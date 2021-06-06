@@ -90,7 +90,7 @@ const close = document.querySelector('.icon.close-icon');
 close.onclick = function () {
   const itemDetail = document.querySelector('.item-detail--MAIN');
   const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
-  // activeDetail.classList = 'bitlink-item--MAIN';
+  // activeDetail.style.backgroundColor = 'initial';
 
   itemDetail.classList.remove('open');
 };
@@ -132,6 +132,7 @@ document.querySelector('.list--MAIN').onclick = function (e) {
   ) {
     const activeDetail = document.querySelector('.bitlink-item--ACTIVE');
     activeDetail.classList = 'bitlink-item--MAIN';
+    // activeDetail.style.backgroundColor = 'initial';
     link = e.target.parentElement.parentElement.parentElement;
     link.classList = 'bitlink-item--ACTIVE';
     updateView(link);
@@ -139,6 +140,7 @@ document.querySelector('.list--MAIN').onclick = function (e) {
 };
 
 function updateView(link) {
+  // link.style.backgroundColor = '#fff';
   document.querySelector('.item-detail--created-date').textContent =
     'CREATED ' +
     link.querySelector('.bitlink-item--created-date').dataset.date_created;
