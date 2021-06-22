@@ -89,7 +89,7 @@ def update(user):
     try:
         # checking if the link exists on abbrefy
         if not Link.check_slug(data['idSlug']):
-            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
+            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 404
 
         if "slug" in data:
             if data['slug'] and Link.check_slug(data['slug']):
@@ -138,7 +138,7 @@ def delete(user):
     try:
         # checking if the link exists on abbrefy
         if not Link.check_slug(data['idSlug']):
-            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 400
+            return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 404
 
         # creating the URL object and abbrefying it
         if not "current_user" in session:

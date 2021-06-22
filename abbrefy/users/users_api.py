@@ -13,6 +13,28 @@ import json
 usersApi = Blueprint('usersApi', __name__)
 
 
+# the public API single link route
+@usersApi.route('/api/v1/me/link/<string:slug>/')
+@api_key_required
+def link(user, slug):
+
+    try:
+        # retrieving and returning the link data
+        link = Link().get_link(slug)
+        if link and link['author'] == user:
+            return jsonify({"status": True, "linkData": link})
+
+        # validating the link author
+        if link and link['author'] != user:
+            return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
+
+        # handling existence error
+        return jsonify({"status": False, "error": "EXISTENCE_ERROR"}), 404
+
+    except:
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+
 # the public API link route
 @usersApi.route('/api/v1/me/links/')
 @api_key_required
