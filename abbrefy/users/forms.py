@@ -49,3 +49,12 @@ class LoginForm(FlaskForm):
                              'autocomplete': 'current-password'})
     submit = SubmitField('Sign In')
 # defining the login form class end
+
+
+# defining the forgot password form class end
+class ForgotPassword(FlaskForm):
+
+    email = StringField("Your Email, Let's Find Your Account", validators=[DataRequired(), Email()], render_kw={
+        'autocomplete': 'email'})
+    submit = SubmitField('Request Reset')
+# defining the forgot password form class end

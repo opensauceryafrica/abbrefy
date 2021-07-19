@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify, flash, session
 from datetime import datetime
-from abbrefy.users.forms import RegistrationForm, LoginForm
+from abbrefy.users.forms import RegistrationForm, LoginForm, ForgotPassword
 from abbrefy.users.models import User
 from abbrefy.users.tools import login_required, no_login_required, validate_username
 # attaching the users blueprint
@@ -67,6 +67,17 @@ def signin():
             return redirect(url_for('users.dashboard'))
 
     return render_template('signin.html', datetime=datetime, site_title=site_title, form=form)
+
+
+# the forgot password route
+@users.route('/auth/forgot/')
+def forgot():
+    # instantiationg the form
+    form = ForgotPassword()
+    # defining the site title
+    site_title = "Abbrefy | Let's Get You Back In"
+
+    return render_template('forgot.html', site_title=site_title, form=form, datetime=datetime)
 
 
 # the dashboard route
