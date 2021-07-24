@@ -71,6 +71,7 @@ def signin():
 
 # the forgot password route
 @users.route('/auth/forgot/', methods=['POST', 'GET'])
+@no_login_required
 def forgot():
     # instantiationg the form
     form = ForgotPassword()
@@ -91,6 +92,7 @@ def forgot():
 
 # the forgot password route
 @users.route('/auth/reset/', methods=['GET', 'POST'])
+@no_login_required
 def reset():
     # instantiationg the form
     form = ResetPassword()
