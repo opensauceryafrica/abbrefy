@@ -1,0 +1,68 @@
+{% extends 'layout.html'%}
+
+<!-- overriding for external scripts -->
+{% block externals %}
+
+<!-- Custom CSS -->
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/signup.css') }}"
+/>
+
+<!-- Custom JS -->
+<script defer src="{{ url_for('static', filename='js/signup.js') }}"></script>
+
+{% endblock externals %}
+<!-- overriding for external scripts end -->
+
+<!-- overriding for external contents -->
+{% block content %}
+
+<div class="container">
+  <div class="content-section">
+    <!-- Rendering Sign Up Form  -->
+    <form action="" method="POST" class="form-signin">
+      {{form.hidden_tag()}}
+
+      <fieldset class="form-group">
+        <h3 class="mb-2 font-weight-bold border-bottom">You're Almost In</h3>
+
+        <div class="form-group">
+          {{form.password.label(class="form-control-label")}} {% if
+          form.password.errors %} {{form.password(class="form-control
+          is-invalid")}} {% for error in form.password.errors %}
+          <small class="invalid-feedback">{{ error }}</small>
+          {% endfor %} {% else %} {{form.password(class="form-control")}} {%
+          endif %}
+        </div>
+        <div class="form-group">
+          {{form.confirm_password.label(class="form-control-label")}} {%if
+          form.confirm_password.errors %}
+          {{form.confirm_password(class="form-control is-invalid")}} {% for
+          error in form.confirm_password.errors %}
+          <small class="invalid-feedback">{{ error }}</small>
+          {% endfor %} {% else %}
+          {{form.confirm_password(class="form-control")}} {% endif %}
+        </div>
+        <div class="form-group">
+          {{form.submit(class="btn btn-lg btn-primary btn-block")}}
+        </div>
+
+        <!-- Redirecting to Sign In page for exsiting users -->
+
+        <!-- <div class="form-group">
+          <p class="text-muted text-center">
+            Already a Member?
+            <a href="{{ url_for('users.signin') }}">Sign In Here</a>
+          </p>
+        </div> -->
+
+        <!-- Redirecting to Sign In page for exsiting users end-->
+      </fieldset>
+    </form>
+    <!-- Rendering Sign Up Form End -->
+  </div>
+</div>
+
+{% endblock content %}
+<!-- overriding for external contents end -->

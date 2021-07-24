@@ -1,8 +1,13 @@
 # importing modules
 from functools import wraps
-from flask import session, flash, redirect, url_for, request, jsonify
+from flask import session, flash, redirect, url_for, request, jsonify, current_app
 import re
 from abbrefy.users.models import User
+import jwt
+from flask_mail import Message
+from threading import Thread
+from abbrefy import Mail
+from time import time
 
 
 # login in required decorator
@@ -61,3 +66,33 @@ def validate_username(username):
     if not validated:
         return False
     return True
+
+
+# send email with thread
+def mail_thread(mail, app):
+    with app.app_context():
+        Mail.send(mail)
+
+
+# send email function
+def send_mail(user, email, exp_in=180):
+    finder = jwt.encode({'public_id': user, 'exp': time(
+    ) + exp_in}, current_app.config['SECRET_KEY'])
+
+    mail = Message('Abbrefy Password Reset',
+                   sender='Abbrefy', recipients=[email])
+    link = url_for('users.reset', finder=finder, _external=True)
+    mail.body = f'Below is the link to reset your password.\nThis link expires in 3 minutes.\n\n\n{link}'
+    Thread(target=mail_thread, args=(
+        mail, current_app._get_current_object())).start()
+    return True
+
+
+# find user using provided finder
+def find_user(finder):
+    try:
+        user = jwt.decode(
+            finder, current_app.config['SECRET_KEY'], algorithms='HS256')['public_id']
+    except:
+        return None
+    return user

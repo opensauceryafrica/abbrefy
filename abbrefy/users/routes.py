@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify, flash, session
 from datetime import datetime
-from abbrefy.users.forms import RegistrationForm, LoginForm, ForgotPassword
+from abbrefy.users.forms import RegistrationForm, LoginForm, ForgotPassword, ResetPassword
 from abbrefy.users.models import User
-from abbrefy.users.tools import login_required, no_login_required, validate_username
+from abbrefy.users.tools import login_required, no_login_required, validate_username, find_user
 # attaching the users blueprint
 users = Blueprint('users', __name__)
 
@@ -70,14 +70,51 @@ def signin():
 
 
 # the forgot password route
-@users.route('/auth/forgot/')
+@users.route('/auth/forgot/', methods=['POST', 'GET'])
 def forgot():
     # instantiationg the form
     form = ForgotPassword()
     # defining the site title
     site_title = "Abbrefy | Let's Get You Back In"
 
+    # handling form validation
+    if form.validate_on_submit():
+
+        email = form.email.data
+
+        User().reset_password(email)
+        flash('Please Check Your Mail to Finish Your Password Reset', 'success')
+        return redirect(url_for('users.signin'))
+
     return render_template('forgot.html', site_title=site_title, form=form, datetime=datetime)
+
+
+# the forgot password route
+@users.route('/auth/reset/', methods=['GET', 'POST'])
+def reset():
+    # instantiationg the form
+    form = ResetPassword()
+    # defining the site title
+    site_title = "Abbrefy | You're Almost In"
+    # getting the finder query parameter
+    finder = request.args.get('finder')
+    # checking if the query parameter was passed
+    if not finder:
+        flash('Your reset link is invalid', 'danger')
+        return redirect(url_for('users.forgot'))
+    # checking if the query parameter matches any user
+    user = find_user(finder)
+    if not user:
+        flash('Your reset link is invalid', 'danger')
+        return redirect(url_for('users.forgot'))
+    # handling form validation
+    if form.validate_on_submit():
+        password = form.password.data
+        status = User().update_password(user, password)
+        if status:
+            return redirect(url_for('users.signin'))
+        flash('Something went wrong', 'danger')
+    return render_template('reset.html', site_title=site_title, form=form, datetime=datetime)
 
 
 # the dashboard route

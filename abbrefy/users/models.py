@@ -71,6 +71,12 @@ class User:
             del session['current_user']
         return True
 
+    # send password reset helper function@
+    def reset_password(self, email):
+        user = self.check_email(email)
+        send_mail(user['public_id'], user['email'])
+        return True
+
     # email validator helper function
     @staticmethod
     def check_email(email):
@@ -96,10 +102,28 @@ class User:
         return links
 
     # user retrieval helper function
-
     @staticmethod
     def get_user(public_id):
         return mongo.db.users.find_one({"public_id": public_id})
+
+    # update password helper function
+    def update_password(self, id, password):
+        try:
+            updateData = {}
+            user = self.get_user(id)
+            # encrypting the new password
+            newPassword = bcrypt.generate_password_hash(
+                password).decode("utf-8")
+            updateData["password"] = newPassword
+            # creating the update and commiting to the DB
+            if len(updateData) > 0:
+                update = {"$set": updateData}
+                filterData = {'public_id': user['public_id']}
+                mongo.db.users.update_one(filterData, update)
+            return True
+        # handling exception
+        except:
+            return False
 
     # profile update helper function
     def update_profile(self, id, data):
@@ -226,3 +250,6 @@ class User:
             "message": "API Key successfully deleted",
         }
         return response
+
+
+from abbrefy.users.tools import send_mail

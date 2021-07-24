@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from abbrefy.config import Config
 from flask_cors import CORS
+from flask_mail import Mail
 
 # instantiating  pymongo
 mongo = PyMongo()
@@ -11,6 +12,9 @@ mongo = PyMongo()
 
 # instantiating bcrypt for password hash
 bcrypt = Bcrypt()
+
+# instantiating mail for sending emails
+Mail = Mail()
 
 # setting up CORS
 cors = CORS()
@@ -22,6 +26,7 @@ def create_app(config_class=Config):
     mongo.init_app(application)
     bcrypt.init_app(application)
     cors.init_app(application)
+    Mail.init_app(application)
 
     from abbrefy.users.routes import users
     from abbrefy.links.routes import links

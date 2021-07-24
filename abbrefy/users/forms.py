@@ -55,6 +55,34 @@ class LoginForm(FlaskForm):
 class ForgotPassword(FlaskForm):
 
     email = StringField("Your Email, Let's Find Your Account", validators=[DataRequired(), Email()], render_kw={
-        'autocomplete': 'email'})
+        'autocomplete': 'email', 'type': 'email'})
     submit = SubmitField('Request Reset')
+
+    # setting up custom validation to check if username exists
+    def validate_email(self, email):
+        if not User.check_email(email.data):
+            raise ValidationError('No Account Exists for that Email')
+# defining the forgot password form class end
+
+
+# defining the forgot password form class end
+class ResetPassword(FlaskForm):
+
+    password = PasswordField("Password", validators=[DataRequired()], render_kw={
+                             'autocomplete': 'new-password'})
+    confirm_password = PasswordField("Confirm Password", validators=[
+        DataRequired(), EqualTo("password", message="Your Passwords Don't Match")], render_kw={
+        'autocomplete': 'new-password'})
+    submit = SubmitField('Reset Password')
+
+    # setting up custom validation to check if username exists
+    def validate_email(self, email):
+        if not User.check_email(email.data):
+            raise ValidationError('No Account Exists for that Email')
+
+    # validate password strength
+    def validate_password(self, password):
+        strong = safe.check(password.data)
+        if not strong:
+            raise ValidationError('Password not strong enough')
 # defining the forgot password form class end
