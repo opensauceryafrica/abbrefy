@@ -2,6 +2,7 @@ from uuid import uuid4
 from abbrefy import bcrypt, mongo
 from datetime import datetime
 from flask import session
+from abbrefy.links.models import Link
 import safe
 
 
@@ -12,6 +13,7 @@ class User:
         self.username = username
         self.email = email
         self.password = password
+        self.url = 'http://abbrefy.xyz/me/dashboard/'
 
     # signup helper function
     def signup(self):
@@ -27,6 +29,11 @@ class User:
             }
 
             mongo.db.users.insert_one(user)
+
+            new_link = Link(url=self.url,
+                            author=user['public_id'])
+            response = new_link.abbrefy()
+
         except:
             return False
 
