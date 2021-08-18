@@ -270,6 +270,7 @@ edit.onclick = function () {
   title = document.querySelector('#abbrefy__title');
   stealth = document.querySelector('#abbrefy__stealth');
   slug = document.querySelector('#abbrefy__slug');
+  url = document.querySelector('#abbrefy__URL');
   stealth.checked =
     parent
       .querySelector('.bitlink--detail--MAIN')
@@ -280,6 +281,7 @@ edit.onclick = function () {
     .querySelector('.bitlink--detail--MAIN')
     .textContent.trim()
     .split('/')[1];
+  url.value = document.querySelector('.item-detail--url').href;
   slug.dataset.slug = slug.value;
 };
 //saving the changes when the save button gets clicked
@@ -304,6 +306,7 @@ save.onclick = function (e) {
   stealth = document.querySelector('#abbrefy__stealth').checked;
   newSlug = document.querySelector('#abbrefy__slug').value.trim();
   slug = document.querySelector('#abbrefy__slug').dataset.slug;
+  newURL = document.querySelector('#abbrefy__URL').value.trim();
 
   // validating the inputs
   regexp = /^[a-zA-Z0-9_]+(?:[\w-]*[a-zA-Z0-9]+)*$/gm;
@@ -331,11 +334,13 @@ save.onclick = function (e) {
 function initUpdate() {
   document.querySelector('#title__error').textContent = '';
   document.querySelector('#slug__error').textContent = '';
+  document.querySelector('#URL__error').textContent = '';
 
   if (newSlug == slug && newTitle == initTitle) {
     data = {
       stealth: stealth,
       idSlug: slug,
+      origin: newURL,
     };
 
     updateLink(data);
@@ -345,6 +350,7 @@ function initUpdate() {
       slug: newSlug,
       stealth: stealth,
       idSlug: slug,
+      origin: newURL,
     };
     updateLink(data);
   } else if (newSlug != slug) {
@@ -352,6 +358,7 @@ function initUpdate() {
       slug: newSlug,
       stealth: stealth,
       idSlug: slug,
+      origin: newURL,
     };
 
     updateLink(data);
@@ -360,6 +367,7 @@ function initUpdate() {
       title: newTitle,
       stealth: stealth,
       idSlug: slug,
+      origin: newURL,
     };
 
     updateLink(data);
@@ -421,6 +429,10 @@ async function updateLink(data) {
       document.querySelector('#slug__error').textContent = get_error(
         response.error
       );
+    } else if (response.error == 'URL_ERROR') {
+      document.querySelector('#URL__error').textContent = get_error(
+        response.error
+      );
     } else {
       history.back();
       document.querySelector('#slug__error').textContent = '';
@@ -434,6 +446,7 @@ async function updateLink(data) {
     modView(response.data.title, response.data.url, response.data.stealth);
     window.history.back();
     document.querySelector('#slug__error').textContent = '';
+    document.querySelector('#URL__error').textContent = '';
     halfmoon.initStickyAlert({
       content: 'Abbrefy link updated successfully',
       alertType: 'alert-success',

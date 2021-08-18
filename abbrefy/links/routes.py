@@ -108,6 +108,10 @@ def update(user):
         for key in data:
             if key == "idSlug":
                 continue
+            if key == "origin":
+                # validating that data sent is a URL
+                if not url(data[key]):
+                    return jsonify({"status": False, "error": "URL_ERROR"}), 400
             update_data[key] = data[key]
             link[key] = data[key]
         filter = {"slug": data['idSlug']}
