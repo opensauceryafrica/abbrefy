@@ -797,8 +797,7 @@ async function bulk_shorten(form) {
       alertType: 'alert-success',
       fillType: 'filled-lm',
     });
-
-  
+  }
 }
 
 // helper function for creating abbrefy link
