@@ -15,10 +15,6 @@ bucket = 'emmyh-coin.appspot.com'
 # r"C:\Users\Samperfect\Downloads\Codes\Projects\abbrefy\abbrefy"
 root_path = '/app/abbrefy'
 
-# Init firebase with your credentials
-# cred = credentials.Certificate(os.path.join(root_path, 'static', pJSON))
-# initialize_app(cred, {'storageBucket': bucket})
-
 
 def upload_file(where, to, download=False):
 
@@ -69,7 +65,6 @@ def unordered_bulk_abbrefy(file, key):
     with open(tempo, 'w') as t:
         t.write(data)
         t.close()
-
 
     with open(tempo) as f:
 
@@ -141,10 +136,9 @@ def ordered_bulk_abbrefy(file, author, origin):
     with open(tempo) as f:
         reader = csv.reader(f, delimiter=',')
         line = 0
-        print('FFFFFFF', reader)
+
         for row in reader:
 
-            print('UUUUUU', row)
             if line == 100:
                 return True, location, name
             if line == 0:
@@ -164,8 +158,6 @@ def ordered_bulk_abbrefy(file, author, origin):
                 resp = r.post(url=url, json=b, headers=h)
                 res = resp.json()
 
-                print(res)
-
                 initial = res['url']
 
                 if len(row) > 1 and row[1]:
@@ -183,8 +175,6 @@ def ordered_bulk_abbrefy(file, author, origin):
                     respo = r.put(url=url, json=b, headers=h)
                     res = respo.json()
 
-                    print(res)
-
                 with open(location, 'a') as l:
 
                     if 'url' in res:
@@ -200,6 +190,10 @@ def ordered_bulk_abbrefy(file, author, origin):
                 line += 1
 
         # uploading the newly created csv to firebase
+        # Init firebase with your credentials
+        cred = credentials.Certificate(
+            os.path.join(root_path, 'static', pJSON))
+        initialize_app(cred, {'storageBucket': bucket})
         slug, _ = upload_file(location, name)
 
         # saving the information to the database
