@@ -130,8 +130,6 @@ def ordered_bulk_abbrefy(file, author, origin):
 
     data = f.read().decode('utf-8')
 
-    print(data)
-
     with open(tempo, 'w') as t:
         t.write(data)
         t.close()
@@ -141,8 +139,6 @@ def ordered_bulk_abbrefy(file, author, origin):
         line = 0
 
         for row in reader:
-
-            print(row)
 
             if line == 100:
                 return True, location, name
@@ -204,7 +200,6 @@ def ordered_bulk_abbrefy(file, author, origin):
         # saving the information to the database
         new_link = Link(author=author)
         response = new_link.bulk_abbrefy(location=slug, origin=origin)
-        print(response)
 
     return True  # , location, name
 

@@ -790,17 +790,15 @@ async function bulk_shorten(form) {
     bulk_create.textContent = 'Abbrefy';
     bulk_create.style.backgroundColor = '#e3425a';
     window.history.back();
-
     halfmoon.initStickyAlert({
       content:
-        'Come back in a few minutes and your links will be here waiting for you.',
+        'Come back in about 3 minutes and your links will be here waiting for you. Bundled as requested.',
       title: 'Bulk Abbrefy In Progress',
       alertType: 'alert-success',
       fillType: 'filled-lm',
     });
 
-    setTimeout(() => (window.location.href = '/me/dashboard'), 3000);
-  }
+  
 }
 
 // helper function for creating abbrefy link
