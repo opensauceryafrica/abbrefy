@@ -76,7 +76,7 @@ def bulk_abbrefy():
         return jsonify({"status": False, "error": "FILE_ERROR"}), 400
 
     diskLoc = os.path.join(current_app.root_path,
-                           'static/csv', csvFile['csv'].filename)
+                           'static/csv', str(floor(time())) + csvFile['csv'].filename)
 
     csvFile['csv'].save(diskLoc)
 
