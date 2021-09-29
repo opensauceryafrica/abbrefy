@@ -72,7 +72,15 @@ def bulk_abbrefy():
     to = str(floor(time() * 1000)) + uuid4().hex[0:7] + '.csv'
 
     # saving the csv file to firebase and disk storage
-    origin, fileName = upload_file(csvFile['csv'].filename, to, download=True)
+    if csvFile['csv'].filename == '':
+        return jsonify({"status": False, "error": "FILE_ERROR"}), 400
+
+    diskLoc = os.path.join(current_app.root_path,
+                           'static/csv', csvFile['csv'].filename)
+
+    csvFile['csv'].save(os.path.join(current_app.root_path, 'static/csv', to))
+
+    origin, fileName = upload_file(diskLoc, to, download=True)
 
     if data and 'type' in data and data['type'] == 'unordered':
 
