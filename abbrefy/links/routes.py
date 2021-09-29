@@ -18,8 +18,6 @@ links = Blueprint('links', __name__)
 # creating a new redis queue object
 q = Queue(connection=conn)
 
-print(os.environ.get('ROOT_PATH'))
-
 
 # the link abbrefy route
 @links.route('/api/hidden/url/abbrefy/', methods=['POST'])

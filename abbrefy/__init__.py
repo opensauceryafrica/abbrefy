@@ -30,6 +30,8 @@ def create_app(config_class=Config):
     cors.init_app(application)
     Mail.init_app(application)
 
+    os.environ['ROOT_PATH'] = application.root_path
+
     # Init firebase with your credentials
     cred = credentials.Certificate(os.path.join(
         application.root_path, 'static', os.environ.get('Private_Key_JSON')))
