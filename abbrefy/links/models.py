@@ -32,7 +32,10 @@ class Link:
     # slug validator helper function
     @staticmethod
     def check_slug(slug):
-        return mongo.db.links.find_one({"slug": slug})
+        data = mongo.db.links.find_one({"slug": slug})
+        bulk = mongo.db.links.find_one({"origin": slug})
+        link = data if data else bulk
+        return link
 
     # slug validator helper function
     @staticmethod

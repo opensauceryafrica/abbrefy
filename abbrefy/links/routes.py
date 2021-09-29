@@ -138,6 +138,10 @@ def router(slug):
 # the abbrefy bulk links router
 @links.route('/bulk/<string:slug>', methods=['GET'])
 def bulk_router(slug):
+    # checking if a slug was sent
+    if not slug:
+        flash('We couldn\'t find that CSV', 'danger')
+        return redirect(url_for('main.home'))
     # checking if it is a CSV slug
     if not 'csv' in slug:
         flash('Only a CSV locator is recognized. Check your link and try again.', 'danger')
