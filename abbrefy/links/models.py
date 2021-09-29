@@ -129,30 +129,30 @@ class Link:
     # abbrefy helper function
     def bulk_abbrefy(self, location, origin):
 
-        try:
+        # try:
 
-            # creating the link object
-            link = {
-                "author": self.author,
-                "public_id": uuid4().hex,
-                "date_created": datetime.utcnow(),
-                "origin": origin,
-                "slug": location,
-                "stealth": False,
-                "clicks": 0,
-                "audience": [],
-                "title": 'Bulk URL Abbrefy | Download Links Below',
-                "type": "bulk"
-            }
+        # creating the link object
+        link = {
+            "author": self.author,
+            "public_id": uuid4().hex,
+            "date_created": datetime.utcnow(),
+            "origin": origin,
+            "slug": location,
+            "stealth": False,
+            "clicks": 0,
+            "audience": [],
+            "title": 'Bulk URL Abbrefy | Download Links Below',
+            "type": "bulk"
+        }
 
-            # adding link object to db
-            mongo.db.links.insert_one(link)
-        except:
-            response = {
-                "status": False,
-                "error": "Something went wrong. Please try again."
-            }
-            return response
+        # adding link object to db
+        mongo.db.links.insert_one(link)
+        # except:
+        #     response = {
+        #         "status": False,
+        #         "error": "Something went wrong. Please try again."
+        #     }
+        #     return response
 
         response = {
             "status": True,
