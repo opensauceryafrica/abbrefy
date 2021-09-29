@@ -78,7 +78,7 @@ def bulk_abbrefy():
     diskLoc = os.path.join(current_app.root_path,
                            'static/csv', csvFile['csv'].filename)
 
-    csvFile['csv'].save(os.path.join(current_app.root_path, 'static/csv', to))
+    csvFile['csv'].save(diskLoc)
 
     origin, fileName = upload_file(diskLoc, to, download=True)
 
