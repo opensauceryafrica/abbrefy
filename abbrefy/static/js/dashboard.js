@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelector('.click-count--MAIN').dataset.audience.length > 2
     ) {
       locations = [
-        ...link
+        ...document
           .querySelector('.click-count--MAIN')
           .dataset.audience.split('[')[1]
           .split(']')[0]

@@ -13,7 +13,7 @@ def upload_file(where, to, download=False):
 
     # Put your local file path
     # fileName = os.path.join(
-    #     current_app.root_path, 'static/csv', to)
+    #     os.environ.get('ROOT_PATH'), 'static/csv', to)
     bucket = storage.bucket()
     blob = bucket.blob(f'Abbrefy/{to}')
     blob.upload_from_filename(where)
@@ -33,7 +33,7 @@ def download_file(where):
 
     # Put your local file path
     fileName = os.path.join(
-        current_app.root_path, 'static/csv', where)
+        os.environ.get('ROOT_PATH'), 'static/csv', where)
 
     bucket = storage.bucket()
     blob = bucket.blob(f'Abbrefy/{where}')
@@ -97,7 +97,7 @@ def ordered_bulk_abbrefy(file, author, origin):
     name = f'{key[int(random() * i):int(random() * i)]}{floor(time.time() * 1000)}.csv'
 
     location = os.path.join(
-        current_app.root_path, 'static/origin', name)
+        os.environ.get('ROOT_PATH'), 'static/origin', name)
 
     with open(file) as f:
 
