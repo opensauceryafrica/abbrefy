@@ -3,7 +3,7 @@ from abbrefy import mongo
 from datetime import datetime
 from abbrefy.links.tools import generate_slug, get_title
 from flask import url_for, session
-from flask_pymongo import PyMongo
+import pymongo
 import os
 
 
@@ -133,7 +133,8 @@ class Link:
 
         MONGO_URI = 'mongodb+srv://Samperfect:1971Samperfect@veehue.eaigm.mongodb.net/abbrefy?retryWrites=true&w=majority'
 
-        mongo = PyMongo(uri=MONGO_URI)
+        client = pymongo.MongoClient(MONGO_URI)
+        db = client.abbrefy
 
         # try:
 
@@ -152,7 +153,7 @@ class Link:
         }
 
         # adding link object to db
-        mongo.db.links.insert_one(link)
+        db.links.insert_one(link)
         # except:
         #     response = {
         #         "status": False,
