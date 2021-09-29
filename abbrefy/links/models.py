@@ -3,6 +3,8 @@ from abbrefy import mongo
 from datetime import datetime
 from abbrefy.links.tools import generate_slug, get_title
 from flask import url_for, session
+from flask_pymongo import PyMongo
+import os
 
 
 class Link:
@@ -128,6 +130,8 @@ class Link:
 
     # abbrefy helper function
     def bulk_abbrefy(self, location, origin):
+
+        mongo = PyMongo(os.environ.get('MONGO_URI'))
 
         # try:
 
