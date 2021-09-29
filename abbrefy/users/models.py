@@ -226,10 +226,15 @@ class User:
             return key['author']
         return None
 
-    # retrieve API Key helper function
+    # retrieve all API Key helper function
     @staticmethod
     def get_keys(user):
         return mongo.db.keys.find({"author": user})
+
+    # retrieve one API Key helper function
+    @staticmethod
+    def get_key(user):
+        return mongo.db.keys.find_one({"author": user})['apiKey']
 
     # delete API Key helper function
     def delete_api_key(self, user, key):

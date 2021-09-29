@@ -52,7 +52,7 @@ class Link:
     def new_slug(self):
         slug = generate_slug()
         if self.check_slug(slug):
-            new_slug()
+            self.new_slug()
         return slug
 
     # updating a link data
@@ -122,6 +122,51 @@ class Link:
             "stealth": False,
             "audience": [],
             "clicks": 0
+        }
+
+        return response
+
+    # abbrefy helper function
+    def bulk_abbrefy(self, location, origin):
+
+        try:
+
+            # creating the link object
+            link = {
+                "author": self.author,
+                "public_id": uuid4().hex,
+                "date_created": datetime.utcnow(),
+                "origin": origin,
+                "slug": location,
+                "stealth": False,
+                "clicks": 0,
+                "audience": [],
+                "title": 'Bulk URL Abbrefy | Download Links Below',
+                "type": "bulk"
+            }
+
+            # adding link object to db
+            mongo.db.links.insert_one(link)
+        except:
+            response = {
+                "status": False,
+                "error": "Something went wrong. Please try again."
+            }
+            return response
+
+        response = {
+            "status": True,
+            "message": "URL abbrefy successful.",
+            "origin": f"http://abbrefy.xyz/bulk/{origin}",
+            "url": f"http://abbrefy.xyz/bulk/{location}",
+            "title": 'Bulk URL Abbrefy | Download Links Below',
+            "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'),
+            "dateCreated2": link['date_created'].strftime("%b %d, %Y"),
+            "slug": location,
+            "stealth": False,
+            "audience": [],
+            "clicks": 0,
+            "type": "bulk"
         }
 
         return response

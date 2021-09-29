@@ -1,10 +1,12 @@
 # importing modules
-from flask import Flask
+from flask import Flask, app
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 from abbrefy.config import Config
 from flask_cors import CORS
 from flask_mail import Mail
+from firebase_admin import credentials, initialize_app
+import os
 
 # instantiating  pymongo
 mongo = PyMongo()
@@ -27,6 +29,12 @@ def create_app(config_class=Config):
     bcrypt.init_app(application)
     cors.init_app(application)
     Mail.init_app(application)
+
+    # Init firebase with your credentials
+    cred = credentials.Certificate(os.path.join(
+        application.root_path, 'static', os.environ.get('Private_Key_JSON')))
+    initialize_app(
+        cred, {'storageBucket': os.environ.get('Image_Bucket')})
 
     from abbrefy.users.routes import users
     from abbrefy.links.routes import links

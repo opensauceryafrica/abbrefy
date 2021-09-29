@@ -13,4 +13,8 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get("EMAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+
+    # setting firebase configs
+    Private_Key_JSON = os.environ.get('Private_Key_JSON')
+    Image_Bucket = os.environ.get('Image_Bucket')
     # app.config['MAIL_DEFAULT_SENDER'] = os.environ.get("MAIL_DEFAULT_SENDER")

@@ -67,20 +67,34 @@
           <div
             class="bitlink--MAIN"
             data-origin="{{link.origin}}"
-            data-abbrefy="abbrefy.xyz/{{link.slug}}"
+            data-abbrefy="{{link.slug}}"
             data-stealth="{{link.stealth}}"
             tabindex="-1"
             title="abbrefy.xyz/{{link.slug}}"
           >
-            abbrefy.xyz/<span>{{ link.slug }}</span>
+            <span>{{ link.slug }}</span>
           </div>
+
+          {% if link.type == 'bulk' %}
+          <span
+            data-clicks="{{link.clicks}}"
+            data-audience="{{link.audience}}"
+            data-type="{{link.type}}"
+            class="click-count--MAIN"
+            >{{link.type.upper()}} Abbrefy</span
+          >
+
+          {% else %}
+
           <span
             data-clicks="{{link.clicks}}"
             data-audience="{{link.audience}}"
             class="click-count--MAIN"
             >{{link.clicks}}<span class="icon clicks-icon"></span
-          ></span></div
-      ></a>
+          ></span>
+          {% endif %}
+        </div></a
+      >
       {% endfor %}
     </div>
   </div>
@@ -210,7 +224,9 @@
                 <span class="info-wrapper--clicks-text">1</span
                 ><span class="icon clicks-icon"></span>
               </div>
-              <div class="item-detail--selected-day">total clicks</div>
+              <div id="clicks__text" class="item-detail--selected-day">
+                total clicks
+              </div>
             </div>
           </div>
           <div></div>

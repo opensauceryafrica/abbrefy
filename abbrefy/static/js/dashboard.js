@@ -1,86 +1,197 @@
 // getting API Key Elements
 getEl();
 document.addEventListener('DOMContentLoaded', () => {
-  const itemDetail = document.querySelector('.item-detail--MAIN');
-  itemDetail.classList.remove('open');
+  if (document.querySelector('.click-count--MAIN').dataset.type == 'bulk') {
+    // SETTING A DIFFERENT VIEW FOR BULK ABBREFY
 
-  // setting the Edit Profile Username on page load
-  document.querySelector('#username').value =
-    document.querySelector('.username').dataset.author;
+    const itemDetail = document.querySelector('.item-detail--MAIN');
+    itemDetail.classList.remove('open');
 
-  document.querySelector('.bitlink-item--MAIN').classList =
-    'bitlink-item--ACTIVE';
+    // setting the Edit Profile Username on page load
+    document.querySelector('#username').value =
+      document.querySelector('.username').dataset.author;
 
-  document.querySelector('.item-detail--created-date').textContent =
-    'CREATED ' +
-    document.querySelector('.bitlink-item--created-date').dataset.date_created;
+    document.querySelector('.bitlink-item--MAIN').classList =
+      'bitlink-item--ACTIVE';
 
-  document.querySelector('.item-detail--title').textContent =
-    document.querySelector('.bitlink-item--title').dataset.title;
+    document.querySelector('.item-detail--created-date').textContent =
+      'CREATED ' +
+      document.querySelector('.bitlink-item--created-date').dataset
+        .date_created;
 
-  document.querySelector('.item-detail--url').textContent =
-    document.querySelector('.bitlink--MAIN').dataset.origin;
+    document.querySelector('.item-detail--title').textContent =
+      document.querySelector('.bitlink-item--title').dataset.title;
 
-  document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
-    document.querySelector('.bitlink--MAIN').dataset.stealth;
+    document.querySelector('#clicks__text').textContent = 'TOTAL DOWNLOADS';
+    document.querySelector('.button__edit').style.display = 'none';
 
-  document
-    .querySelector('.item-detail--url')
-    .setAttribute(
-      'href',
-      document.querySelector('.bitlink--MAIN').dataset.origin
-    );
+    document.querySelector('.item-detail--url').textContent =
+      'http://abbrefy.xyz/bulk/' +
+      document.querySelector('.bitlink--MAIN').dataset.origin;
 
-  document.querySelector('.button--COPY').dataset.clipboard = `http://${
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy
-  }`;
+    document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+      document.querySelector('.bitlink--MAIN').dataset.stealth;
 
-  document.querySelector('.bitlink--detail--MAIN').textContent = `${
-    document.querySelector('.bitlink--MAIN').dataset.abbrefy
-  }`;
+    document
+      .querySelector('.item-detail--url')
+      .setAttribute(
+        'href',
+        'http://abbrefy.xyz/bulk/' +
+          document.querySelector('.bitlink--MAIN').dataset.origin
+      );
 
-  // document
-  //   .querySelector('.bitlink--copy-tooltip')
-  //   .querySelector('input').value =
-  //   document.querySelector('.bitlink--MAIN').dataset.abbrefy;
+    document.querySelector(
+      '.button--COPY'
+    ).dataset.clipboard = `http://abbrefy.xyz/bulk/${
+      document.querySelector('.bitlink--MAIN').dataset.abbrefy
+    }`;
 
-  document
-    .querySelector('.bitlink--detail--MAIN')
-    .setAttribute(
-      'title',
-      `http://${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`
-    );
+    document.querySelector('.bitlink--detail--MAIN').textContent =
+      'abbrefy.xyz/bulk/' +
+      document.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  document
-    .querySelector('.bitlink--copyable-text')
-    .setAttribute(
-      'href',
-      `http://${document.querySelector('.bitlink--MAIN').dataset.abbrefy}`
-    );
+    // document
+    //   .querySelector('.bitlink--copy-tooltip')
+    //   .querySelector('input').value =
+    //   document.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  document.querySelector('.info-wrapper--clicks-text').textContent =
-    document.querySelector('.click-count--MAIN').dataset.clicks;
+    document
+      .querySelector('.bitlink--detail--MAIN')
+      .setAttribute(
+        'title',
+        'abbrefy.xyz/' +
+          document.querySelector('.bitlink--MAIN').dataset.abbrefy
+      );
 
-  if (
-    document.querySelector('.click-count--MAIN').dataset.audience.length > 2
-  ) {
-    locations = [
-      ...document
-        .querySelector('.click-count--MAIN')
-        .dataset.audience.split('[')[1]
-        .split(']')[0]
-        .split(', '),
-    ];
+    document
+      .querySelector('.bitlink--copyable-text')
+      .setAttribute(
+        'href',
+        `http://abbrefy.xyz/bulk/${
+          document.querySelector('.bitlink--MAIN').dataset.abbrefy
+        }`
+      );
 
-    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    document.querySelector('.info-wrapper--clicks-text').textContent =
+      document.querySelector('.click-count--MAIN').dataset.clicks;
 
-    locations.forEach((location) => {
-      document.querySelector('.audience--locations---MAIN').innerHTML += `<h6>${
-        location.split("'")[1].split("'")[0]
-      }</h6>`;
-    });
+    if (
+      document.querySelector('.click-count--MAIN').dataset.audience.length > 2
+    ) {
+      locations = [
+        ...link
+          .querySelector('.click-count--MAIN')
+          .dataset.audience.split('[')[1]
+          .split(']')[0]
+          .split(', '),
+      ];
+
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+
+      locations.forEach((location) => {
+        document.querySelector(
+          '.audience--locations---MAIN'
+        ).innerHTML += `<h6>${location.split("'")[1].split("'")[0]}</h6>`;
+      });
+    } else {
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    }
+
+    // const itemDetail = document.querySelector('.item-detail--MAIN');
+    // itemDetail.classList.add('open');
+
+    // end of view update
   } else {
-    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    const itemDetail = document.querySelector('.item-detail--MAIN');
+    itemDetail.classList.remove('open');
+
+    // setting the Edit Profile Username on page load
+    document.querySelector('#username').value =
+      document.querySelector('.username').dataset.author;
+
+    document.querySelector('.bitlink-item--MAIN').classList =
+      'bitlink-item--ACTIVE';
+
+    document.querySelector('.item-detail--created-date').textContent =
+      'CREATED ' +
+      document.querySelector('.bitlink-item--created-date').dataset
+        .date_created;
+
+    document.querySelector('.item-detail--title').textContent =
+      document.querySelector('.bitlink-item--title').dataset.title;
+
+    document.querySelector('.item-detail--url').textContent =
+      document.querySelector('.bitlink--MAIN').dataset.origin;
+
+    document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+      document.querySelector('.bitlink--MAIN').dataset.stealth;
+
+    document
+      .querySelector('.item-detail--url')
+      .setAttribute(
+        'href',
+        document.querySelector('.bitlink--MAIN').dataset.origin
+      );
+
+    document.querySelector(
+      '.button--COPY'
+    ).dataset.clipboard = `http://abbrefy.xyz/${
+      document.querySelector('.bitlink--MAIN').dataset.abbrefy
+    }`;
+
+    document.querySelector(
+      '.bitlink--detail--MAIN'
+    ).textContent = `abbrefy.xyz/${
+      document.querySelector('.bitlink--MAIN').dataset.abbrefy
+    }`;
+
+    // document
+    //   .querySelector('.bitlink--copy-tooltip')
+    //   .querySelector('input').value =
+    //   document.querySelector('.bitlink--MAIN').dataset.abbrefy;
+
+    document
+      .querySelector('.bitlink--detail--MAIN')
+      .setAttribute(
+        'title',
+        `http://abbrefy.xyz/${
+          document.querySelector('.bitlink--MAIN').dataset.abbrefy
+        }`
+      );
+
+    document
+      .querySelector('.bitlink--copyable-text')
+      .setAttribute(
+        'href',
+        `http://abbrefy.xyz/${
+          document.querySelector('.bitlink--MAIN').dataset.abbrefy
+        }`
+      );
+
+    document.querySelector('.info-wrapper--clicks-text').textContent =
+      document.querySelector('.click-count--MAIN').dataset.clicks;
+
+    if (
+      document.querySelector('.click-count--MAIN').dataset.audience.length > 2
+    ) {
+      locations = [
+        ...document
+          .querySelector('.click-count--MAIN')
+          .dataset.audience.split('[')[1]
+          .split(']')[0]
+          .split(', '),
+      ];
+
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+
+      locations.forEach((location) => {
+        document.querySelector(
+          '.audience--locations---MAIN'
+        ).innerHTML += `<h6>${location.split("'")[1].split("'")[0]}</h6>`;
+      });
+    } else {
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    }
   }
 });
 
@@ -141,76 +252,175 @@ document.querySelector('.list--MAIN').onclick = function (e) {
 
 function updateView(link) {
   // link.style.backgroundColor = '#fff';
-  document.querySelector('.item-detail--created-date').textContent =
-    'CREATED ' +
-    link.querySelector('.bitlink-item--created-date').dataset.date_created;
 
-  document.querySelector('.item-detail--title').textContent =
-    link.querySelector('.bitlink-item--title').dataset.title;
+  if (link.querySelector('.click-count--MAIN').dataset.type == 'bulk') {
+    // SETTING A DIFFERENT VIEW FOR BULK ABBREFY
 
-  document.querySelector('.item-detail--url').textContent =
-    link.querySelector('.bitlink--MAIN').dataset.origin;
+    document.querySelector('.item-detail--created-date').textContent =
+      'CREATED ' +
+      link.querySelector('.bitlink-item--created-date').dataset.date_created;
 
-  document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
-    link.querySelector('.bitlink--MAIN').dataset.stealth;
+    document.querySelector('.item-detail--title').textContent =
+      link.querySelector('.bitlink-item--title').dataset.title;
 
-  document
-    .querySelector('.item-detail--url')
-    .setAttribute('href', link.querySelector('.bitlink--MAIN').dataset.origin);
+    document.querySelector('#clicks__text').textContent = 'TOTAL DOWNLOADS';
+    document.querySelector('.button__edit').style.display = 'none';
 
-  document.querySelector('.button--COPY').dataset.clipboard = `http://${
-    link.querySelector('.bitlink--MAIN').dataset.abbrefy
-  }`;
+    document.querySelector('.item-detail--url').textContent =
+      'http://abbrefy.xyz/bulk/' +
+      link.querySelector('.bitlink--MAIN').dataset.origin;
 
-  document.querySelector('.bitlink--detail--MAIN').textContent =
-    link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+    document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+      link.querySelector('.bitlink--MAIN').dataset.stealth;
 
-  // document
-  //   .querySelector('.bitlink--copy-tooltip')
-  //   .querySelector('input').value =
-  //   link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+    document
+      .querySelector('.item-detail--url')
+      .setAttribute(
+        'href',
+        'http://abbrefy.xyz/bulk/' +
+          link.querySelector('.bitlink--MAIN').dataset.origin
+      );
 
-  document
-    .querySelector('.bitlink--detail--MAIN')
-    .setAttribute(
-      'title',
+    document.querySelector(
+      '.button--COPY'
+    ).dataset.clipboard = `http://abbrefy.xyz/bulk/${
       link.querySelector('.bitlink--MAIN').dataset.abbrefy
-    );
+    }`;
 
-  document
-    .querySelector('.bitlink--copyable-text')
-    .setAttribute(
-      'href',
-      `http://${link.querySelector('.bitlink--MAIN').dataset.abbrefy}`
-    );
+    document.querySelector('.bitlink--detail--MAIN').textContent =
+      'abbrefy.xyz/bulk/' +
+      link.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  document.querySelector('.info-wrapper--clicks-text').textContent =
-    link.querySelector('.click-count--MAIN').dataset.clicks;
+    // document
+    //   .querySelector('.bitlink--copy-tooltip')
+    //   .querySelector('input').value =
+    //   link.querySelector('.bitlink--MAIN').dataset.abbrefy;
 
-  if (link.querySelector('.click-count--MAIN').dataset.audience.length > 2) {
-    locations = [
-      ...link
-        .querySelector('.click-count--MAIN')
-        .dataset.audience.split('[')[1]
-        .split(']')[0]
-        .split(', '),
-    ];
+    document
+      .querySelector('.bitlink--detail--MAIN')
+      .setAttribute(
+        'title',
+        'abbrefy.xyz/' + link.querySelector('.bitlink--MAIN').dataset.abbrefy
+      );
 
-    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    document
+      .querySelector('.bitlink--copyable-text')
+      .setAttribute(
+        'href',
+        `http://abbrefy.xyz/bulk/${
+          link.querySelector('.bitlink--MAIN').dataset.abbrefy
+        }`
+      );
 
-    locations.forEach((location) => {
-      document.querySelector('.audience--locations---MAIN').innerHTML += `<h6>${
-        location.split("'")[1].split("'")[0]
-      }</h6>`;
-    });
+    document.querySelector('.info-wrapper--clicks-text').textContent =
+      link.querySelector('.click-count--MAIN').dataset.clicks;
+
+    if (link.querySelector('.click-count--MAIN').dataset.audience.length > 2) {
+      locations = [
+        ...link
+          .querySelector('.click-count--MAIN')
+          .dataset.audience.split('[')[1]
+          .split(']')[0]
+          .split(', '),
+      ];
+
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+
+      locations.forEach((location) => {
+        document.querySelector(
+          '.audience--locations---MAIN'
+        ).innerHTML += `<h6>${location.split("'")[1].split("'")[0]}</h6>`;
+      });
+    } else {
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    }
+
+    const itemDetail = document.querySelector('.item-detail--MAIN');
+    itemDetail.classList.add('open');
+
+    // end of view update
   } else {
-    document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    document.querySelector('.item-detail--created-date').textContent =
+      'CREATED ' +
+      link.querySelector('.bitlink-item--created-date').dataset.date_created;
+
+    document.querySelector('.item-detail--title').textContent =
+      link.querySelector('.bitlink-item--title').dataset.title;
+
+    document.querySelector('.item-detail--url').textContent =
+      link.querySelector('.bitlink--MAIN').dataset.origin;
+
+    document.querySelector('#clicks__text').textContent = 'TOTAL CLICKS';
+    document.querySelector('.button__edit').style.display = '';
+
+    document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
+      link.querySelector('.bitlink--MAIN').dataset.stealth;
+
+    document
+      .querySelector('.item-detail--url')
+      .setAttribute(
+        'href',
+        link.querySelector('.bitlink--MAIN').dataset.origin
+      );
+
+    document.querySelector(
+      '.button--COPY'
+    ).dataset.clipboard = `http://abbrefy.xyz/${
+      link.querySelector('.bitlink--MAIN').dataset.abbrefy
+    }`;
+
+    document.querySelector('.bitlink--detail--MAIN').textContent =
+      'abbrefy.xyz/' + link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+
+    // document
+    //   .querySelector('.bitlink--copy-tooltip')
+    //   .querySelector('input').value =
+    //   link.querySelector('.bitlink--MAIN').dataset.abbrefy;
+
+    document
+      .querySelector('.bitlink--detail--MAIN')
+      .setAttribute(
+        'title',
+        'abbrefy.xyz/' + link.querySelector('.bitlink--MAIN').dataset.abbrefy
+      );
+
+    document
+      .querySelector('.bitlink--copyable-text')
+      .setAttribute(
+        'href',
+        `http://abbrefy.xyz/${
+          link.querySelector('.bitlink--MAIN').dataset.abbrefy
+        }`
+      );
+
+    document.querySelector('.info-wrapper--clicks-text').textContent =
+      link.querySelector('.click-count--MAIN').dataset.clicks;
+
+    if (link.querySelector('.click-count--MAIN').dataset.audience.length > 2) {
+      locations = [
+        ...link
+          .querySelector('.click-count--MAIN')
+          .dataset.audience.split('[')[1]
+          .split(']')[0]
+          .split(', '),
+      ];
+
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+
+      locations.forEach((location) => {
+        document.querySelector(
+          '.audience--locations---MAIN'
+        ).innerHTML += `<h6>${location.split("'")[1].split("'")[0]}</h6>`;
+      });
+    } else {
+      document.querySelector('.audience--locations---MAIN').innerHTML = '';
+    }
+
+    const itemDetail = document.querySelector('.item-detail--MAIN');
+    itemDetail.classList.add('open');
+
+    // end of view update
   }
-
-  const itemDetail = document.querySelector('.item-detail--MAIN');
-  itemDetail.classList.add('open');
-
-  // end of view update
 }
 
 // helper function for copying link to clipboard
@@ -401,7 +611,7 @@ function modView(title, url, stealth) {
     .querySelector('.bitlink--MAIN').textContent = url;
   document
     .querySelector('.bitlink-item--ACTIVE')
-    .querySelector('.bitlink--MAIN').dataset.abbrefy = url;
+    .querySelector('.bitlink--MAIN').dataset.abbrefy = url.split('/')[1];
   document
     .querySelector('.bitlink-item--ACTIVE')
     .querySelector('.bitlink--MAIN').dataset.stealth = `${stealth}`;
@@ -459,6 +669,8 @@ async function updateLink(data) {
 function get_error(identifier) {
   messages = {
     DATA_ERROR: 'URL data is required',
+    FILE_TYPE_ERROR: 'You can only upload a CSV file',
+    FILE_ERROR: 'You need to upload a CSV file',
     URL_ERROR: 'That URL is invalid',
     DUPLICATE_ERROR: "That's already an Abbrefy link",
     USAGE_ERROR: 'That slug is already in use',
@@ -527,6 +739,69 @@ function deleteView() {
   updateView(newView);
 }
 // helper function for modifying and deleting links end
+
+// helper function for creating bulk abbrefy links
+const bulk_create = document.querySelector('#bulk_create');
+bulk_create.onclick = function () {
+  const csvFile = document.querySelector('#abbrefy__csv').files[0];
+  const type = document.querySelector('#abbrefy__type');
+  const bulkType = type.options[type.selectedIndex].value;
+
+  if (!csvFile) {
+    return (document.querySelector('#bulk__error').textContent =
+      'CSV file is required');
+  } else {
+    document.querySelector('#bulk__error').textContent = '';
+  }
+  bulk_create.textContent = 'Abbrefying...';
+  bulk_create.style.backgroundColor = '#e67083';
+
+  const form = new FormData();
+  form.append('csv', csvFile, csvFile.name);
+  form.append('type', bulkType);
+
+  bulk_shorten(form);
+};
+
+// helper function for shortening bulk Long URLs
+async function bulk_shorten(form) {
+  url = '/api/hidden/url/abbrefy/bulk/';
+  request = await fetch(url, {
+    method: 'POST',
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+    body: form,
+  });
+  response = await request.json();
+
+  // handling server response
+  if (response.status == false) {
+    bulk_create.textContent = 'Abbrefy';
+    bulk_create.style.backgroundColor = '#e3425a';
+    window.history.back();
+    halfmoon.initStickyAlert({
+      content: get_error(response.error),
+      alertType: 'alert-danger',
+      fillType: 'filled-lm',
+    });
+  } else {
+    // addToView(response);
+    bulk_create.textContent = 'Abbrefy';
+    bulk_create.style.backgroundColor = '#e3425a';
+    window.history.back();
+
+    halfmoon.initStickyAlert({
+      content:
+        'Come back in a few minutes and your links will be here waiting for you.',
+      title: 'Bulk Abbrefy In Progress',
+      alertType: 'alert-success',
+      fillType: 'filled-lm',
+    });
+
+    setTimeout(() => (window.location.href = '/me/dashboard'), 3000);
+  }
+}
 
 // helper function for creating abbrefy link
 const create = document.querySelector('#create');
