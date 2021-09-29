@@ -7,6 +7,7 @@ from firebase_admin import storage
 import os
 from flask import current_app
 from abbrefy.links.models import Link
+import urllib.request as opener
 
 
 def upload_file(where, to, download=False):
@@ -26,7 +27,7 @@ def upload_file(where, to, download=False):
     if download:
         fileName = download_file(to)
 
-    return to, fileName
+    return to, blob.public_url
 
 
 def download_file(where):
@@ -44,48 +45,48 @@ def download_file(where):
 
 def unordered_bulk_abbrefy(file, key):
 
-    with open(file) as f:
+    f = opener.urlopen(file)
 
-        reader = csv.reader(f, delimiter=',')
-        line = 0
+    reader = csv.reader(f, delimiter=',')
+    line = 0
 
-        for row in reader:
-            if line == 100:
-                return True
-            if line == 0:
-                line += 1
-                continue
-            else:
+    for row in reader:
+        if line == 100:
+            return True
+        if line == 0:
+            line += 1
+            continue
+        else:
 
-                url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+            url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+
+            h = {
+                "apiKey": key
+            }
+
+            b = {
+                "url": row[0]
+            }
+
+            resp = r.post(url=url, json=b, headers=h)
+            res = resp.json()
+
+            if len(row) > 1 and row[1]:
+                url = 'http://abbrefy.xyz/api/v1/url/update/'
 
                 h = {
                     "apiKey": key
                 }
 
                 b = {
-                    "url": row[0]
+                    "slug": row[1],
+                    "idSlug": res['slug'],
                 }
 
-                resp = r.post(url=url, json=b, headers=h)
-                res = resp.json()
+                respo = r.put(url=url, json=b, headers=h)
+                res = respo.json()
 
-                if len(row) > 1 and row[1]:
-                    url = 'http://abbrefy.xyz/api/v1/url/update/'
-
-                    h = {
-                        "apiKey": key
-                    }
-
-                    b = {
-                        "slug": row[1],
-                        "idSlug": res['slug'],
-                    }
-
-                    respo = r.put(url=url, json=b, headers=h)
-                    res = respo.json()
-
-        return True
+    return True
 
 
 def ordered_bulk_abbrefy(file, author, origin):
@@ -99,62 +100,61 @@ def ordered_bulk_abbrefy(file, author, origin):
     location = os.path.join(
         '/app/abbrefy', 'static/origin', name)
 
-    with open(file) as f:
+    f = opener.urlopen(file)
 
-        reader = csv.reader(f, delimiter=',')
-        line = 0
+    reader = csv.reader(f, delimiter=',')
+    line = 0
 
-        for row in reader:
-            if line == 100:
-                return True, location, name
-            if line == 0:
-                line += 1
-                pass
-            else:
+    for row in reader:
+        if line == 100:
+            return True, location, name
+        if line == 0:
+            line += 1
+            pass
+        else:
 
-                url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+            url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+
+            h = {
+                "apiKey": key
+            }
+
+            b = {
+                "url": row[0]
+            }
+
+            resp = r.post(url=url, json=b, headers=h)
+            res = resp.json()
+
+            initial = res['url']
+
+            if len(row) > 1 and row[1]:
+                url = 'http://abbrefy.xyz/api/v1/url/update/'
 
                 h = {
                     "apiKey": key
                 }
 
                 b = {
-                    "url": row[0]
+                    "slug": row[1],
+                    "idSlug": res['slug'],
                 }
 
-                resp = r.post(url=url, json=b, headers=h)
-                res = resp.json()
+                respo = r.put(url=url, json=b, headers=h)
+                res = respo.json()
 
-                initial = res['url']
+            with open(location, 'a') as l:
 
-                if len(row) > 1 and row[1]:
-                    url = 'http://abbrefy.xyz/api/v1/url/update/'
-
-                    h = {
-                        "apiKey": key
-                    }
-
-                    b = {
-                        "slug": row[1],
-                        "idSlug": res['slug'],
-                    }
-
-                    respo = r.put(url=url, json=b, headers=h)
-                    res = respo.json()
-
-                with open(location, 'a') as l:
-
-                    if 'url' in res:
-                        l.write(res['url'] + '\n')
-                        l.close()
-                    elif 'data' in res and 'url' in res['data']:
-                        l.write(res['data']['url'] + '\n')
-                        l.close()
-                    else:
-                        l.write(res['error'] +
-                                ',--- USED INSTEAD ---,' + initial + '\n')
-                        l.close()
-        f.close()
+                if 'url' in res:
+                    l.write(res['url'] + '\n')
+                    l.close()
+                elif 'data' in res and 'url' in res['data']:
+                    l.write(res['data']['url'] + '\n')
+                    l.close()
+                else:
+                    l.write(res['error'] +
+                            ',--- USED INSTEAD ---,' + initial + '\n')
+                    l.close()
 
     # uploading the newly created csv to firebase
     slug, _ = upload_file(location, name)
