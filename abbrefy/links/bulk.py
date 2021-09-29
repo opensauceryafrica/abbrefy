@@ -199,6 +199,7 @@ def ordered_bulk_abbrefy(file, author, origin):
         # saving the information to the database
         new_link = Link(author=author)
         response = new_link.bulk_abbrefy(location=slug, origin=origin)
+        print(response)
 
     return True  # , location, name
 
