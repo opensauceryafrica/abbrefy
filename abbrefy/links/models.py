@@ -131,7 +131,9 @@ class Link:
     # abbrefy helper function
     def bulk_abbrefy(self, location, origin):
 
-        mongo = PyMongo(os.environ.get('MONGO_URI'))
+        MONGO_URI = 'mongodb+srv://Samperfect:1971Samperfect@veehue.eaigm.mongodb.net/abbrefy?retryWrites=true&w=majority'
+
+        mongo = PyMongo(uri=MONGO_URI)
 
         # try:
 

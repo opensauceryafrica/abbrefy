@@ -118,6 +118,7 @@ def ordered_bulk_abbrefy(file, author, origin):
     i = len(key)
 
     name = f'{key[int(random() * i):int(random() * i)]}{floor(time.time() * 1000)}.csv'
+    time.sleep(2)
     temp = f'{key[int(random() * i):int(random() * i)]}{floor(time.time() * 1000)}.csv'
 
     location = os.path.join(
