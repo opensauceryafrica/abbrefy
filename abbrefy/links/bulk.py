@@ -45,7 +45,7 @@ def download_file(where):
 
 def unordered_bulk_abbrefy(file, key):
 
-    f = opener.urlopen(file)
+    f = opener.urlopen(file).read().decode('utf-8')
 
     reader = csv.reader(f, delimiter=',')
     line = 0
@@ -100,7 +100,7 @@ def ordered_bulk_abbrefy(file, author, origin):
     location = os.path.join(
         '/app/abbrefy', 'static/origin', name)
 
-    f = opener.urlopen(file)
+    f = opener.urlopen(file).read().decode('utf-8')
 
     reader = csv.reader(f, delimiter=',')
     line = 0
