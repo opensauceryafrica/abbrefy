@@ -106,6 +106,8 @@ def ordered_bulk_abbrefy(file, author, origin):
     line = 0
 
     for row in reader:
+
+        print(row)
         if line == 100:
             return True, location, name
         if line == 0:
@@ -126,6 +128,8 @@ def ordered_bulk_abbrefy(file, author, origin):
             resp = r.post(url=url, json=b, headers=h)
             res = resp.json()
 
+            print(res)
+
             initial = res['url']
 
             if len(row) > 1 and row[1]:
@@ -142,6 +146,8 @@ def ordered_bulk_abbrefy(file, author, origin):
 
                 respo = r.put(url=url, json=b, headers=h)
                 res = respo.json()
+
+                print(res)
 
             with open(location, 'a') as l:
 
