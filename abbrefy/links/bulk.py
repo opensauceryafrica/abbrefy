@@ -141,7 +141,7 @@ def ordered_bulk_abbrefy(file, author, origin):
         for row in reader:
 
             if line == 100:
-                return True, location, name
+                break
             if line == 0:
                 line += 1
             else:
