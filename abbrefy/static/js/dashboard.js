@@ -585,7 +585,7 @@ function initUpdate() {
 }
 
 // helper function for updating view
-function modView(title, url, stealth) {
+function modView(title, url, slug, stealth) {
   document.querySelector('.item-detail--title').textContent = title;
   document.querySelector('.bitlink--detail--MAIN').textContent = url;
   document.querySelector(
@@ -593,12 +593,12 @@ function modView(title, url, stealth) {
   ).dataset.stealth = `${stealth}`;
   document
     .querySelector('.bitlink--detail--MAIN')
-    .setAttribute('title', `http://${url}`);
+    .setAttribute('title', `${url}`);
   document
     .querySelector('.bitlink--copyable-text')
-    .setAttribute('href', `http://${url}`);
+    .setAttribute('href', `${url}`);
 
-  document.querySelector('.button--COPY').dataset.clipboard = `http://${url}`;
+  document.querySelector('.button--COPY').dataset.clipboard = `${url}`;
 
   document
     .querySelector('.bitlink-item--ACTIVE')
@@ -608,17 +608,17 @@ function modView(title, url, stealth) {
     .querySelector('.bitlink-item--title').dataset.title = title;
   document
     .querySelector('.bitlink-item--ACTIVE')
-    .querySelector('.bitlink--MAIN').textContent = url;
+    .querySelector('.bitlink--MAIN').textContent = 'abbrefy.xyz/' + slug;
   document
     .querySelector('.bitlink-item--ACTIVE')
-    .querySelector('.bitlink--MAIN').dataset.abbrefy = url.split('/')[1];
+    .querySelector('.bitlink--MAIN').dataset.abbrefy = slug;
   document
     .querySelector('.bitlink-item--ACTIVE')
     .querySelector('.bitlink--MAIN').dataset.stealth = `${stealth}`;
   document
     .querySelector('.bitlink-item--ACTIVE')
     .querySelector('.bitlink--MAIN')
-    .setAttribute('title', url);
+    .setAttribute('title', 'abbrefy.xyz/' + slug);
 }
 
 // ansynchronous function for updating the URL
@@ -653,7 +653,12 @@ async function updateLink(data) {
       });
     }
   } else {
-    modView(response.data.title, response.data.url, response.data.stealth);
+    modView(
+      response.data.title,
+      response.data.url,
+      response.data.slug,
+      response.data.stealth
+    );
     window.history.back();
     document.querySelector('#slug__error').textContent = '';
     document.querySelector('#URL__error').textContent = '';

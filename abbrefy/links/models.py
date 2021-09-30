@@ -79,7 +79,8 @@ class Link:
             "status": True,
             "message": "Abbrefy link update successful.",
             "origin": new['origin'],
-            "url": f"abbrefy.xyz/{new['slug']}",
+            "slug": new['slug'],
+            "url": f"http://abbrefy.xyz/{new['slug']}",
             "title": new['title'],
             "clicks": new['clicks'],
             "stealth": new['stealth']
