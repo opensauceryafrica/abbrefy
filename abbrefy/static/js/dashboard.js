@@ -587,7 +587,8 @@ function initUpdate() {
 // helper function for updating view
 function modView(title, url, slug, stealth) {
   document.querySelector('.item-detail--title').textContent = title;
-  document.querySelector('.bitlink--detail--MAIN').textContent = url;
+  document.querySelector('.bitlink--detail--MAIN').textContent =
+    'abbrefy.xyz/' + slug;
   document.querySelector(
     '.bitlink--detail--MAIN'
   ).dataset.stealth = `${stealth}`;
@@ -608,7 +609,7 @@ function modView(title, url, slug, stealth) {
     .querySelector('.bitlink-item--title').dataset.title = title;
   document
     .querySelector('.bitlink-item--ACTIVE')
-    .querySelector('.bitlink--MAIN').textContent = 'abbrefy.xyz/' + slug;
+    .querySelector('.bitlink--MAIN').textContent = slug;
   document
     .querySelector('.bitlink-item--ACTIVE')
     .querySelector('.bitlink--MAIN').dataset.abbrefy = slug;
@@ -894,8 +895,8 @@ function addToView(data) {
             data.origin
           }" data-stealth="${data.stealth}" tabindex="-1" title="abbrefy.xyz/${
     data.slug
-  }" data-abbrefy="abbrefy.xyz/${data.slug}">
-            abbrefy.xyz/<span>${data.slug}</span>
+  }" data-abbrefy="${data.slug}">
+            <span>${data.slug}</span>
           </div>
           <span data-clicks="${data.clicks}" data-audience="${
     data.audience
