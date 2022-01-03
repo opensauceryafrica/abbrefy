@@ -181,3 +181,36 @@ class Link:
         }
 
         return response
+    
+     # abbrefy helper function
+    
+    # search helper function
+    def search(self, term, author):
+
+        try:
+            # write a mongo query to search using regex and return as json
+            res = mongo.db.links.find({
+                "$or": [
+                    {"origin": {"$regex": term, "$options":"i" } }, {"title": {"$regex": term, "$options":"i" } },
+                    {"slug": {"$regex": term, "$options":"i" } }
+                ],
+                "author": author
+            }).sort([("date_created", -1)])
+            
+
+      
+        except:
+            response = {
+                "status": False,
+                "error": "Something went wrong. Please try again."
+            }
+            return response
+
+        response = {
+            "status": True,
+            "message": "Abbrefy links search successful.",
+            "links": res
+        }
+
+        return response
+

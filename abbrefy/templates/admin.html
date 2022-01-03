@@ -143,25 +143,46 @@
             </div>
           </div>
           <!-- Navbar brand -->
-          <div id="search" class="navbar-content">
-            <form class="form-inline ml-auto" action="..." method="...">
+          <div class="navbar-content">
+            <form  id="search"  class="form-inline ml-auto" >
               <!-- ml-auto = margin-left: auto -->
               <div class="input-group">
                 <input
                   type="text"
+                  id="abbrefy__search"
                   class="form-control"
                   placeholder="Search your links"
                   required="required"
                 />
-                <div class="input-group-append">
-                  <button class="btn" type="submit">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                    <span class="sr-only">Search your links</span>
-                    <!-- sr-only = show only on screen readers -->
-                  </button>
-                </div>
+              
               </div>
             </form>
+            <!-- <div class="input-group-append">
+             
+            </div> -->
+            <div class="dropdown">
+              <button  class="btn abbrefy__search" data-toggle="dropdown" type="button" id="sign-in-dropdown-toggle-btn" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <span class="sr-only">Search your links</span>
+                <!-- sr-only = show only on screen readers -->
+              </button>
+             
+              <div class="dropdown-menu w-250 w-sm-350" aria-labelledby="sign-in-dropdown-toggle-btn">
+                <div class="dropdown-content"> <!-- p-20 = padding: 2rem (20px) -->
+                  <form  class="form-inline ml-auto" >
+                   
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        id="abbrefy__search__mobile"  
+                        class="form-control"
+                        placeholder="Search your links"
+                        required="required"
+                      />
+                    </div>
+                  </form>
+                </div>
+            </div>
           </div>
           <div class="navbar-content">
             <li class="nav-item dropdown with-arrow">

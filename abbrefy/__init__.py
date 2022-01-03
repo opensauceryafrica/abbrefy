@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_mail import Mail
 from firebase_admin import credentials, initialize_app
 import os
+import certifi
 
 # instantiating  pymongo
 mongo = PyMongo()
@@ -24,8 +25,8 @@ cors = CORS()
 
 def create_app(config_class=Config):
     application = Flask(__name__)
-    application.config.from_object(Config)
-    mongo.init_app(application)
+    application.config.from_object(config_class)
+    mongo.init_app(application, tlsCAFile=certifi.where())
     bcrypt.init_app(application)
     cors.init_app(application)
     Mail.init_app(application)

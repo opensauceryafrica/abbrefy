@@ -1,11 +1,17 @@
 .link-active{
     color: #e3425a !important;
 }
-
+.abbrefy__search{
+    display: none;
+}
 
 @media (max-width: 575px) {
   #search {
         display: none;
+    }
+
+    .abbrefy__search{
+        display: block;
     }
 
     .page-wrapper.with-sidebar[data-sidebar-hidden]>.sidebar {

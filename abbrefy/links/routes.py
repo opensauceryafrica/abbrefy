@@ -12,6 +12,9 @@ from uuid import uuid4
 import requests
 from rq import Queue
 from worker import conn
+import json as JSON
+from bson.json_util import dumps, loads
+
 # attaching the links blueprint
 links = Blueprint('links', __name__)
 
@@ -283,3 +286,33 @@ def delete(user):
 
     except:
         return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+
+
+
+# the abbrefy links search route
+@links.route('/api/hidden/url/search/', methods=['POST'])
+@login_required
+def search(user):
+
+    data = request.get_json()
+
+    # validating the data was sent
+    if not data:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+    try:
+        # searching for links that matches the query
+        links = Link().search(data['term'], author=user['public_id'])
+
+        if links['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
+        return jsonify({"status": True, "message": "SEARCH_SUCCESS", "data": JSON.loads(dumps(links['links']))}), 200
+
+    except KeyError:
+        return jsonify({"status": False, "error": "DATA_ERROR"}), 400
+
+    except Exception as e:
+        print(e)
+        return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+
