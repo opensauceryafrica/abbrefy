@@ -4,7 +4,7 @@ from abbrefy.users.models import User
 from datetime import datetime
 from validators.url import url
 from abbrefy.links.tools import check_duplicate, get_title
-from abbrefy.users.tools import api_key_required
+from abbrefy.users.tools import api_key_required, api_key_con_required
 import os
 import requests
 # attaching the links blueprint
@@ -13,7 +13,7 @@ linksApi = Blueprint('linksApi', __name__)
 
 # public API route for abbrefying links
 @linksApi.route('/api/v1/url/abbrefy/', methods=['POST'])
-@api_key_required
+@api_key_con_required
 def publicAbbrefy(user):
 
     try:

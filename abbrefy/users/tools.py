@@ -58,6 +58,24 @@ def api_key_required(f):
 
     return decorated
 
+# conditional login in required decorator
+def api_key_con_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not "apiKey" in request.headers:
+            return f(None, *args, **kwargs)
+
+        apiKey = request.headers.get('apiKey')
+
+        user = User.get_key_owner(apiKey)
+
+        if not user:
+            return jsonify({"status": False, "error": "Invalid API key provided."})
+
+        return f(user, *args, **kwargs)
+
+    return decorated
+
 
 # helper function for validating username
 def validate_username(username):
