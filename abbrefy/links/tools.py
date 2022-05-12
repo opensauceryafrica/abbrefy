@@ -19,7 +19,8 @@ def get_title(url):
 # duplicate link helper function
 def check_duplicate(url):
     url = url.split('/')
-    return url[3] if len(url) >= 4 else None
+    print(url)
+    return url[3] if len(url) >= 4 and 'abbrefy.xyz' == url[2] else None
 
 
 # sorter helper function
