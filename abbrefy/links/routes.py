@@ -67,9 +67,19 @@ def bulk_abbrefy():
         return jsonify({"status": False, "error": "AUTHORIZATION_ERROR"}), 401
 
     author = session['current_user']['public_id']
+    try:
+        # collecting the user's apiKey
+        key = User.get_key(author)
+    except:
+        response = User().generate_api_key(author)
 
-    # collecting the user's apiKey
-    key = User.get_key(author)
+        if response == False:
+            return jsonify({"status": False, "error": "KEY_LIMIT_EXCEEDED"}), 400
+
+        if response['status'] == False:
+            return jsonify({"status": False, "error": "UNKNOWN_ERROR"}), 400
+        
+        key = User.get_key(author)
 
     # generating a new file name for the uploaded file
     to = str(floor(time() * 1000)) + uuid4().hex[0:7] + '.csv'
