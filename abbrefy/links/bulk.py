@@ -13,7 +13,7 @@ from firebase_admin import credentials, initialize_app
 pJSON = 'emmyh-coin-firebase-adminsdk-qs8br-b5c695d98a.json'
 bucket = 'emmyh-coin.appspot.com'
 # r"C:\Users\Samperfect\Downloads\Codes\Projects\abbrefy\abbrefy"
-root_path = '/app/abbrefy'
+root_path = '/app/abbrefy' if os.environ.get('ENVIRONMENT') == 'heroku' else 'abbrefy' if os.environ.get('ENVIRONMENT') == 'render' else ''
 
 
 def upload_file(where, to, download=False):
@@ -107,13 +107,14 @@ def unordered_bulk_abbrefy(file, key):
                     respo = r.put(url=url, json=b, headers=h)
                     res = respo.json()
                 line += 1
-
+    os.remove(tempo)
+    os.remove(file.split('Abbrefy/')[-1][1:])
     return True
 
 
 def ordered_bulk_abbrefy(file, author, origin):
 
-    key = 'd08604dafe2e4da988c6eb8818dce872'
+    key = os.environ.get('BULK_ABBREFY_KEY')
 
     i = len(key)
 
@@ -200,6 +201,9 @@ def ordered_bulk_abbrefy(file, author, origin):
         # saving the information to the database
         new_link = Link(author=author)
         response = new_link.bulk_abbrefy(location=slug, origin=origin)
+        os.remove(tempo)
+        os.remove(location)
+        os.remove(origin)
 
     return True  # , location, name
 
