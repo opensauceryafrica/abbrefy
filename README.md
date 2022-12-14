@@ -7,9 +7,10 @@ A completely free and powerful URL Shortener built with Python and Flask and emb
 ## Usage
 Abbrefy is growing, without any form of marketing or promotion, we've a lot of increase in usage over the years. Current, we've got 50+ users, 1,000+ abbrefied links, and 39,000+ all time clicks. 
 Below are DB snapshots to verify the information above. 
-https://github.com/opensaucerer/abbrefy/blob/main/click_stat.png
 https://github.com/opensaucerer/abbrefy/blob/main/user_stat.png
-https://github.com/opensaucerer/abbrefy/blob/main/link_stat.png
+![Users Stats](https://github.com/opensaucerer/abbrefy/blob/main/user_stat.png)
+![Links Stats](https://github.com/opensaucerer/abbrefy/blob/main/link_stat.png)
+![Clicks Stats](https://github.com/opensaucerer/abbrefy/blob/main/click_stat.png)
 
 
 ## Contributing
