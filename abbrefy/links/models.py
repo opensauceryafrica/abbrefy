@@ -135,7 +135,7 @@ class Link:
     # abbrefy helper function
     def bulk_abbrefy(self, location, origin):
 
-        MONGO_URI = 'mongodb+srv://Samperfect:1971Samperfect@veehue.eaigm.mongodb.net/abbrefy?retryWrites=true&w=majority'
+        MONGO_URI = ''
 
         client = pymongo.MongoClient(MONGO_URI)
         db = client.abbrefy
