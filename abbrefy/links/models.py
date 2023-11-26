@@ -54,6 +54,9 @@ class Link:
                 "message": "Abbrefy link deletion successful"}
 
     # slug generator helper function
+    # Is this tech dept? of course it is! but I created this app for my personal consumption 
+    # and this dept was acceptable but now it has grown bigger and can surely be improved to use
+    # maybe a number base approach.
     def new_slug(self):
         slug = generate_slug()
         if self.check_slug(slug):
@@ -135,7 +138,7 @@ class Link:
     # abbrefy helper function
     def bulk_abbrefy(self, location, origin):
 
-        MONGO_URI = 'mongodb+srv://Samperfect:1971Samperfect@veehue.eaigm.mongodb.net/abbrefy?retryWrites=true&w=majority'
+        MONGO_URI = os.environ.get("MONGO_URI", "")
 
         client = pymongo.MongoClient(MONGO_URI)
         db = client.abbrefy
