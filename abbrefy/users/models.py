@@ -13,7 +13,7 @@ class User:
         self.username = username
         self.email = email
         self.password = password
-        self.url = 'http://abbrefy.xyz/me/dashboard/'
+        self.url = 'https://abbrefy.xyz/me/dashboard/'
 
     # signup helper function
     def signup(self):

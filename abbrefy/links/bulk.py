@@ -79,7 +79,7 @@ def unordered_bulk_abbrefy(file, key):
                 continue
             else:
 
-                url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+                url = 'https://abbrefy.xyz/api/v1/url/abbrefy/'
 
                 h = {
                     "apiKey": key
@@ -93,7 +93,7 @@ def unordered_bulk_abbrefy(file, key):
                 res = resp.json()
 
                 if len(row) > 1 and row[1]:
-                    url = 'http://abbrefy.xyz/api/v1/url/update/'
+                    url = 'https://abbrefy.xyz/api/v1/url/update/'
 
                     h = {
                         "apiKey": key
@@ -147,7 +147,7 @@ def ordered_bulk_abbrefy(file, author, origin):
                 line += 1
             else:
 
-                url = 'http://abbrefy.xyz/api/v1/url/abbrefy/'
+                url = 'https://abbrefy.xyz/api/v1/url/abbrefy/'
 
                 h = {
                     "apiKey": key
@@ -163,7 +163,7 @@ def ordered_bulk_abbrefy(file, author, origin):
                 initial = res['url']
 
                 if len(row) > 1 and row[1]:
-                    url = 'http://abbrefy.xyz/api/v1/url/update/'
+                    url = 'https://abbrefy.xyz/api/v1/url/update/'
 
                     h = {
                         "apiKey": key

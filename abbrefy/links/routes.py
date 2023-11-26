@@ -203,7 +203,7 @@ def bulk_router(slug):
         update = {"$set": {"clicks": new['clicks']}}
     response = Link.update_link(filter, new, update)
     # updating origin to match URL standard and redirecting
-    return redirect("http://abbrefy.xyz/static/csv/" + path.split('/')[-1])
+    return redirect("https://abbrefy.xyz/static/csv/" + path.split('/')[-1])
     # return redirect("http://127.0.0.1:5000/static/" + path.split('/')[-1])
 
 

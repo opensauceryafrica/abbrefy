@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.button__edit').style.display = 'none';
 
     document.querySelector('.item-detail--url').textContent =
-      'http://abbrefy.xyz/bulk/' +
+      'https://abbrefy.xyz/bulk/' +
       document.querySelector('.bitlink--MAIN').dataset.origin;
 
     document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
@@ -36,13 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('.item-detail--url')
       .setAttribute(
         'href',
-        'http://abbrefy.xyz/bulk/' +
+        'https://abbrefy.xyz/bulk/' +
           document.querySelector('.bitlink--MAIN').dataset.origin
       );
 
     document.querySelector(
       '.button--COPY'
-    ).dataset.clipboard = `http://abbrefy.xyz/bulk/${
+    ).dataset.clipboard = `https://abbrefy.xyz/bulk/${
       document.querySelector('.bitlink--MAIN').dataset.abbrefy
     }`;
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('.bitlink--copyable-text')
       .setAttribute(
         'href',
-        `http://abbrefy.xyz/bulk/${
+        `https://abbrefy.xyz/bulk/${
           document.querySelector('.bitlink--MAIN').dataset.abbrefy
         }`
       );
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector(
       '.button--COPY'
-    ).dataset.clipboard = `http://abbrefy.xyz/${
+    ).dataset.clipboard = `https://abbrefy.xyz/${
       document.querySelector('.bitlink--MAIN').dataset.abbrefy
     }`;
 
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('.bitlink--detail--MAIN')
       .setAttribute(
         'title',
-        `http://abbrefy.xyz/${
+        `https://abbrefy.xyz/${
           document.querySelector('.bitlink--MAIN').dataset.abbrefy
         }`
       );
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .querySelector('.bitlink--copyable-text')
       .setAttribute(
         'href',
-        `http://abbrefy.xyz/${
+        `https://abbrefy.xyz/${
           document.querySelector('.bitlink--MAIN').dataset.abbrefy
         }`
       );
@@ -267,7 +267,7 @@ function updateView(link) {
     document.querySelector('.button__edit').style.display = 'none';
 
     document.querySelector('.item-detail--url').textContent =
-      'http://abbrefy.xyz/bulk/' +
+      'https://abbrefy.xyz/bulk/' +
       link.querySelector('.bitlink--MAIN').dataset.origin;
 
     document.querySelector('.bitlink--detail--MAIN').dataset.stealth =
@@ -277,13 +277,13 @@ function updateView(link) {
       .querySelector('.item-detail--url')
       .setAttribute(
         'href',
-        'http://abbrefy.xyz/bulk/' +
+        'https://abbrefy.xyz/bulk/' +
           link.querySelector('.bitlink--MAIN').dataset.origin
       );
 
     document.querySelector(
       '.button--COPY'
-    ).dataset.clipboard = `http://abbrefy.xyz/bulk/${
+    ).dataset.clipboard = `https://abbrefy.xyz/bulk/${
       link.querySelector('.bitlink--MAIN').dataset.abbrefy
     }`;
 
@@ -307,7 +307,7 @@ function updateView(link) {
       .querySelector('.bitlink--copyable-text')
       .setAttribute(
         'href',
-        `http://abbrefy.xyz/bulk/${
+        `https://abbrefy.xyz/bulk/${
           link.querySelector('.bitlink--MAIN').dataset.abbrefy
         }`
       );
@@ -365,7 +365,7 @@ function updateView(link) {
 
     document.querySelector(
       '.button--COPY'
-    ).dataset.clipboard = `http://abbrefy.xyz/${
+    ).dataset.clipboard = `https://abbrefy.xyz/${
       link.querySelector('.bitlink--MAIN').dataset.abbrefy
     }`;
 
@@ -388,34 +388,30 @@ function updateView(link) {
       .querySelector('.bitlink--copyable-text')
       .setAttribute(
         'href',
-        `http://abbrefy.xyz/${
+        `https://abbrefy.xyz/${
           link.querySelector('.bitlink--MAIN').dataset.abbrefy
         }`
       );
 
     document.querySelector('.info-wrapper--clicks-text').textContent =
       link.querySelector('.click-count--MAIN').dataset.clicks;
-    
-    
 
     if (link.querySelector('.click-count--MAIN').dataset.audience.length > 2) {
-      let loc = link
-      .querySelector('.click-count--MAIN')
-      .dataset.audience
+      let loc = link.querySelector('.click-count--MAIN').dataset.audience;
       locations = loc.split('[')[1]
-        ?
-        [
-        ...loc.split('[')[1].split(']')[0].split(', '),
-        ]
-        :
-        [...loc.split(',')];
+        ? [...loc.split('[')[1].split(']')[0].split(', ')]
+        : [...loc.split(',')];
 
       document.querySelector('.audience--locations---MAIN').innerHTML = '';
 
       locations.forEach((location) => {
         document.querySelector(
           '.audience--locations---MAIN'
-        ).innerHTML += `<h6>${location?.split("'")[1]?.split("'")[0]? location?.split("'")[1]?.split("'")[0]: location.split(',')}</h6>`;
+        ).innerHTML += `<h6>${
+          location?.split("'")[1]?.split("'")[0]
+            ? location?.split("'")[1]?.split("'")[0]
+            : location.split(',')
+        }</h6>`;
       });
     } else {
       document.querySelector('.audience--locations---MAIN').innerHTML = '';
@@ -454,13 +450,13 @@ function twitterShare(el) {
       .parentElement;
   el.href = `https://twitter.com/intent/tweet?text=${
     parent.querySelector('.item-detail--title').textContent
-  }&url=http://${parent.querySelector('.bitlink--detail--MAIN').textContent}`;
+  }&url=https://${parent.querySelector('.bitlink--detail--MAIN').textContent}`;
 }
 function linkedInShare(el) {
   var parent =
     el.parentElement.parentElement.parentElement.parentElement.parentElement
       .parentElement;
-  el.href = `https://www.linkedin.com/shareArticle?mini=true&url=http://${
+  el.href = `https://www.linkedin.com/shareArticle?mini=true&url=https://${
     parent.querySelector('.bitlink--detail--MAIN').textContent
   }&summary=${parent.querySelector('.item-detail--title').textContent}`;
 }
@@ -468,7 +464,7 @@ function facebookShare(el) {
   var parent =
     el.parentElement.parentElement.parentElement.parentElement.parentElement
       .parentElement;
-  el.href = `http://www.facebook.com/sharer/sharer.php?u=http://${
+  el.href = `https://www.facebook.com/sharer/sharer.php?u=https://${
     parent.querySelector('.bitlink--detail--MAIN').textContent
   }`;
 }
@@ -693,7 +689,7 @@ function get_error(identifier) {
     SECURE_PASSWORD_ERROR: 'Password not strong enough',
     PASSWORD_MATCH_ERROR: 'You provided the wrong password',
     KEY_LIMIT_EXCEEDED: 'You have exceeded the allowed API Key limit',
-    SEARCH_SUCCESS: 'Abbrefy link search successful'
+    SEARCH_SUCCESS: 'Abbrefy link search successful',
   };
   return messages[identifier];
 }
@@ -1122,7 +1118,6 @@ function getEl() {
   });
 }
 
-
 // function for searching for abbrefy links
 async function search(term) {
   url = '/api/hidden/url/search/';
@@ -1143,16 +1138,15 @@ async function search(term) {
       content: get_error(response.error),
       alertType: 'alert-danger',
       fillType: 'filled-lm',
-      timeShown: 500  
+      timeShown: 500,
     });
   } else {
-    
     populateSearch(response.data);
     halfmoon.initStickyAlert({
       content: get_error(response.message),
       alertType: 'alert-success',
       fillType: 'filled-lm',
-      timeShown: 500  
+      timeShown: 500,
     });
   }
 }
@@ -1164,46 +1158,41 @@ function populateSearch(links) {
 
   initLinks = document.querySelector('#abbrefy__links__con');
 
-  let data = links[0]
+  let data = links[0];
 
   var _newLink = `<a class="bitlink-item--ACTIVE"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">
-  <i class="fas fa-code-branch"></i></div></span><time data-date_created="${
-    new Date(data.date_created['$date']).toUTCString()
-  }" class="bitlink-item--created-date" datetime="05-26-2021">${
-new Date(data.date_created['$date']).toDateString()
-}</time>
+  <i class="fas fa-code-branch"></i></div></span><time data-date_created="${new Date(
+    data.date_created['$date']
+  ).toUTCString()}" class="bitlink-item--created-date" datetime="05-26-2021">${new Date(
+    data.date_created['$date']
+  ).toDateString()}</time>
 <div data-author="${
-document.querySelector('.username').dataset.author
-}" data-title="${data.title}" class="bitlink-item--title">
+    document.querySelector('.username').dataset.author
+  }" data-title="${data.title}" class="bitlink-item--title">
 ${data.title}
 </div>
 <div>
-<div class="bitlink--MAIN" data-origin="${
-  data.origin
-}" data-stealth="${data.stealth}" tabindex="-1" title="abbrefy.xyz/${
-data.slug
-}" data-abbrefy="${data.slug}">
+<div class="bitlink--MAIN" data-origin="${data.origin}" data-stealth="${
+    data.stealth
+  }" tabindex="-1" title="abbrefy.xyz/${data.slug}" data-abbrefy="${data.slug}">
   <span>${data.slug}</span>
 </div>
 <span data-clicks="${data.clicks}" data-audience="${
-data.audience
-}" class="click-count--MAIN">${
-data.clicks
-}<span class="icon clicks-icon"></span></span></div></a>`
+    data.audience
+  }" class="click-count--MAIN">${
+    data.clicks
+  }<span class="icon clicks-icon"></span></span></div></a>`;
 
   if (links.length > 0) {
+    let rest = links.slice(1);
 
-    let rest = links.slice(1)
-
-
-    rest.forEach(data => {
-
-      _newLink +=  `<a class="bitlink-item--MAIN"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">
-                  <i class="fas fa-code-branch"></i></div></span><time data-date_created="${
-                    new Date(data.date_created['$date']).toUTCString()
-                  }" class="bitlink-item--created-date" datetime="05-26-2021">${
-          new Date(data.date_created['$date']).toDateString()
-        }</time>
+    rest.forEach((data) => {
+      _newLink += `<a class="bitlink-item--MAIN"><span class="bitlink-item--checkbox"><div class="checkbox--SMALL" id="3uyFTMA">
+                  <i class="fas fa-code-branch"></i></div></span><time data-date_created="${new Date(
+                    data.date_created['$date']
+                  ).toUTCString()}" class="bitlink-item--created-date" datetime="05-26-2021">${new Date(
+        data.date_created['$date']
+      ).toDateString()}</time>
               <div data-author="${
                 document.querySelector('.username').dataset.author
               }" data-title="${data.title}" class="bitlink-item--title">
@@ -1212,52 +1201,43 @@ data.clicks
               <div>
                 <div class="bitlink--MAIN" data-origin="${
                   data.origin
-                }" data-stealth="${data.stealth}" tabindex="-1" title="abbrefy.xyz/${
-          data.slug
-        }" data-abbrefy="${data.slug}">
+                }" data-stealth="${
+        data.stealth
+      }" tabindex="-1" title="abbrefy.xyz/${data.slug}" data-abbrefy="${
+        data.slug
+      }">
                   <span>${data.slug}</span>
                 </div>
                 <span data-clicks="${data.clicks}" data-audience="${
-          data.audience
-        }" class="click-count--MAIN">${
-          data.clicks
-        }<span class="icon clicks-icon"></span></span></div></a>`
+        data.audience
+      }" class="click-count--MAIN">${
+        data.clicks
+      }<span class="icon clicks-icon"></span></span></div></a>`;
     });
 
-
     initLinks.innerHTML = _newLink;
-    
   } else {
-    return
+    return;
   }
-
 }
-
 
 // const _search = document.querySelector('.abbrefy__search')
-const _search = document.querySelector('#abbrefy__search')
-const search_mob = document.querySelector('#abbrefy__search__mobile')
-const searchbtn = document.querySelector('.abbrefy__search')
+const _search = document.querySelector('#abbrefy__search');
+const search_mob = document.querySelector('#abbrefy__search__mobile');
+const searchbtn = document.querySelector('.abbrefy__search');
 
 _search.oninput = function (e) {
-  
-  e.preventDefault()
-  const term = document.querySelector('#abbrefy__search')
+  e.preventDefault();
+  const term = document.querySelector('#abbrefy__search');
   // console.log(term.value.trim());
 
   search(term.value);
-
-  
-}
+};
 
 search_mob.oninput = function (e) {
-
-  e.preventDefault()
-  const term = document.querySelector('#abbrefy__search__mobile')
+  e.preventDefault();
+  const term = document.querySelector('#abbrefy__search__mobile');
   // console.log(term.value.trim());
 
   search(term.value);
-
-  
-}
-
+};

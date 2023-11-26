@@ -80,7 +80,7 @@ class Link:
             "message": "Abbrefy link update successful.",
             "origin": new['origin'],
             "slug": new['slug'],
-            "url": f"http://abbrefy.xyz/{new['slug']}",
+            "url": f"https://abbrefy.xyz/{new['slug']}",
             "title": new['title'],
             "clicks": new['clicks'],
             "stealth": new['stealth']
@@ -120,7 +120,7 @@ class Link:
             "status": True,
             "message": "URL abbrefy successful.",
             "origin": self.url,
-            "url": f"http://abbrefy.xyz/{slug}",
+            "url": f"https://abbrefy.xyz/{slug}",
             "title": self.title,
             "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'),
             "dateCreated2": link['date_created'].strftime("%b %d, %Y"),
@@ -168,8 +168,8 @@ class Link:
         response = {
             "status": True,
             "message": "URL abbrefy successful.",
-            "origin": f"http://abbrefy.xyz/bulk/{origin}",
-            "url": f"http://abbrefy.xyz/bulk/{location}",
+            "origin": f"https://abbrefy.xyz/bulk/{origin}",
+            "url": f"https://abbrefy.xyz/bulk/{location}",
             "title": 'Bulk URL Abbrefy | Download Links Below',
             "dateCreated": link['date_created'].strftime('%b %d, %Y, %I:%M %p'),
             "dateCreated2": link['date_created'].strftime("%b %d, %Y"),
